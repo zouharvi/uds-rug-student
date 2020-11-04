@@ -5,14 +5,15 @@
 - __lexeme__: abstract word, dictionary word, no phonological form, _>live<_
 - __compound lexeme__: firewood
 - __word-form__: sequence of sounds that expresses the combination of a lexeme and a set of grammatical meanings or functions, _live, lives, lived, living_
-- __paradigm__: set of word-forms that belong to a lexeme, usually they all share some  main morpheme
+- __paradigm__: set of word-forms that belong to a lexeme, usually they all share some main morpheme
 - __word family__: when lexemes relate together,  _read, readable, unreadable, reader.._
 - __inflection__: relationship between word-forms of a lexeme
 - __derivation__: relationship between lexemes of a word family
 - __derivative__: a derived lexeme
 - __affix__: attaches to a word, does not occur by itself, (suffix, prefix, infix, circumfix)
-- __base__: also stem, can be complex/composed of multiple morphemes
+- __base__: also stem, can be complex/composed of multiple morphemes, root+affix to chich another affix can be added
 - __bound stem__: doesn't appear as a word form
+- __bound morpheme__: doesn't appear as a word form
 - __root__: base which can't be further split
 - __allommorph__: when a single affix has multiple "forms", [-s] [-z] [-ez] for plural in English, sleep x slept
 - __phonological allomorphs__: allomorphs which are phonologically similar (happens often)
