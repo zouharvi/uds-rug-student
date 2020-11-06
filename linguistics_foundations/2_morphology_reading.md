@@ -37,8 +37,8 @@ Sometimes it is not possible to segment what has changed (Mutter -> Mütter). Th
 - __concatenative morphological patterns__: two morphemes ordered one after another (affixation (suffixation, prefixation) and compounding)
 - __combinatory potential__: rule which states what morphemes can be combined (e.g. _un-_ doesn't usually combine with nouns, but _non-_ does)
 - __non-concatenative morphological patterns__: everything else, we usually assume the __base__ form and then apply rules
-- __base/stem modification__: A non-concatenative morphological patter in which the base is changed and no segmentable material is added. Usually difference in pronounciation/stress shift
-- __coalescence__: fusion of originally free-standing words, if they are both content words,  then it's a compnound, otherwise non-compound
+- __base/stem modification__: a non-concatenative morphological patter in which the base is changed and no segmentable material is added. Usually difference in pronounciation/stress shift
+- __coalescence__: fusion of originally free-standing words, if they are both content words, then it's a compound, otherwise non-compound
 
 ## Morpheme-based model
 - phrase-like rules
