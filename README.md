@@ -5,9 +5,8 @@ This repository is not that interesting, really. Many classes omitted. Please do
 2020/2021-1:
 - Computational Linguistics
 - Neural Networks: Implementation and Application
-- Build your Own Transformer
 - Foundations of Linguistics
-- Explainability Methods for Neural Networks
 - Foundations of Empirical Methods
-- German Semester Course
+- Explainability Methods for Neural Networks
+- Machine Learning in Cyber Security
 ```
