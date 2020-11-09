@@ -1,8 +1,19 @@
-# Morphology
+# Morphology 2
+- compounds
+- - __endocentric__: semantic head inside
+- - __exocentric__: semantic heaad is outside the compound
 
-- __constituent__:
-- language type: analytic, synthetic,  polysynthetic
-- synthetic: fusional (one morpheme - multiple roles) x agglutinative (one morpheme - one role)
-
-- __lexicon__; language user's mental dictionary of words
-- operation: conversion (hammer), back-formation, initialism (UNESCO), derivation (ilegal), compounding (newscast, lead-free), cliping (lab), blending (smog - smoke)
+- __synthesis__: amount of morphemes bound together in one word
+- - analytic: one morpheme per word
+- - synthetic: multiple morphemes per word
+- - polysynthetic: greater synthesis than synthetic
+- __fusion__: amount of merging of formatives with their hosts
+- - isolating
+- - concatenative
+- - nonlinear
+- __flexivity__: degree of allomorphy
+- - non-flexive
+- - flexive
+- __exponence__: degree to which one formative contains different grammatical categories
+- - separative
+- - cumulative
