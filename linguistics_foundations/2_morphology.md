@@ -1,4 +1,5 @@
-# Morphology 2
+# Class
+
 - compounds
 - - __endocentric__: semantic head inside
 - - __exocentric__: semantic heaad is outside the compound
