@@ -53,3 +53,9 @@
 - other use of fillers:
 - - manually increase the probability of some condition, so that it's perceived as more useful
 - - the extra data has to be thrown away, however, so that the classes are balanced
+
+
+## HW
+- method: self-paced reading study, participants viewed sentences with relative clauses that could attach to one of two sites
+- independent variables: position where relative clauses attach, types of questions
+- dependent variables: reading speed
