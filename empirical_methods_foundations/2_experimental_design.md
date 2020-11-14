@@ -1,13 +1,11 @@
 # Lecture 2
 
 - variables
-- - independent: what is manipulated
-- - dependent: what is measured
-
-
+- - independent: what is manipulated by experimenter
+- - dependent: what is measured, response by participant
 
 - predictive context: _the journalist published the.._ [here we assume something that is publishable]
-. non-predictive context: _the man evaluated the.._ [here could be anything]
+- non-predictive context: _the man evaluated the.._ [here could be anything]
 
 
 ## Factors
@@ -43,7 +41,7 @@
 - - participants are more likely to guess the purpose of the experiment
 - - carry-over effects
 
-### Mixed Esign
+### Mixed Design
 - each participant is tested in some conditions
 - usually split by a specific factor
 
