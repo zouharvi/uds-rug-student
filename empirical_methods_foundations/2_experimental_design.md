@@ -57,5 +57,5 @@
 
 ## HW
 - method: self-paced reading study, participants viewed sentences with relative clauses that could attach to one of two sites
-- independent variables: position where relative clauses attach, types of questions
+- independent variables: position where relative clauses attach, types of questions (superficial and deep questions)
 - dependent variables: reading speed
