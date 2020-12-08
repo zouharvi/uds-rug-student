@@ -1,0 +1,656 @@
+prices .
+         SIGMA            
+    _______|________       
+VERB_VBZ       pt_char_per
+   |                |      
+ prices             .     
+
+         SIGMA            
+    _______|________       
+NOUN_NNS       pt_char_per
+   |                |      
+ prices             .     
+
+show availability .
+           SIGMA                    
+    _________|________               
+   |                 JWB            
+   |          ________|_______       
+NOUN_NN   AVPNP_NN       pt_char_per
+   |         |                |      
+  show  availability          .     
+
+         SIGMA                    
+   ________|________               
+  |                JXI            
+  |         ________|_______       
+NP_NN   NOUN_NN        pt_char_per
+  |        |                |      
+ show availability          .     
+
+           SIGMA                    
+    _________|________               
+   |                 JKA            
+   |          ________|_______       
+VERB_VB    NP_NN         pt_char_per
+   |         |                |      
+  show  availability          .     
+
+show the flights .
+               SIGMA                      
+    _____________|_______                  
+   |                    JKB               
+   |              _______|__________       
+   |           NP_NNS               |     
+   |       ______|_______           |      
+VERB_VB AVP_RB        NOUN_NNS pt_char_per
+   |      |              |          |      
+  show   the          flights       .     
+
+               SIGMA                      
+    _____________|_______                  
+   |                    JKB               
+   |              _______|__________       
+   |           NP_NNS               |     
+   |       ______|_______           |      
+VERB_VB ADJ_AT        NOUN_NNS pt_char_per
+   |      |              |          |      
+  show   the          flights       .     
+
+milwaukee to detroit .
+                        SIGMA                        
+             _____________|____________               
+          NP_NP                       KFD            
+     _______|______               _____|_______       
+ NOUN_NP        PREP_IN       NOUN_NP     pt_char_per
+    |              |             |             |      
+milwaukee          to         detroit          .     
+
+                  SIGMA                    
+     _______________|______                 
+    |                     KEX              
+    |                ______|_________       
+    |             PP_NP              |     
+    |         ______|______          |      
+ NOUN_NP  PREP_IN       NOUN_NP pt_char_per
+    |        |             |         |      
+milwaukee    to         detroit      .     
+
+indianapolis to seattle .
+                           SIGMA                        
+                _____________|____________               
+             NP_NP                       KFD            
+      _________|______               _____|_______       
+  NOUN_NP          PREP_IN       NOUN_NP     pt_char_per
+     |                |             |             |      
+indianapolis          to         seattle          .     
+
+                     SIGMA                    
+      _________________|______                 
+     |                       KEX              
+     |                  ______|_________       
+     |               PP_NP              |     
+     |           ______|______          |      
+  NOUN_NP    PREP_IN       NOUN_NP pt_char_per
+     |          |             |         |      
+indianapolis    to         seattle      .     
+
+list saturday flights .
+                 SIGMA                        
+    _______________|______                     
+   |                     GXA                  
+   |        ______________|_____               
+   |       |                   GXB            
+   |       |               _____|_______       
+VERB_VB  NP_NP          NP_NNS     pt_char_per
+   |       |              |             |      
+  list  saturday       flights          .     
+
+                 SIGMA                      
+    _______________|_______                  
+   |                      JKB               
+   |                _______|__________       
+   |             NP_NNS               |     
+   |        _______|_______           |      
+VERB_VB  NP_NP          NOUN_NNS pt_char_per
+   |       |               |          |      
+  list  saturday        flights       .     
+
+                     SIGMA                         
+         ______________|_____________               
+      NP_NP                         KCJ            
+   _____|______                ______|_______       
+NP_NN       NOUN_NP        NOUN_NNS     pt_char_per
+  |            |              |              |      
+ list       saturday       flights           .     
+
+                   SIGMA                       
+    _________________|________                  
+   |                         JWS               
+   |                  ________|__________       
+   |             RELCL_VBZ               |     
+   |        _________|________           |      
+NOUN_NN  NP_NP             VERB_VBZ pt_char_per
+   |       |                  |          |      
+  list  saturday           flights       .     
+
+                        SIGMA                         
+           _______________|_____________               
+        NP_NN                          KCD            
+    ______|_______                ______|_______       
+NOUN_NN       NAPPOS_NP       NOUN_NNS     pt_char_per
+   |              |              |              |      
+  list         saturday       flights           .     
+
+what is the fare .
+               SIGMA                           
+   ______________|______                        
+  |                    GDO                     
+  |       ______________|______                 
+  |      |                    GDP              
+  |      |               ______|_________       
+  |      |            NP_NN              |     
+  |      |        ______|______          |      
+NP_DT VERB_BEZ ADJ_AT       NOUN_NN pt_char_per
+  |      |       |             |         |      
+ what    is     the           fare       .     
+
+               SIGMA                             
+   ______________|_____                           
+  |                   KGC                        
+  |       _____________|_____                     
+  |      |                 NP_NN                 
+  |      |        ___________|_____               
+  |      |       |                JUO            
+  |      |       |            _____|_______       
+NP_DT VERB_BEZ ADJ_AT     NOUN_NN     pt_char_per
+  |      |       |           |             |      
+ what    is     the         fare           .     
+
+list flights from cleveland .
+                SIGMA                             
+   _______________|______                          
+  |                     GRY                       
+  |       _______________|_______                  
+  |      |                      GRZ               
+  |      |                _______|__________       
+  |      |             PP_NP                |     
+  |      |         ______|_______           |      
+NP_NN VERB_VBZ PREP_IN        NOUN_NP  pt_char_per
+  |      |        |              |          |      
+ list flights    from        cleveland      .     
+
+                 SIGMA                             
+    _______________|______                          
+   |                     GWQ                       
+   |        ______________|_______                  
+   |       |                     GWR               
+   |       |               _______|__________       
+   |       |            PP_NP                |     
+   |       |        ______|_______           |      
+VERB_VB  NP_NNS PREP_IN        NOUN_NP  pt_char_per
+   |       |       |              |          |      
+  list  flights   from        cleveland      .     
+
+                  SIGMA                             
+    ________________|______                          
+   |                      JKB                       
+   |                 ______|__________________       
+   |              NP_NNS                      |     
+   |        ________|______                   |      
+   |       |             PP_NP                |     
+   |       |         ______|_______           |      
+VERB_VB NOUN_NNS PREP_IN        NOUN_NP  pt_char_per
+   |       |        |              |          |      
+  list  flights    from        cleveland      .     
+
+                         SIGMA                               
+    _______________________|_____                             
+   |                            GVY                          
+   |                _____________|_____________               
+   |             NP_NNS                       GVZ            
+   |        _______|_______              ______|_______       
+VERB_VB NOUN_NNS        PREP_IN      AVPNP_NP     pt_char_per
+   |       |               |            |              |      
+  list  flights           from      cleveland          .     
+
+                SIGMA                             
+   _______________|______                          
+  |                     HXS                       
+  |       _______________|_______                  
+  |      |                      HXT               
+  |      |                _______|__________       
+  |      |             PP_NP                |     
+  |      |         ______|_______           |      
+NP_NN NOUN_NNS PREP_IN        NOUN_NP  pt_char_per
+  |      |        |              |          |      
+ list flights    from        cleveland      .     
+
+what are the costs .
+                  SIGMA                             
+   _________________|______                          
+  |                       GAE                       
+  |         _______________|_______                  
+  |        |                      GAF               
+  |        |                _______|__________       
+  |        |             NP_NNS               |     
+  |        |         ______|_______           |      
+NP_DT pt_verb_ber AVP_RB        NOUN_NNS pt_char_per
+  |        |        |              |          |      
+ what     are      the           costs        .     
+
+                  SIGMA                             
+   _________________|______                          
+  |                       GAE                       
+  |         _______________|_______                  
+  |        |                      GAF               
+  |        |                _______|__________       
+  |        |             NP_NNS               |     
+  |        |         ______|_______           |      
+NP_DT pt_verb_ber ADJ_AT        NOUN_NNS pt_char_per
+  |        |        |              |          |      
+ what     are      the           costs        .     
+
+                  SIGMA                              
+   _________________|_____                            
+  |                      KFW                         
+  |         ______________|_____                      
+  |        |                  NP_NNS                 
+  |        |         ___________|______               
+  |        |        |                 KAT            
+  |        |        |            ______|_______       
+NP_DT pt_verb_ber AVP_RB     NOUN_NNS     pt_char_per
+  |        |        |           |              |      
+ what     are      the        costs            .     
+
+                  SIGMA                              
+   _________________|_____                            
+  |                      KFW                         
+  |         ______________|_____                      
+  |        |                  NP_NNS                 
+  |        |         ___________|______               
+  |        |        |                 JZK            
+  |        |        |            ______|_______       
+NP_DT pt_verb_ber ADJ_AT     NOUN_NNS     pt_char_per
+  |        |        |           |              |      
+ what     are      the        costs            .     
+
+what flights leave boston to pittsburgh .
+                                 SIGMA                                          
+           ________________________|_____________                                
+          |                                     GMA                             
+          |                 _____________________|_____                          
+          |                |                          GMB                       
+          |                |                      _____|__________________       
+          |                |                   NP_NP                      |     
+          |                |               ______|____________            |      
+        NP_NNS             |            NP_NP                 |           |     
+    ______|_______         |        ______|______             |           |      
+ADJ_WPS        NOUN_NNS VERB_VB NOUN_NP       PREP_IN      NOUN_NP   pt_char_per
+   |              |        |       |             |            |           |      
+  what         flights   leave   boston          to       pittsburgh      .     
+
+                                 SIGMA                                      
+           ________________________|_______                                  
+          |                               GMA                               
+          |                 _______________|______                           
+          |                |                     GMB                        
+          |                |                ______|___________________       
+          |                |             NP_NP                        |     
+          |                |        _______|______                    |      
+        NP_NNS             |       |            PP_NP                 |     
+    ______|_______         |       |        ______|_______            |      
+ADJ_WPS        NOUN_NNS VERB_VB NOUN_NP PREP_IN        NOUN_NP   pt_char_per
+   |              |        |       |       |              |           |      
+  what         flights   leave   boston    to         pittsburgh      .     
+
+                                SIGMA                                      
+           _______________________|_______                                  
+          |                              DJP                               
+          |                 ______________|______                           
+          |                |                    DJQ                        
+          |                |       ______________|_______                   
+          |                |      |                     DJR                
+          |                |      |               _______|___________       
+        NP_NNS             |      |            PP_NP                 |     
+    ______|_______         |      |        ______|_______            |      
+ADJ_WPS        NOUN_NNS VERB_VB NP_NP  PREP_IN        NOUN_NP   pt_char_per
+   |              |        |      |       |              |           |      
+  what         flights   leave  boston    to         pittsburgh      .     
+
+what flights leave las vegas to oakland .
+                                SIGMA                                                
+           _______________________|_____________                                      
+          |                                    GMA                                   
+          |                 ____________________|____________                         
+          |                |                                GMB                      
+          |                |                           ______|_________________       
+          |                |                        NP_NP                      |     
+          |                |                     _____|______________          |      
+          |                |                  NP_NP                  |         |     
+          |                |              ______|____________        |         |      
+        NP_NNS             |          NOUN_NP                |       |         |     
+    ______|_______         |       ______|______             |       |         |      
+ADJ_WPS        NOUN_NNS VERB_VB  las          vegas       PREP_IN NOUN_NP pt_char_per
+   |              |        |      |             |            |       |         |      
+  what         flights   leave   las          vegas          to   oakland      .     
+
+                                SIGMA                                                      
+           _______________________|_____________                                            
+          |                                    GMA                                         
+          |                 ____________________|____________                               
+          |                |                                GMB                            
+          |                |                           ______|_______________________       
+          |                |                        NP_NP                            |     
+          |                |              ____________|_____________                 |      
+        NP_NNS             |          NOUN_NP                     PP_NP              |     
+    ______|_______         |       ______|______              ______|______          |      
+ADJ_WPS        NOUN_NNS VERB_VB  las          vegas       PREP_IN       NOUN_NP pt_char_per
+   |              |        |      |             |            |             |         |      
+  what         flights   leave   las          vegas          to         oakland      .     
+
+                                SIGMA                                              
+           _______________________|___________                                      
+          |                                  DJP                                   
+          |                 __________________|______                               
+          |                |                        DJQ                            
+          |                |             ____________|_____________                 
+          |                |            |                         DJR              
+          |                |            |                    ______|_________       
+        NP_NNS             |          NP_NP               PP_NP              |     
+    ______|_______         |       _____|_____        ______|______          |      
+ADJ_WPS        NOUN_NNS VERB_VB  las        vegas PREP_IN       NOUN_NP pt_char_per
+   |              |        |      |           |      |             |         |      
+  what         flights   leave   las        vegas    to         oakland      .     
+
+what is the cheapest ticket from memphis to miami .
+                                      SIGMA                                                         
+   _____________________________________|___________                                                 
+  |                                                GDS                                              
+  |       __________________________________________|_______                                         
+  |      |                                                 GDT                                      
+  |      |                                           _______|_________________________________       
+  |      |                                        NP_NP                                       |     
+  |      |                        __________________|_______________                          |      
+  |      |                     NP_NN                                |                         |     
+  |      |        _______________|______                            |                         |      
+  |      |       |                     HIG                         KEZ                        |     
+  |      |       |        ______________|_____               _______|______                   |      
+  |      |       |       |                   HIH            |            PP_NPS               |     
+  |      |       |       |               _____|_____        |        ______|_______           |      
+NP_DT VERB_BEZ ADJ_AT AJP_JJT        NOUN_NN     PREP_IN NOUN_NP PREP_IN        NOUN_NPS pt_char_per
+  |      |       |       |              |           |       |       |              |          |      
+ what    is     the   cheapest        ticket       from  memphis    to           miami        .     
+
+       SIGMA                                                                                        
+   ______|_______________                                                                            
+  |                     CUM                                                                         
+  |       _______________|____________________                                                       
+  |      |                                   CUN                                                    
+  |      |                         ___________|____________________________________                  
+  |      |                      NP_NN                                              |                
+  |      |        ________________|_____                                           |                 
+  |      |       |                     HIE                                         |                
+  |      |       |        ______________|_____                                     |                 
+  |      |       |       |                   HIF                                  CUO               
+  |      |       |       |         ___________|______                       _______|__________       
+  |      |       |       |        |                PP_NP                 PP_NPS               |     
+  |      |       |       |        |            ______|______         ______|_______           |      
+NP_DT VERB_BEZ ADJ_AT AJP_JJT  NOUN_NN     PREP_IN       NOUN_NP PREP_IN        NOUN_NPS pt_char_per
+  |      |       |       |        |           |             |       |              |          |      
+ what    is     the   cheapest  ticket       from        memphis    to           miami        .     
+
+       SIGMA                                                                                  
+   ______|_______________                                                                      
+  |                     CUM                                                                   
+  |       _______________|____________________                                                 
+  |      |                                   CUN                                              
+  |      |                ____________________|______________________                          
+  |      |               |                                          CUO                       
+  |      |               |                                    _______|__________________       
+  |      |               |                                 PP_NPS                       |     
+  |      |               |                     ______________|_______                   |      
+  |      |             NP_NN                  |                     KMH                 |     
+  |      |        _______|______              |               _______|_______           |      
+  |      |       |             JTT            |            NP_NP             |          |     
+  |      |       |        ______|_____        |        ______|_______        |          |      
+NP_DT VERB_BEZ ADJ_AT AJP_JJT      NOUN_NN PREP_IN NOUN_NP        PREP_IN NOUN_NPS pt_char_per
+  |      |       |       |            |       |       |              |       |          |      
+ what    is     the   cheapest      ticket   from  memphis           to    miami        .     
+
+       SIGMA                                                                                        
+   ______|_______________                                                                            
+  |                     CUJ                                                                         
+  |       _______________|____________________                                                       
+  |      |                                   CUK                                                    
+  |      |                ____________________|_____________________                                 
+  |      |               |                                         CUL                              
+  |      |               |                                    ______|_________________________       
+  |      |               |                                 PP_NP                              |     
+  |      |               |                     ______________|______                          |      
+  |      |             NP_NN                  |                    KLK                        |     
+  |      |        _______|______              |        _____________|______                   |      
+  |      |       |             JTT            |       |                  PP_NPS               |     
+  |      |       |        ______|_____        |       |              ______|_______           |      
+NP_DT VERB_BEZ ADJ_AT AJP_JJT      NOUN_NN PREP_IN NOUN_NP       PREP_IN        NOUN_NPS pt_char_per
+  |      |       |       |            |       |       |             |              |          |      
+ what    is     the   cheapest      ticket   from  memphis          to           miami        .     
+
+       SIGMA                                                                                    
+   ______|_______________                                                                        
+  |                     GDO                                                                     
+  |       _______________|________________                                                       
+  |      |                               GDP                                                    
+  |      |                ________________|_______________________________________________       
+  |      |             NP_NN                                                              |     
+  |      |        _______|________________                                                |      
+  |      |       |                       HIE                                              |     
+  |      |       |        ________________|_______                                        |      
+  |      |       |       |                       HIF                                      |     
+  |      |       |       |         _______________|______                                 |      
+  |      |       |       |        |                    PP_NP                              |     
+  |      |       |       |        |        ______________|______                          |      
+  |      |       |       |        |       |                    KLK                        |     
+  |      |       |       |        |       |        _____________|______                   |      
+  |      |       |       |        |       |       |                  PP_NPS               |     
+  |      |       |       |        |       |       |              ______|_______           |      
+NP_DT VERB_BEZ ADJ_AT AJP_JJT  NOUN_NN PREP_IN NOUN_NP       PREP_IN        NOUN_NPS pt_char_per
+  |      |       |       |        |       |       |             |              |          |      
+ what    is     the   cheapest  ticket   from  memphis          to           miami        .     
+
+i 'd like to leave before eight o'clock at night .
+         SIGMA                                                                                           
+    _______|_______                                                                                       
+   |              DLL                                                                                    
+   |        _______|___________                                                                           
+   |       |                  DLM                                                                        
+   |       |        ___________|_______________                                                           
+   |       |       |                          DLN                                                        
+   |       |       |            _______________|___________________________________________________       
+   |       |       |        INFCL_VB                                                               |     
+   |       |       |      _____|_______________                                                    |      
+   |       |       |     |                    JLN                                                  |     
+   |       |       |     |      _______________|_______________                                    |      
+   |       |       |     |     |                             PP_CD                                 |     
+   |       |       |     |     |         ______________________|______                             |      
+   |       |       |     |     |        |                            KHJ                           |     
+   |       |       |     |     |        |              _______________|____________                |      
+   |       |       |     |     |        |          NOUN_CD                       PP_JJ             |     
+   |       |       |     |     |        |       ______|________              ______|_____          |      
+NP_PPSS VERB_MD VERB_VB  to VERB_VB  PREP_IN eight         o___clock     PREP_IN       ADJ_JJ pt_char_per
+   |       |       |     |     |        |      |               |            |            |         |      
+   i       'd     like   to  leave    before eight          o'clock         at         night       .     
+
+         SIGMA                                                                                            
+    _______|_______                                                                                        
+   |              DLL                                                                                     
+   |        _______|___________                                                                            
+   |       |                  DLM                                                                         
+   |       |        ___________|_______________                                                            
+   |       |       |                          DLN                                                         
+   |       |       |            _______________|____________________________________________________       
+   |       |       |        INFCL_VB                                                                |     
+   |       |       |      _____|_______________                                                     |      
+   |       |       |     |                    JLN                                                   |     
+   |       |       |     |      _______________|_______________                                     |      
+   |       |       |     |     |                             PP_CD                                  |     
+   |       |       |     |     |         ______________________|______                              |      
+   |       |       |     |     |        |                            KHK                            |     
+   |       |       |     |     |        |              _______________|____________                 |      
+   |       |       |     |     |        |          NOUN_CD                       PP_NN              |     
+   |       |       |     |     |        |       ______|________              ______|______          |      
+NP_PPSS VERB_MD VERB_VB  to VERB_VB  PREP_IN eight         o___clock     PREP_IN       NOUN_NN pt_char_per
+   |       |       |     |     |        |      |               |            |             |         |      
+   i       'd     like   to  leave    before eight          o'clock         at          night       .     
+
+                 SIGMA                                                                             
+    _______________|_______________________                                                         
+   |                                      DLX                                                      
+   |        _______________________________|______                                                  
+   |       |                                     DLY                                               
+   |       |        ______________________________|_______________                                  
+   |       |       |                                             DLZ                               
+   |       |       |                               _______________|__________________________       
+   |       |       |                            PP_NN                                        |     
+   |       |       |        ______________________|_______________                           |      
+   |       |       |       |                                     KIY                         |     
+   |       |       |       |                       _______________|________________          |      
+   |       |       |       |                    NP_NN                              |         |     
+   |       |       |       |        ______________|______                          |         |      
+   |       |       |       |       |                   PP_CD                       |         |     
+   |       |       |       |       |        _____________|________                 |         |      
+   |       |       |       |       |       |                     KHO               |         |     
+   |       |       |       |       |       |              ________|________        |         |      
+   |       |       |       |       |       |          NOUN_CD              |       |         |     
+   |       |       |       |       |       |       ______|________         |       |         |      
+NP_PPSS VERB_MD VERB_VB PREP_IN NOUN_NN PREP_IN eight         o___clock PREP_IN NOUN_NN pt_char_per
+   |       |       |       |       |       |      |               |        |       |         |      
+   i       'd     like     to    leave   before eight          o'clock     at    night       .     
+
+         SIGMA                                                                                              
+    _______|_______                                                                                          
+   |              DLX                                                                                       
+   |        _______|_______________                                                                          
+   |       |                      DLY                                                                       
+   |       |        _______________|______________                                                           
+   |       |       |                             DLZ                                                        
+   |       |       |                ______________|___________________________________________________       
+   |       |       |             PP_NN                                                                |     
+   |       |       |        _______|______________                                                    |      
+   |       |       |       |                     KIN                                                  |     
+   |       |       |       |        ______________|_______________                                    |      
+   |       |       |       |       |                            PP_CD                                 |     
+   |       |       |       |       |        ______________________|______                             |      
+   |       |       |       |       |       |                            KHJ                           |     
+   |       |       |       |       |       |              _______________|____________                |      
+   |       |       |       |       |       |          NOUN_CD                       PP_JJ             |     
+   |       |       |       |       |       |       ______|________              ______|_____          |      
+NP_PPSS VERB_MD VERB_VB PREP_IN NOUN_NN PREP_IN eight         o___clock     PREP_IN       ADJ_JJ pt_char_per
+   |       |       |       |       |       |      |               |            |            |         |      
+   i       'd     like     to    leave   before eight          o'clock         at         night       .     
+
+         SIGMA                                                                                               
+    _______|_______                                                                                           
+   |              DLX                                                                                        
+   |        _______|_______________                                                                           
+   |       |                      DLY                                                                        
+   |       |        _______________|______________                                                            
+   |       |       |                             DLZ                                                         
+   |       |       |                ______________|____________________________________________________       
+   |       |       |             PP_NN                                                                 |     
+   |       |       |        _______|______________                                                     |      
+   |       |       |       |                     KIN                                                   |     
+   |       |       |       |        ______________|_______________                                     |      
+   |       |       |       |       |                            PP_CD                                  |     
+   |       |       |       |       |        ______________________|______                              |      
+   |       |       |       |       |       |                            KHK                            |     
+   |       |       |       |       |       |              _______________|____________                 |      
+   |       |       |       |       |       |          NOUN_CD                       PP_NN              |     
+   |       |       |       |       |       |       ______|________              ______|______          |      
+NP_PPSS VERB_MD VERB_VB PREP_IN NOUN_NN PREP_IN eight         o___clock     PREP_IN       NOUN_NN pt_char_per
+   |       |       |       |       |       |      |               |            |             |         |      
+   i       'd     like     to    leave   before eight          o'clock         at          night       .     
+
+can you tell me about the flights from saint petersburg to toronto again .
+         SIGMA                                                                                                                          
+    _______|_______                                                                                                                      
+   |              BJG                                                                                                                   
+   |        _______|______                                                                                                               
+   |       |             BJH                                                                                                            
+   |       |        ______|____________________                                                                                          
+   |       |       |                          BJI                                                                                       
+   |       |       |       ____________________|________________________                                                                 
+   |       |       |      |                                            BJJ                                                              
+   |       |       |      |                     ________________________|_________________________________________________________       
+   |       |       |      |                  NP_NNS                                                                               |     
+   |       |       |      |              ______|________________                                                                  |      
+   |       |       |      |             |                      KAS                                                                |     
+   |       |       |      |             |               ________|________________                                                 |      
+   |       |       |      |             |              |                       PP_NP                                              |     
+   |       |       |      |             |              |         ________________|_________                                       |      
+   |       |       |      |             |              |        |                         KLD                                     |     
+   |       |       |      |             |              |        |        __________________|________                              |      
+   |       |       |      |             |              |        |       |                       NAPPOS_NP                         |     
+   |       |       |      |             |              |        |       |         __________________|________                     |      
+   |       |       |      |             |              |        |       |        |                         PP_NP                  |     
+   |       |       |      |             |              |        |       |        |          _________________|_____               |      
+   |       |       |      |           AVP_RB           |        |       |        |         |                      KKY             |     
+   |       |       |      |       ______|______        |        |       |        |         |                  _____|____          |      
+VERB_MD NP_PPSS VERB_VB NP_PPO AVP_RB        ADV_RB NOUN_NNS PREP_IN NOUN_NP  NOUN_NP   PREP_IN           NOUN_NP     AVP_RB pt_char_per
+   |       |       |      |      |             |       |        |       |        |         |                 |          |         |      
+  can     you     tell    me   about          the   flights    from   saint  petersburg    to             toronto     again       .     
+
+         SIGMA                                                                                                                  
+    _______|_______                                                                                                              
+   |              BJG                                                                                                           
+   |        _______|______                                                                                                       
+   |       |             BJH                                                                                                    
+   |       |        ______|____________________                                                                                  
+   |       |       |                          BJI                                                                               
+   |       |       |       ____________________|_______________________                                                          
+   |       |       |      |                                           BJJ                                                       
+   |       |       |      |                     _______________________|__________________________________________________       
+   |       |       |      |                  NP_NNS                                                                       |     
+   |       |       |      |              ______|________________                                                          |      
+   |       |       |      |             |                      KAS                                                        |     
+   |       |       |      |             |               ________|______________                                           |      
+   |       |       |      |             |              |                     PP_NP                                        |     
+   |       |       |      |             |              |         ______________|_________                                 |      
+   |       |       |      |             |              |        |                       ITY                               |     
+   |       |       |      |             |              |        |       _________________|_____                           |      
+   |       |       |      |             |              |        |      |                      ITZ                         |     
+   |       |       |      |             |              |        |      |        _______________|_____                     |      
+   |       |       |      |             |              |        |      |       |                   PP_NP                  |     
+   |       |       |      |             |              |        |      |       |          ___________|_____               |      
+   |       |       |      |           AVP_RB           |        |      |       |         |                KKY             |     
+   |       |       |      |       ______|______        |        |      |       |         |            _____|____          |      
+VERB_MD NP_PPSS VERB_VB NP_PPO AVP_RB        ADV_RB NOUN_NNS PREP_IN NP_NP  NOUN_NP   PREP_IN     NOUN_NP     AVP_RB pt_char_per
+   |       |       |      |      |             |       |        |      |       |         |           |          |         |      
+  can     you     tell    me   about          the   flights    from  saint petersburg    to       toronto     again       .     
+
+         SIGMA                                                                                                                      
+    _______|_______                                                                                                                  
+   |              BJG                                                                                                               
+   |        _______|______                                                                                                           
+   |       |             BJH                                                                                                        
+   |       |        ______|____________________                                                                                      
+   |       |       |                          BJI                                                                                   
+   |       |       |       ____________________|_______________________                                                              
+   |       |       |      |                                           BJJ                                                           
+   |       |       |      |                     _______________________|______________________________________________________       
+   |       |       |      |                  NP_NNS                                                                           |     
+   |       |       |      |              ______|________________                                                              |      
+   |       |       |      |             |                      KAS                                                            |     
+   |       |       |      |             |               ________|______________________                                       |      
+   |       |       |      |             |              |                             PP_NP                                    |     
+   |       |       |      |             |              |         ______________________|_________                             |      
+   |       |       |      |             |              |        |                               KLJ                           |     
+   |       |       |      |             |              |        |              __________________|_______                     |      
+   |       |       |      |             |              |        |             |                        PP_NP                  |     
+   |       |       |      |             |              |        |             |                   _______|_____               |      
+   |       |       |      |           AVP_RB           |        |          NOUN_NP               |            KKY             |     
+   |       |       |      |       ______|______        |        |       ______|________          |        _____|____          |      
+VERB_MD NP_PPSS VERB_VB NP_PPO AVP_RB        ADV_RB NOUN_NNS PREP_IN saint         petersburg PREP_IN NOUN_NP     AVP_RB pt_char_per
+   |       |       |      |      |             |       |        |      |               |         |       |          |         |      
+  can     you     tell    me   about          the   flights    from  saint         petersburg    to   toronto     again       .     
+

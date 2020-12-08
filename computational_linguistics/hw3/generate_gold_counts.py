@@ -2,7 +2,7 @@
 import nltk
 
 # load the grammar and sentences
-grammar = nltk.data.load("grammars/atis-grammar-cnf.cfg")
+grammar = nltk.data.load("grammars/atis-grammar-original.cfg")
 sents = nltk.data.load("grammars/atis-test-sentences.txt")
 sents = nltk.parse.util.extract_test_sentences(sents)
 parser =  nltk.parse.BottomUpChartParser(grammar)
@@ -10,8 +10,6 @@ parser =  nltk.parse.BottomUpChartParser(grammar)
 for sent, _ in sents:
     try:
         no_trees = len(list(parser.parse(sent)))
-        # for tree in parser.parse(sent):
-        #     tree.pretty_print()
     except Exception:
         no_trees = 0
     print(' '.join(sent), '\t', no_trees, sep='')

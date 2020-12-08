@@ -1,0 +1,656 @@
+prices .
+         SIGMA            
+    _______|________       
+NOUN_NNS       pt_char_per
+   |                |      
+ prices             .     
+
+         SIGMA            
+    _______|________       
+VERB_VBZ       pt_char_per
+   |                |      
+ prices             .     
+
+show availability .
+         SIGMA                             
+   ________|____________                    
+  |                2596_1_NP_NN            
+  |         ____________|____________       
+NP_NN   NOUN_NN                 pt_char_per
+  |        |                         |      
+ show availability                   .     
+
+           SIGMA                             
+    _________|____________                    
+   |                 2630_1_NP_NN            
+   |          ____________|____________       
+NOUN_NN   AVPNP_NN                pt_char_per
+   |         |                         |      
+  show  availability                   .     
+
+           SIGMA                               
+    _________|_____________                     
+   |                 1466_1_IMPR_VB            
+   |          _____________|_____________       
+VERB_VB    NP_NN                    pt_char_per
+   |         |                           |      
+  show  availability                     .     
+
+show the flights .
+               SIGMA                            
+    _____________|__________                     
+   |                  1387_1_IMPR_VB            
+   |              __________|_____________       
+   |           NP_NNS                     |     
+   |       ______|__________              |      
+VERB_VB ADJ_AT           NOUN_NNS    pt_char_per
+   |      |                 |             |      
+  show   the             flights          .     
+
+               SIGMA                            
+    _____________|__________                     
+   |                  1387_1_IMPR_VB            
+   |              __________|_____________       
+   |           NP_NNS                     |     
+   |       ______|__________              |      
+VERB_VB AVP_RB           NOUN_NNS    pt_char_per
+   |      |                 |             |      
+  show   the             flights          .     
+
+milwaukee to detroit .
+                        SIGMA                                 
+             _____________|________________                    
+          NP_NP                       3287_1_NP_NP            
+     _______|______               _________|____________       
+ NOUN_NP        PREP_IN       NOUN_NP              pt_char_per
+    |              |             |                      |      
+milwaukee          to         detroit                   .     
+
+                  SIGMA                         
+     _______________|________                    
+    |                   3256_1_NP_NP            
+    |                ________|____________       
+    |             PP_NP                   |     
+    |         ______|________             |      
+ NOUN_NP  PREP_IN         NOUN_NP    pt_char_per
+    |        |               |            |      
+milwaukee    to           detroit         .     
+
+indianapolis to seattle .
+                           SIGMA                                 
+                _____________|________________                    
+             NP_NP                       3287_1_NP_NP            
+      _________|______               _________|____________       
+  NOUN_NP          PREP_IN       NOUN_NP              pt_char_per
+     |                |             |                      |      
+indianapolis          to         seattle                   .     
+
+                     SIGMA                         
+      _________________|________                    
+     |                     3256_1_NP_NP            
+     |                  ________|____________       
+     |               PP_NP                   |     
+     |           ______|________             |      
+  NOUN_NP    PREP_IN         NOUN_NP    pt_char_per
+     |          |               |            |      
+indianapolis    to           seattle         .     
+
+list saturday flights .
+                 SIGMA                                          
+    _______________|_________                                    
+   |                   1355_1_IMPR_VB                           
+   |        _________________|______________                     
+   |       |                          1355_2_IMPR_VB            
+   |       |                  ______________|_____________       
+VERB_VB  NP_NP             NP_NNS                    pt_char_per
+   |       |                 |                            |      
+  list  saturday          flights                         .     
+
+                 SIGMA                            
+    _______________|__________                     
+   |                    1387_1_IMPR_VB            
+   |                __________|_____________       
+   |             NP_NNS                     |     
+   |        _______|__________              |      
+VERB_VB  NP_NP             NOUN_NNS    pt_char_per
+   |       |                  |             |      
+  list  saturday           flights          .     
+
+                   SIGMA                           
+    _________________|__________                    
+   |                       2399_1_NP_NN            
+   |                  __________|____________       
+   |             RELCL_VBZ                   |     
+   |        _________|__________             |      
+NOUN_NN  NP_NP               VERB_VBZ   pt_char_per
+   |       |                    |            |      
+  list  saturday             flights         .     
+
+                        SIGMA                                   
+           _______________|__________________                    
+        NP_NN                          2893_1_NP_NNS            
+    ______|_______                ___________|____________       
+NOUN_NN       NAPPOS_NP       NOUN_NNS               pt_char_per
+   |              |              |                        |      
+  list         saturday       flights                     .     
+
+                     SIGMA                                   
+         ______________|__________________                    
+      NP_NP                         3189_1_NP_NNS            
+   _____|______                ___________|____________       
+NP_NN       NOUN_NP        NOUN_NNS               pt_char_per
+  |            |              |                        |      
+ list       saturday       flights                     .     
+
+what is the fare .
+               SIGMA                                           
+   ______________|__________                                    
+  |                   516_1_DECL_BEZ                           
+  |       __________________|______________                     
+  |      |                           516_2_DECL_BEZ            
+  |      |                   ______________|_____________       
+  |      |                NP_NN                          |     
+  |      |        __________|______________              |      
+NP_DT VERB_BEZ ADJ_AT                   NOUN_NN     pt_char_per
+  |      |       |                         |             |      
+ what    is     the                       fare           .     
+
+               SIGMA                                                  
+   ______________|___________                                          
+  |                   3405_1_NREL_BEZ                                 
+  |       ___________________|___________                              
+  |      |                             NP_NN                          
+  |      |        _______________________|_________                    
+  |      |       |                            2369_1_NP_NN            
+  |      |       |                        _________|____________       
+NP_DT VERB_BEZ ADJ_AT                 NOUN_NN              pt_char_per
+  |      |       |                       |                      |      
+ what    is     the                     fare                    .     
+
+list flights from cleveland .
+                         SIGMA                                                     
+    _______________________|__________                                              
+   |                            1333_1_IMPR_VB                                     
+   |                __________________|________________________                     
+   |             NP_NNS                                  1333_2_IMPR_VB            
+   |        _______|_______                         ___________|_____________       
+VERB_VB NOUN_NNS        PREP_IN                 AVPNP_NP                pt_char_per
+   |       |               |                       |                         |      
+  list  flights           from                 cleveland                     .     
+
+                 SIGMA                                           
+    _______________|__________                                    
+   |                    1450_1_IMPR_VB                           
+   |        __________________|______________                     
+   |       |                           1450_2_IMPR_VB            
+   |       |                   ______________|_____________       
+   |       |                PP_NP                          |     
+   |       |        __________|______________              |      
+VERB_VB  NP_NNS PREP_IN                   NOUN_NP     pt_char_per
+   |       |       |                         |             |      
+  list  flights   from                   cleveland         .     
+
+                SIGMA                                         
+   _______________|__________                                  
+  |                    2889_1_NP_NNS                          
+  |       ___________________|_____________                    
+  |      |                           2889_2_NP_NNS            
+  |      |                    _____________|____________       
+  |      |                 PP_NP                        |     
+  |      |         __________|_____________             |      
+NP_NN NOUN_NNS PREP_IN                  NOUN_NP    pt_char_per
+  |      |        |                        |            |      
+ list flights    from                  cleveland        .     
+
+                  SIGMA                                      
+    ________________|__________                               
+   |                     1387_1_IMPR_VB                      
+   |                 __________|_______________________       
+   |              NP_NNS                               |     
+   |        ________|__________                        |      
+   |       |                 PP_NP                     |     
+   |       |         __________|____________           |      
+VERB_VB NOUN_NNS PREP_IN                 NOUN_NP  pt_char_per
+   |       |        |                       |          |      
+  list  flights    from                 cleveland      .     
+
+                SIGMA                                             
+   _______________|___________                                     
+  |                    1185_1_DECL_VBZ                            
+  |       ____________________|_______________                     
+  |      |                             1185_2_DECL_VBZ            
+  |      |                     _______________|_____________       
+  |      |                  PP_NP                           |     
+  |      |         ___________|_______________              |      
+NP_NN VERB_VBZ PREP_IN                     NOUN_NP     pt_char_per
+  |      |        |                           |             |      
+ list flights    from                     cleveland         .     
+
+what are the costs .
+                  SIGMA                                                    
+   _________________|___________                                            
+  |                      3394_1_NREL_BER                                   
+  |         ____________________|___________                                
+  |        |                              NP_NNS                           
+  |        |         _______________________|___________                    
+  |        |        |                             2894_1_NP_NNS            
+  |        |        |                        ___________|____________       
+NP_DT pt_verb_ber AVP_RB                 NOUN_NNS               pt_char_per
+  |        |        |                       |                        |      
+ what     are      the                    costs                      .     
+
+                  SIGMA                                                    
+   _________________|___________                                            
+  |                      3394_1_NREL_BER                                   
+  |         ____________________|___________                                
+  |        |                              NP_NNS                           
+  |        |         _______________________|___________                    
+  |        |        |                             2931_1_NP_NNS            
+  |        |        |                        ___________|____________       
+NP_DT pt_verb_ber ADJ_AT                 NOUN_NNS               pt_char_per
+  |        |        |                       |                        |      
+ what     are      the                    costs                      .     
+
+                  SIGMA                                           
+   _________________|__________                                    
+  |                      426_1_DECL_BER                           
+  |         ___________________|______________                     
+  |        |                            426_2_DECL_BER            
+  |        |                    ______________|_____________       
+  |        |                 NP_NNS                         |     
+  |        |         __________|______________              |      
+NP_DT pt_verb_ber ADJ_AT                   NOUN_NNS    pt_char_per
+  |        |        |                         |             |      
+ what     are      the                      costs           .     
+
+                  SIGMA                                           
+   _________________|__________                                    
+  |                      426_1_DECL_BER                           
+  |         ___________________|______________                     
+  |        |                            426_2_DECL_BER            
+  |        |                    ______________|_____________       
+  |        |                 NP_NNS                         |     
+  |        |         __________|______________              |      
+NP_DT pt_verb_ber AVP_RB                   NOUN_NNS    pt_char_per
+  |        |        |                         |             |      
+ what     are      the                      costs           .     
+
+what flights leave boston to pittsburgh .
+                                SIGMA                                                       
+           _______________________|__________                                                
+          |                            722_1_DECL_VB                                        
+          |                 _________________|_____________                                  
+          |                |                         722_2_DECL_VB                          
+          |                |       ________________________|_____________                    
+          |                |      |                                722_3_DECL_VB            
+          |                |      |                         _____________|____________       
+        NP_NNS             |      |                      PP_NP                        |     
+    ______|_______         |      |           _____________|_____________             |      
+ADJ_WPS        NOUN_NNS VERB_VB NP_NP     PREP_IN                     NOUN_NP    pt_char_per
+   |              |        |      |          |                           |            |      
+  what         flights   leave  boston       to                      pittsburgh       .     
+
+                                 SIGMA                                                            
+           ________________________|________________                                               
+          |                                   1000_1_DECL_VB                                      
+          |                 ________________________|______________                                
+          |                |                                 1000_2_DECL_VB                       
+          |                |                         ______________|________________________       
+          |                |                      NP_NP                                     |     
+          |                |               _________|___________________________            |      
+        NP_NNS             |            NP_NP                                   |           |     
+    ______|_______         |        ______|_________                            |           |      
+ADJ_WPS        NOUN_NNS VERB_VB NOUN_NP          PREP_IN                     NOUN_NP   pt_char_per
+   |              |        |       |                |                           |           |      
+  what         flights   leave   boston             to                      pittsburgh      .     
+
+                                 SIGMA                                                      
+           ________________________|__________                                               
+          |                             1000_1_DECL_VB                                      
+          |                 __________________|______________                                
+          |                |                           1000_2_DECL_VB                       
+          |                |                   ______________|________________________       
+          |                |                NP_NP                                     |     
+          |                |        __________|______________                         |      
+        NP_NNS             |       |                       PP_NP                      |     
+    ______|_______         |       |           ______________|____________            |      
+ADJ_WPS        NOUN_NNS VERB_VB NOUN_NP    PREP_IN                     NOUN_NP   pt_char_per
+   |              |        |       |          |                           |           |      
+  what         flights   leave   boston       to                      pittsburgh      .     
+
+what flights leave las vegas to oakland .
+                                SIGMA                                                                  
+           _______________________|_______________                                                      
+          |                                 722_1_DECL_VB                                              
+          |                 ______________________|_____________                                        
+          |                |                              722_2_DECL_VB                                
+          |                |             _______________________|___________________                    
+          |                |            |                                     722_3_DECL_VB            
+          |                |            |                                  _________|____________       
+        NP_NNS             |          NP_NP                             PP_NP                    |     
+    ______|_______         |       _____|_________               _________|_________             |      
+ADJ_WPS        NOUN_NNS VERB_VB  las            vegas        PREP_IN             NOUN_NP    pt_char_per
+   |              |        |      |               |             |                   |            |      
+  what         flights   leave   las            vegas           to               oakland         .     
+
+                                SIGMA                                                                
+           _______________________|_________________                                                  
+          |                                   1000_1_DECL_VB                                         
+          |                 ________________________|____________________                             
+          |                |                                       1000_2_DECL_VB                    
+          |                |                                    _________|_____________________       
+          |                |                                 NP_NP                             |     
+          |                |                         __________|_____________________          |      
+          |                |                      NP_NP                              |         |     
+          |                |              __________|____________________            |         |      
+        NP_NNS             |          NOUN_NP                            |           |         |     
+    ______|_______         |       ______|__________                     |           |         |      
+ADJ_WPS        NOUN_NNS VERB_VB  las              vegas               PREP_IN     NOUN_NP pt_char_per
+   |              |        |      |                 |                    |           |         |      
+  what         flights   leave   las              vegas                  to       oakland      .     
+
+                                SIGMA                                                                      
+           _______________________|_________________                                                        
+          |                                   1000_1_DECL_VB                                               
+          |                 ________________________|____________________                                   
+          |                |                                       1000_2_DECL_VB                          
+          |                |                                    _________|___________________________       
+          |                |                                 NP_NP                                   |     
+          |                |              _____________________|____________________                 |      
+        NP_NNS             |          NOUN_NP                                     PP_NP              |     
+    ______|_______         |       ______|__________                      __________|______          |      
+ADJ_WPS        NOUN_NNS VERB_VB  las              vegas               PREP_IN           NOUN_NP pt_char_per
+   |              |        |      |                 |                    |                 |         |      
+  what         flights   leave   las              vegas                  to             oakland      .     
+
+what is the cheapest ticket from memphis to miami .
+       SIGMA                                                                                                           
+   ______|__________________                                                                                            
+  |                   516_1_DECL_BEZ                                                                                   
+  |       __________________|______________________                                                                     
+  |      |                                   516_2_DECL_BEZ                                                            
+  |      |                   ______________________|_____________________________________________________________       
+  |      |                NP_NN                                                                                  |     
+  |      |        __________|______________________                                                              |      
+  |      |       |                            2625_1_NP_NN                                                       |     
+  |      |       |           ______________________|_____________                                                |      
+  |      |       |          |                               2625_2_NP_NN                                         |     
+  |      |       |          |            ________________________|_________                                      |      
+  |      |       |          |           |                                PP_NP                                   |     
+  |      |       |          |           |           _______________________|________                             |      
+  |      |       |          |           |          |                           3872_1_PP_NP                      |     
+  |      |       |          |           |          |              __________________|_________                   |      
+  |      |       |          |           |          |             |                          PP_NPS               |     
+  |      |       |          |           |          |             |                   _________|_______           |      
+NP_DT VERB_BEZ ADJ_AT    AJP_JJT     NOUN_NN    PREP_IN       NOUN_NP            PREP_IN           NOUN_NPS pt_char_per
+  |      |       |          |           |          |             |                  |                 |          |      
+ what    is     the      cheapest     ticket      from        memphis               to              miami        .     
+
+       SIGMA                                                                                                                     
+   ______|__________________                                                                                                      
+  |                   514_1_DECL_BEZ                                                                                             
+  |       __________________|___________________________________                                                                  
+  |      |                                                514_2_DECL_BEZ                                                         
+  |      |                   ___________________________________|____________________________                                     
+  |      |                  |                                                          514_3_DECL_BEZ                            
+  |      |                  |                                                       _________|_____________________________       
+  |      |                  |                                                    PP_NP                                     |     
+  |      |                  |                                    __________________|_________                              |      
+  |      |                NP_NN                                 |                       3872_1_PP_NP                       |     
+  |      |        __________|_____________                      |            ________________|__________                   |      
+  |      |       |                   2366_1_NP_NN               |           |                         PP_NPS               |     
+  |      |       |           _____________|__________           |           |                 __________|_______           |      
+NP_DT VERB_BEZ ADJ_AT    AJP_JJT                  NOUN_NN    PREP_IN     NOUN_NP          PREP_IN            NOUN_NPS pt_char_per
+  |      |       |          |                        |          |           |                |                  |          |      
+ what    is     the      cheapest                  ticket      from      memphis             to               miami        .     
+
+                                        SIGMA                                                                                        
+   _______________________________________|__________________________                                                                 
+  |                                                            520_1_DECL_BEZ                                                        
+  |       ___________________________________________________________|______________                                                  
+  |      |                                                                    520_2_DECL_BEZ                                         
+  |      |                                                            ______________|__________________________________________       
+  |      |                                                         NP_NP                                                       |     
+  |      |                        ___________________________________|____________________________                             |      
+  |      |                     NP_NN                                                              |                            |     
+  |      |        _______________|________                                                        |                            |      
+  |      |       |                   2547_1_NP_NN                                            3261_1_NP_NP                      |     
+  |      |       |        ________________|____________                              _____________|_________                   |      
+  |      |       |       |                        2547_2_NP_NN                      |                     PP_NPS               |     
+  |      |       |       |                 ____________|_____________               |              _________|_______           |      
+NP_DT VERB_BEZ ADJ_AT AJP_JJT          NOUN_NN                    PREP_IN        NOUN_NP       PREP_IN           NOUN_NPS pt_char_per
+  |      |       |       |                |                          |              |             |                 |          |      
+ what    is     the   cheapest          ticket                      from         memphis          to              miami        .     
+
+       SIGMA                                                                                                                    
+   ______|__________________                                                                                                     
+  |                   532_1_DECL_BEZ                                                                                            
+  |       __________________|___________________________________                                                                 
+  |      |                                                532_2_DECL_BEZ                                                        
+  |      |                               _______________________|___________________________________________                     
+  |      |                            NP_NN                                                                 |                   
+  |      |        ______________________|_________                                                          |                    
+  |      |       |                           2625_1_NP_NN                                                   |                   
+  |      |       |           _____________________|_____________                                            |                    
+  |      |       |          |                              2625_2_NP_NN                               532_3_DECL_BEZ            
+  |      |       |          |            _______________________|__________                       __________|_____________       
+  |      |       |          |           |                                PP_NP                 PP_NPS                     |     
+  |      |       |          |           |                        __________|______         ______|__________              |      
+NP_DT VERB_BEZ ADJ_AT    AJP_JJT     NOUN_NN                 PREP_IN           NOUN_NP PREP_IN           NOUN_NPS    pt_char_per
+  |      |       |          |           |                       |                 |       |                 |             |      
+ what    is     the      cheapest     ticket                   from            memphis    to              miami           .     
+
+       SIGMA                                                                                                               
+   ______|__________________                                                                                                
+  |                   532_1_DECL_BEZ                                                                                       
+  |       __________________|___________________________________                                                            
+  |      |                                                532_2_DECL_BEZ                                                   
+  |      |                   ___________________________________|_____________________________                              
+  |      |                  |                                                           532_3_DECL_BEZ                     
+  |      |                  |                                                       __________|______________________       
+  |      |                  |                                                    PP_NPS                              |     
+  |      |                  |                                    __________________|__________                       |      
+  |      |                NP_NN                                 |                       3927_1_PP_NPS                |     
+  |      |        __________|_____________                      |                   __________|___________           |      
+  |      |       |                   2366_1_NP_NN               |                NP_NP                    |          |     
+  |      |       |           _____________|__________           |            ______|__________            |          |      
+NP_DT VERB_BEZ ADJ_AT    AJP_JJT                  NOUN_NN    PREP_IN     NOUN_NP           PREP_IN     NOUN_NPS pt_char_per
+  |      |       |          |                        |          |           |                 |           |          |      
+ what    is     the      cheapest                  ticket      from      memphis              to        miami        .     
+
+i 'd like to leave before eight o'clock at night .
+         SIGMA                                                                                                                        
+    _______|__________                                                                                                                 
+   |            723_1_DECL_VB                                                                                                         
+   |        __________|_________________                                                                                               
+   |       |                      723_2_DECL_VB                                                                                       
+   |       |           _________________|______________________                                                                        
+   |       |          |                                  723_3_DECL_VB                                                                
+   |       |          |                  ______________________|________________________________________________________________       
+   |       |          |              INFCL_VB                                                                                   |     
+   |       |          |         ________|______________________                                                                 |      
+   |       |          |        |                        1519_1_INFCL_VB                                                         |     
+   |       |          |        |         ______________________|___________________                                             |      
+   |       |          |        |        |                                        PP_CD                                          |     
+   |       |          |        |        |           _______________________________|_________                                   |      
+   |       |          |        |        |          |                                    3517_1_PP_CD                            |     
+   |       |          |        |        |          |                        _________________|_________________                 |      
+   |       |          |        |        |          |                    NOUN_CD                              PP_NN              |     
+   |       |          |        |        |          |            ___________|_______                      ______|______          |      
+NP_PPSS VERB_MD    VERB_VB     to    VERB_VB    PREP_IN      eight              o_clock              PREP_IN       NOUN_NN pt_char_per
+   |       |          |        |        |          |           |                   |                    |             |         |      
+   i       'd        like      to     leave      before      eight              o'clock                 at          night       .     
+
+         SIGMA                                                                                                                       
+    _______|__________                                                                                                                
+   |            723_1_DECL_VB                                                                                                        
+   |        __________|_________________                                                                                              
+   |       |                      723_2_DECL_VB                                                                                      
+   |       |           _________________|______________________                                                                       
+   |       |          |                                  723_3_DECL_VB                                                               
+   |       |          |                  ______________________|_______________________________________________________________       
+   |       |          |              INFCL_VB                                                                                  |     
+   |       |          |         ________|______________________                                                                |      
+   |       |          |        |                        1519_1_INFCL_VB                                                        |     
+   |       |          |        |         ______________________|___________________                                            |      
+   |       |          |        |        |                                        PP_CD                                         |     
+   |       |          |        |        |           _______________________________|_________                                  |      
+   |       |          |        |        |          |                                    3506_1_PP_CD                           |     
+   |       |          |        |        |          |                        _________________|_________________                |      
+   |       |          |        |        |          |                    NOUN_CD                              PP_JJ             |     
+   |       |          |        |        |          |            ___________|_______                      ______|_____          |      
+NP_PPSS VERB_MD    VERB_VB     to    VERB_VB    PREP_IN      eight              o_clock              PREP_IN       ADJ_JJ pt_char_per
+   |       |          |        |        |          |           |                   |                    |            |         |      
+   i       'd        like      to     leave      before      eight              o'clock                 at         night       .     
+
+                 SIGMA                                                                                               
+    _______________|__________________________                                                                        
+   |                                    934_1_DECL_VB                                                                
+   |        __________________________________|_____________                                                          
+   |       |                                          934_2_DECL_VB                                                  
+   |       |        ________________________________________|_____________________                                    
+   |       |       |                                                        934_3_DECL_VB                            
+   |       |       |                                         _____________________|____________________________       
+   |       |       |                                      PP_NN                                                |     
+   |       |       |        ________________________________|_____________________                             |      
+   |       |       |       |                                                 3586_1_PP_NN                      |     
+   |       |       |       |                                 _____________________|__________________          |      
+   |       |       |       |                              NP_NN                                      |         |     
+   |       |       |       |        ________________________|__________                              |         |      
+   |       |       |       |       |                                 PP_CD                           |         |     
+   |       |       |       |       |           ________________________|__________                   |         |      
+   |       |       |       |       |          |                              3498_1_PP_CD            |         |     
+   |       |       |       |       |          |                         __________|__________        |         |      
+   |       |       |       |       |          |                     NOUN_CD                  |       |         |     
+   |       |       |       |       |          |              __________|__________           |       |         |      
+NP_PPSS VERB_MD VERB_VB PREP_IN NOUN_NN    PREP_IN        eight                o_clock    PREP_IN NOUN_NN pt_char_per
+   |       |       |       |       |          |             |                     |          |       |         |      
+   i       'd     like     to    leave      before        eight                o'clock       at    night       .     
+
+         SIGMA                                                                                                                          
+    _______|__________                                                                                                                   
+   |            934_1_DECL_VB                                                                                                           
+   |        __________|_____________________                                                                                             
+   |       |                          934_2_DECL_VB                                                                                     
+   |       |           _____________________|_____________________                                                                       
+   |       |          |                                     934_3_DECL_VB                                                               
+   |       |          |                      _____________________|_______________________________________________________________       
+   |       |          |                   PP_NN                                                                                   |     
+   |       |          |           __________|_____________________                                                                |      
+   |       |          |          |                           3556_1_PP_NN                                                         |     
+   |       |          |          |           _____________________|__________________                                             |      
+   |       |          |          |          |                                      PP_CD                                          |     
+   |       |          |          |          |           _____________________________|_________                                   |      
+   |       |          |          |          |          |                                  3517_1_PP_CD                            |     
+   |       |          |          |          |          |                      _________________|_________________                 |      
+   |       |          |          |          |          |                  NOUN_CD                              PP_NN              |     
+   |       |          |          |          |          |           __________|_______                      ______|______          |      
+NP_PPSS VERB_MD    VERB_VB    PREP_IN    NOUN_NN    PREP_IN     eight             o_clock              PREP_IN       NOUN_NN pt_char_per
+   |       |          |          |          |          |          |                  |                    |             |         |      
+   i       'd        like        to       leave      before     eight             o'clock                 at          night       .     
+
+         SIGMA                                                                                                                         
+    _______|__________                                                                                                                  
+   |            934_1_DECL_VB                                                                                                          
+   |        __________|_____________________                                                                                            
+   |       |                          934_2_DECL_VB                                                                                    
+   |       |           _____________________|_____________________                                                                      
+   |       |          |                                     934_3_DECL_VB                                                              
+   |       |          |                      _____________________|______________________________________________________________       
+   |       |          |                   PP_NN                                                                                  |     
+   |       |          |           __________|_____________________                                                               |      
+   |       |          |          |                           3556_1_PP_NN                                                        |     
+   |       |          |          |           _____________________|__________________                                            |      
+   |       |          |          |          |                                      PP_CD                                         |     
+   |       |          |          |          |           _____________________________|_________                                  |      
+   |       |          |          |          |          |                                  3506_1_PP_CD                           |     
+   |       |          |          |          |          |                      _________________|_________________                |      
+   |       |          |          |          |          |                  NOUN_CD                              PP_JJ             |     
+   |       |          |          |          |          |           __________|_______                      ______|_____          |      
+NP_PPSS VERB_MD    VERB_VB    PREP_IN    NOUN_NN    PREP_IN     eight             o_clock              PREP_IN       ADJ_JJ pt_char_per
+   |       |          |          |          |          |          |                  |                    |            |         |      
+   i       'd        like        to       leave      before     eight             o'clock                 at         night       .     
+
+can you tell me about the flights from saint petersburg to toronto again .
+         SIGMA                                                                                                                                                                      
+    _______|__________                                                                                                                                                               
+   |            717_1_DECL_VB                                                                                                                                                       
+   |        __________|_____________                                                                                                                                                 
+   |       |                  717_2_DECL_VB                                                                                                                                         
+   |       |           _____________|___________________________                                                                                                                     
+   |       |          |                                   717_3_DECL_VB                                                                                                             
+   |       |          |              ___________________________|____________________________________                                                                                
+   |       |          |             |                                                          717_4_DECL_VB                                                                        
+   |       |          |             |                            ____________________________________|________________________________________________________________________       
+   |       |          |             |                         NP_NNS                                                                                                          |     
+   |       |          |             |                 __________|______________________                                                                                       |      
+   |       |          |             |                |                           3013_1_NP_NNS                                                                                |     
+   |       |          |             |                |                      ___________|_________________________________                                                     |      
+   |       |          |             |                |                     |                                           PP_NP                                                  |     
+   |       |          |             |                |                     |            _________________________________|___________                                         |      
+   |       |          |             |                |                     |           |                                        3837_1_PP_NP                                  |     
+   |       |          |             |                |                     |           |                         ____________________|__________                              |      
+   |       |          |             |                |                     |           |                        |                             PP_NP                           |     
+   |       |          |             |                |                     |           |                        |                     __________|_________                    |      
+   |       |          |             |              AVP_RB                  |           |                     NOUN_NP                 |               3859_1_PP_NP             |     
+   |       |          |             |          ______|__________           |           |              __________|________            |           _________|_________          |      
+VERB_MD NP_PPSS    VERB_VB        NP_PPO    AVP_RB            ADV_RB    NOUN_NNS    PREP_IN        saint             petersburg   PREP_IN    NOUN_NP              AVP_RB pt_char_per
+   |       |          |             |         |                 |          |           |             |                   |           |          |                   |         |      
+  can     you        tell           me      about              the      flights       from         saint             petersburg      to      toronto              again       .     
+
+         SIGMA                                                                                                                                                                        
+    _______|__________                                                                                                                                                                 
+   |            717_1_DECL_VB                                                                                                                                                         
+   |        __________|_____________                                                                                                                                                   
+   |       |                  717_2_DECL_VB                                                                                                                                           
+   |       |           _____________|___________________________                                                                                                                       
+   |       |          |                                   717_3_DECL_VB                                                                                                               
+   |       |          |              ___________________________|____________________________________                                                                                  
+   |       |          |             |                                                          717_4_DECL_VB                                                                          
+   |       |          |             |                            ____________________________________|__________________________________________________________________________       
+   |       |          |             |                         NP_NNS                                                                                                            |     
+   |       |          |             |                 __________|______________________                                                                                         |      
+   |       |          |             |                |                           3013_1_NP_NNS                                                                                  |     
+   |       |          |             |                |                      ___________|_________________________                                                               |      
+   |       |          |             |                |                     |                                   PP_NP                                                            |     
+   |       |          |             |                |                     |            _________________________|___________                                                   |      
+   |       |          |             |                |                     |           |                                3869_1_PP_NP                                            |     
+   |       |          |             |                |                     |           |              _______________________|___________                                       |      
+   |       |          |             |                |                     |           |             |                               NAPPOS_NP                                  |     
+   |       |          |             |                |                     |           |             |            _______________________|________                              |      
+   |       |          |             |                |                     |           |             |           |                              PP_NP                           |     
+   |       |          |             |                |                     |           |             |           |            ____________________|_________                    |      
+   |       |          |             |              AVP_RB                  |           |             |           |           |                         3859_1_PP_NP             |     
+   |       |          |             |          ______|__________           |           |             |           |           |                     _________|_________          |      
+VERB_MD NP_PPSS    VERB_VB        NP_PPO    AVP_RB            ADV_RB    NOUN_NNS    PREP_IN       NOUN_NP     NOUN_NP     PREP_IN              NOUN_NP              AVP_RB pt_char_per
+   |       |          |             |         |                 |          |           |             |           |           |                    |                   |         |      
+  can     you        tell           me      about              the      flights       from         saint     petersburg      to                toronto              again       .     
+
+         SIGMA                                                                                                                                                                           
+    _______|__________                                                                                                                                                                    
+   |            717_1_DECL_VB                                                                                                                                                            
+   |        __________|_____________                                                                                                                                                      
+   |       |                  717_2_DECL_VB                                                                                                                                              
+   |       |           _____________|___________________________                                                                                                                          
+   |       |          |                                   717_3_DECL_VB                                                                                                                  
+   |       |          |              ___________________________|____________________________________                                                                                     
+   |       |          |             |                                                          717_4_DECL_VB                                                                             
+   |       |          |             |                            ____________________________________|_____________________________________________________________________________       
+   |       |          |             |                         NP_NNS                                                                                                               |     
+   |       |          |             |                 __________|______________________                                                                                            |      
+   |       |          |             |                |                           3013_1_NP_NNS                                                                                     |     
+   |       |          |             |                |                      ___________|_________________________                                                                  |      
+   |       |          |             |                |                     |                                   PP_NP                                                               |     
+   |       |          |             |                |                     |            _________________________|___________                                                      |      
+   |       |          |             |                |                     |           |                                3879_1_PP_NP                                               |     
+   |       |          |             |                |                     |           |              _______________________|____________                                         |      
+   |       |          |             |                |                     |           |             |                               3879_2_PP_NP                                  |     
+   |       |          |             |                |                     |           |             |            ________________________|__________                              |      
+   |       |          |             |                |                     |           |             |           |                                 PP_NP                           |     
+   |       |          |             |                |                     |           |             |           |            _______________________|_________                    |      
+   |       |          |             |              AVP_RB                  |           |             |           |           |                            3859_1_PP_NP             |     
+   |       |          |             |          ______|__________           |           |             |           |           |                        _________|_________          |      
+VERB_MD NP_PPSS    VERB_VB        NP_PPO    AVP_RB            ADV_RB    NOUN_NNS    PREP_IN        NP_NP      NOUN_NP     PREP_IN                 NOUN_NP              AVP_RB pt_char_per
+   |       |          |             |         |                 |          |           |             |           |           |                       |                   |         |      
+  can     you        tell           me      about              the      flights       from         saint     petersburg      to                   toronto              again       .     
+

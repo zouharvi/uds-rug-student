@@ -107,7 +107,7 @@ def cky_count(*args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description='CYK parsing')
     parser.add_argument('--cp', action='store_true',
                         help='count using partials')
     parser.add_argument('--ce', action='store_true',
@@ -118,6 +118,8 @@ if __name__ == '__main__':
                         help='draw trees with 2 to 5 parses')
     parser.add_argument('--bad-examples', action='store_true',
                         help='show ungrammatical examples')
+    parser.add_argument('--chart', action='store_true',
+                        help='silently create CKY chart')
     parser.add_argument('--grammar-data', action='store_true',
                         default="grammars/atis-grammar-cnf.cfg")
     parser.add_argument('--text-data', action='store_true',
@@ -145,6 +147,9 @@ if __name__ == '__main__':
             print(' '.join(sent), '\t',
                 1*cky_recognizer(grammar_lexical, grammar_nonterm, sent),
                 sep='')
+
+        if args.chart:
+            cky(grammar_lexical, grammar_nonterm, sent)
 
         if args.draw:
             tree_count = cky_count(grammar_lexical, grammar_nonterm, sent)

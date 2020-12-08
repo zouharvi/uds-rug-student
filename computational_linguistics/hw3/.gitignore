@@ -1,2 +1,4 @@
-grammars/*
+grammars/atis-grammar-cnf.cfg
+grammars/atis-grammar-original.cfg
+grammars/atis-test-sentences.txt
 .vscode/*
