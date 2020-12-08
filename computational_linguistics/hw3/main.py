@@ -3,7 +3,7 @@ import nltk
 from collections import defaultdict
 from itertools import product
 from nltk.tree import *
-
+import argparse
 
 def process_cfg_grammar(grammar):
     """
@@ -106,20 +106,57 @@ def cky_count(*args):
     return _cky_count_partial(chart, 0, 0, 'SIGMA')
 
 
-# load the grammar and sentences
-grammar = nltk.data.load("grammars/atis-grammar-cnf.cfg")
-sents = nltk.data.load("grammars/atis-test-sentences.txt")
-sents = nltk.parse.util.extract_test_sentences(sents)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('--cp', action='store_true',
+                        help='count using partials')
+    parser.add_argument('--ce', action='store_true',
+                        help='count using enumeration')
+    parser.add_argument('--recognize', action='store_true',
+                        help='only recognize')
+    parser.add_argument('--draw', action='store_true',
+                        help='draw trees with 2 to 5 parses')
+    parser.add_argument('--bad-examples', action='store_true',
+                        help='show ungrammatical examples')
+    parser.add_argument('--grammar-data', action='store_true',
+                        default="grammars/atis-grammar-cnf.cfg")
+    parser.add_argument('--text-data', action='store_true',
+                        default="grammars/atis-test-sentences.txt")
+    args = parser.parse_args()
 
-grammar_lexical, grammar_nonterm = process_cfg_grammar(grammar)
-parser = nltk.parse.BottomUpChartParser(grammar)
+    # load the grammar and sentences
+    grammar = nltk.data.load(args.grammar_data)
+    sents = nltk.data.load(args.text_data)
+    sents = nltk.parse.util.extract_test_sentences(sents)
 
-for sent, _ in sents:
-    # print(' '.join(sent))
-    # print(cky_recognizer(grammar_lexical, grammar_nonterm, sent))
-    # tree_generator = cky_generate(grammar_lexical, grammar_nonterm, sent)
-    # print(' '.join(sent), '\t', len(list(tree_generator)), sep='')
-    # for tree in tree_generator:
-    #     tree.pretty_print()
-    tree_count = cky_count(grammar_lexical, grammar_nonterm, sent)
-    print(' '.join(sent), '\t', tree_count, sep='')
+    grammar_lexical, grammar_nonterm = process_cfg_grammar(grammar)
+    parser = nltk.parse.BottomUpChartParser(grammar)
+
+    for sent, _ in sents:
+        if args.cp:
+            tree_count = cky_count(grammar_lexical, grammar_nonterm, sent)
+            print(' '.join(sent), '\t', tree_count, sep='')
+        elif args.ce:
+            tree_generator = cky_generate(
+                grammar_lexical, grammar_nonterm, sent)
+            print(' '.join(sent), '\t', len(list(tree_generator)), sep='')
+
+        if args.recognize:
+            print(' '.join(sent), '\t',
+                1*cky_recognizer(grammar_lexical, grammar_nonterm, sent),
+                sep='')
+
+        if args.draw:
+            tree_count = cky_count(grammar_lexical, grammar_nonterm, sent)
+            if tree_count >= 2 and tree_count <= 5:
+                print(' '.join(sent))
+                tree_generator = cky_generate(
+                    grammar_lexical, grammar_nonterm, sent)
+                for tree in tree_generator:
+                    tree.pretty_print()
+
+    if args.bad_examples:
+        for sent in ['i ate unknown_word .', '.', 'how many how many .', 'que ?']:
+            print(sent, '\t',
+                1*cky_recognizer(grammar_lexical, grammar_nonterm, sent),
+                sep='')
