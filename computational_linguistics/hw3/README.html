@@ -17,9 +17,12 @@ optional arguments:
 <h3 id="recognizer">Recognizer</h3>
 <p>The result of the recognizer (<code>main.py --recognize</code>) is in <code>output/recognize.tsv</code> (0 for ungrammatical, for grammatical). Even though the ATIS sentences already contain some ungrammatical ones, here are few manual ungrammatical examples:</p>
 <pre><code>i ate unknown_word .    0
-.                       0
+.       0
 how many how many .     0
-que ?                   0</code></pre>
+que ?   0
+what .  0
+can i have the having . 0
+having done what .      0</code></pre>
 <p>To test whether the chart produces a sentences which covers the whole input (and therefore is grammatical), it we can check if <code>SIGMA</code> is located in the <code>chart[0][0]</code> cell.</p>
 <h3 id="parser">Parser</h3>
 <p>The result of the parser (<code>main.py --draw</code>) are in <code>output/drawings.out</code>. Here Python yield/generator syntax came in incredibly useful, as it was possible to iteratively yield variants of subtrees. Here is a drawing example:</p>

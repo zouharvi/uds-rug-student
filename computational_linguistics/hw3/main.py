@@ -161,7 +161,9 @@ if __name__ == '__main__':
                     tree.pretty_print()
 
     if args.bad_examples:
-        for sent in ['i ate unknown_word .', '.', 'how many how many .', 'que ?']:
+        for sent in [
+            'i ate unknown_word .', '.', 'how many how many .', 'que ?',
+            'what .', 'can i have the having .', 'having done what .']:
             print(sent, '\t',
-                1*cky_recognizer(grammar_lexical, grammar_nonterm, sent),
+                1*cky_recognizer(grammar_lexical, grammar_nonterm, sent.split()),
                 sep='')

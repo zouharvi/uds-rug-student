@@ -25,9 +25,12 @@ The result of the recognizer (`main.py --recognize`) is in `output/recognize.tsv
 
 ```
 i ate unknown_word .    0
-.                       0
+.       0
 how many how many .     0
-que ?                   0
+que ?   0
+what .  0
+can i have the having . 0
+having done what .      0
 ```
 
 To test whether the chart produces a sentences which covers the whole input (and therefore is grammatical), it we can check if `SIGMA` is located in the `chart[0][0]` cell.
