@@ -10,6 +10,8 @@ parser =  nltk.parse.BottomUpChartParser(grammar)
 for sent, _ in sents:
     try:
         no_trees = len(list(parser.parse(sent)))
+        # for tree in parser.parse(sent):
+        #     tree.pretty_print()
     except Exception:
         no_trees = 0
-    print(' '.join(sent), '\t', no_trees)
+    print(' '.join(sent), '\t', no_trees, sep='')

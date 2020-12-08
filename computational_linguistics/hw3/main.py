@@ -25,12 +25,12 @@ def process_cfg_grammar(grammar):
 def cky(grammar_lexical, grammar_nonterm, sent):
     sent_len = len(sent)
     chart = [[set() for _ in range(sent_len-pos)] for pos in range(sent_len)]
+    # [tag, ((newCol, tagR), (newRow, tagL))]
 
     # lexical parts
     for col, token in enumerate(sent):
         tags = grammar_lexical[(token,)]
-        chart[col][sent_len-col -
-                   1] = {(tag, (col, sent_len-col-1)) for tag in tags}
+        chart[col][sent_len-col - 1] = {(tag, None) for tag in tags}
 
     # go right to left, but skip lexical
     for col, colData in reversed(list(enumerate(chart[:-1]))):
@@ -40,9 +40,9 @@ def cky(grammar_lexical, grammar_nonterm, sent):
                 newRow = sent_len - newCol
                 tagsL = chart[col][newRow]
                 tagsR = chart[newCol][row]
-                for (tagL, _), (tagR, _), in product(tagsL, tagsR):
+                for (tagL, _), (tagR, _) in product(tagsL, tagsR):
                     chart[col][row] |= {
-                        (newTag, (newCol, newRow))
+                        (newTag, ((newCol, tagR), (newRow, tagL)))
                         for newTag in grammar_nonterm[(tagL, tagR)]
                     }
     return chart
@@ -59,42 +59,51 @@ def cky_recognizer(*args):
     return False
 
 
-def _cky_subtree(sent, chart, col, row):
+def _cky_subtree(sent, chart, col, row, parent):
     """
     returns a generator of parsed trees
     """
     # reached word
     if row == len(chart) - col - 1:
         for tag, _ in chart[col][row]:
-            yield Tree(tag.symbol(), [sent[col  ]])
+            if tag.symbol() != parent:
+                continue
+            yield Tree(tag.symbol(), [sent[col]])
     else:
-        for tag, (newCol, newRow) in chart[col][row]:
-            for treeL in _cky_subtree(sent, chart, col, newRow):
-                for treeR in _cky_subtree(sent, chart, newCol, row):
+        for tag, ((newCol, tagR), (newRow, tagL)) in chart[col][row]:
+            if tag.symbol() != parent:
+                continue
+            for treeL in _cky_subtree(sent, chart, col, newRow, tagL.symbol()):
+                for treeR in _cky_subtree(sent, chart, newCol, row, tagR.symbol()):
                     yield Tree(tag.symbol(), [treeL, treeR])
+
 
 def cky_generate(grammar_lexical, grammar_nonterm, sent):
     chart = cky(grammar_lexical, grammar_nonterm, sent)
     # start and end indicies
-    return _cky_subtree(sent, chart, 0, 0)
+    return _cky_subtree(sent, chart, 0, 0, 'SIGMA')
 
-def _cky_count_partial(chart, col, row):
+
+def _cky_count_partial(chart, col, row, parent):
     """
     returns a generator of parsed trees
     """
     # reached word
     if row == len(chart) - col - 1:
-        return len(chart[col][row])
+        return len([tag for tag, _ in chart[col][row] if tag.symbol() == parent])
     else:
         return sum([
-            _cky_count_partial(chart, col, newRow) * _cky_count_partial(chart, newCol, row)
-            for _, (newCol, newRow) in chart[col][row]
+            _cky_count_partial(chart, col, newRow, tagL.symbol()) *
+            _cky_count_partial(chart, newCol, row, tagR.symbol())
+            for tag, ((newCol, tagR), (newRow, tagL)) in chart[col][row]
+            if tag.symbol() == parent
         ])
+
 
 def cky_count(*args):
     chart = cky(*args)
     # start and end indicies
-    return _cky_count_partial(chart, 0, 0)
+    return _cky_count_partial(chart, 0, 0, 'SIGMA')
 
 
 # load the grammar and sentences
@@ -105,12 +114,12 @@ sents = nltk.parse.util.extract_test_sentences(sents)
 grammar_lexical, grammar_nonterm = process_cfg_grammar(grammar)
 parser = nltk.parse.BottomUpChartParser(grammar)
 
-for sent, _ in sents[:10]:
-    print(' '.join(sent))
-    print(cky_recognizer(grammar_lexical, grammar_nonterm, sent))
+for sent, _ in sents:
+    # print(' '.join(sent))
+    # print(cky_recognizer(grammar_lexical, grammar_nonterm, sent))
     # tree_generator = cky_generate(grammar_lexical, grammar_nonterm, sent)
+    # print(' '.join(sent), '\t', len(list(tree_generator)), sep='')
     # for tree in tree_generator:
     #     tree.pretty_print()
-    # print(' '.join(sent), '\t', len(list(tree_generator)), sep='')
-    # tree_count = cky_count(grammar_lexical, grammar_nonterm, sent)
-    # print(' '.join(sent), '\t', tree_count, sep='')
+    tree_count = cky_count(grammar_lexical, grammar_nonterm, sent)
+    print(' '.join(sent), '\t', tree_count, sep='')
