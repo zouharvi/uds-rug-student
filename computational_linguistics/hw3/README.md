@@ -74,7 +74,7 @@ Values in the table demonstrate that the alternative way of computing the number
 
 # Grammar
 
-I also implemented my own CFG -> ChNF 'converter'. Interestingly enough, the resulting grammar in ChNF has the same number of rules as the provided grammar (20326). I did not expect this to happen, yet it makes, that if all redundant rules are removed,
+I also implemented my own CFG -> ChNF 'converter'. Interestingly enough, the resulting grammar in ChNF has the same number of rules as the provided grammar (20326). I did not expect this to happen, yet it makes sense, that if all redundant rules are removed, the number of rules is the same. Question: How do we know a grammar in ChNF is minimal and there does not exist another grammar yielding the same language with less number of production rules?
 
 The correctness of this conversion was tested on the number of parse trees (`output/count_partial_custom.tsv`), which should remain the same in comparison to the original grammar (`output/count_partial.tsv`). Obviously, the parse trees themselves are different (`output/drawing_custom.out`), because I chose a different renaming scheme for new non-terminals (uniquely identified by the current line and the decomposition step). These new tags were appended to the previous tags, so it is more apparent where the specific rule came from. This is at the cost of the grammar file being almost +50% larger. Here is an example of parse with the new grammar:
 
