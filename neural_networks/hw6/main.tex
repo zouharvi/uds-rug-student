@@ -6,165 +6,151 @@
 \begin{document}
 
 % {Sheet number}{headline}{deadline}
-\exercisehead{5}{\small Philip Georgis [s8phgeor], Pauline Sander [s8pasand], Vilem Zouhar [vizo00001] }{15.12.2020, 23:59}
-
-\section*{Instructions}
-Submit the jupyter notebook with the solution for exercise 5.2 b) in an archive along with the latex file.
-
+\exercisehead{6}{\small Philip Georgis [s8phgeor], Pauline Sander [s8pasand], Vilém Zouhar [vizo00001] }{5.1.2020}
 
 \section*{Exercises}
 
-\begin{exercise}[Computing Jacobian and Hessian][1 + 1 = 2]
 
-Let $f(x,y) = 3x^2 y + 4x^3 y^4 - 7x^9 y^4$. Compute Jacobian and Hessian matrices of $f$.
+\begin{exercise}[Network scheme]
+
+%We make use of the following two matricies to simplify the expressions (to avoid cases).
+\textbf{Definitions:} \\
+    $\textbf{X} \in \mathbf{R}^{nx3}$ contains the input data (\textit{age}, \textit{class}, \textit{survived})\\
+    $\textbf{y} \in \mathbf{R}^{nx1}$ contains the \textit{ticket prices} \\
+    $\textbf{b} \in 1^{nx1}$ a bias vector of ones (only one because they have the same shape for both layers) \\
+    $\textbf{W}^{(1)} \in [0,1]^{4x4}$ weight matrix mapping from input to hidden layer \\
+    $\textbf{W}^{(2)} \in [0,1]^{5x1}$ weight matrix mapping from hidden to output layer \\
+    %J^{n,k} = [(0, 0, \ldots, 0, 1)^T]^{(n\times 1)} \times [(1, 1, \ldots, 1)]^{(1\times k)} \qquad \textit{only bottom-most row} \\
+    concat(\textbf{X},\textbf{y}) - operation that appends vector \textbf{y} as a column to matrix \textbf{X} \\ \linebreak
+\textbf{Formula:}    
+\begin{align}
+\hat{y} = \textbf{e}\footnotemark & = concat( ReLU(concat(\textbf{X},\textbf{b}) \times \textbf{W}^{(1)}), \textbf{b}) \times \textbf{W}^{(2)} \\
+Loss = \textbf{L} & = MSE(\hat{y}, \textbf{y}) \\
+& = \frac{1}{n} \sum^n \Bigg(concat( ReLU(concat(\textbf{X}_n,\textbf{b}_n) \times \textbf{W}^{(1)}_n), \textbf{b}_n) \times \textbf{W}^{(2)}_n - \textbf{y}_n \Bigg)^2
+\end{align}
+\footnotetext{This is the name in the computational graph in exercise 6.2.}
+This gives us the following network scheme (see next page):
+\begin{figure}
+    \centering
+    \includegraphics{img/Network_scheme.pdf}
+    \caption{Network scheme}
+    \label{fig:my_label}
+\end{figure}
 \end{exercise}
+\pagebreak
 
+\begin{exercise}[Computation graph]
 
-\begin{solution}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/comp_graph.png}
+\end{figure}
 
-$\textbf{J}_f = 
-    \begin{bmatrix}
-     \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y}
-    \end{bmatrix} =
-    \begin{bmatrix}
-    6xy + 12x^2y^4 - 63x^8y^4 \\
-    3x^2 + 16x^3y^3 - 28x^9y^3
-    \end{bmatrix}^T $
-\\
-\\
-   $\textbf{H}_f = 
-   \begin{bmatrix}
-    \frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y}\\
-    \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
-    \end{bmatrix} = 
-   \begin{bmatrix}
-    6y + 24xy^4 - 504x^7y^4 & 6x + 48x^2y^3 - 252x^8y^3\\
-    6x + 48x^2y^3 - 252x^8y^3 & 48x^3y^2 - 84x^9y^2
-    \end{bmatrix} $
-    \end{solution}
-
-
-\begin{exercise}[Taylor Series and Newton's Method][1 + 2 + 1 + 1 = 5]
-
-    \begin{enumerate}
-    \item Derive the first 5 terms of the Taylor series about $x_0 = 0$ for $f(x) = cos(x)$, and write the series in sigma notation (e.g. as an infinite sum).
-    
-    \item In python, apply Newton's method to find the nearest critical point of \\
-    \begin{center} $f(x, y) = x^2 - y^2 + 4 - 3xy$\\
-    from the initial point $x_0 = -0.3, y_0 = 0.3$.\\ \end{center}
-    After each iteration, check the value of the first derivative, i.e. Jacobian: if Jacobian is 0, then we reached the critical point.\\
-    Plot the original function for x and y in range from -0.5 to 0.5 with step size of 0.01, along with the initial point and the points computed after each iteration.
-    Use method \href{https://matplotlib.org/3.1.0/gallery/mplot3d/surface3d.html}{.surface\_plot()} with parameter $alpha=0.3$ for plotting the function and \href{https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html}{.scatter()} for plotting the points. \\
-	What kind of problem of function minimization task is illustrated with this example?
-    
-    \item How is Newton’s Method related to gradient descent?
-    
-	\item In which case is it impossible to apply Newton's method? Hint: look at the multidimensional generalization of the formula.
-	
-	
-    
-  \end{enumerate}
-    
 \end{exercise}
-
-
-\begin{solution}
-   \begin{enumerate}
-       \item The Taylor series is defined as $\sum_{n=0}^\infty \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$. If $f(x) = cos(x)$ and $x_0 = 0$, the first five elements are
-       \begin{equation}
-           \begin{split}
-               cos(x) & \approx cos(0) + -sin(0)x + \frac{1}{2!}-cos(0)x^2 + \frac{1}{3!}sin(0)x^3 + \frac{1}{4!}cos(0)x^4 \\
-               & = 1 + \frac{1}{2!}\cdot x^2 + \frac{1}{4!}\cdot x^4 \\
-           \end{split}
-       \end{equation}
-       or, written as a sum: $\sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k = \sum_{k=0}^\infty \frac{x^{2k}}{(2k)!}$
-       \item In this example we end up on a saddle point, not at the minimum. We reach the critical point after only one iteration, because the function is quadratic and the parabola can be fitted onto the quadratic slope.
-       \item Both Newton's method and gradient descent find critical points of graphs using the first order derivative of the function. In contrast to gradient descent, Newton's method also takes the second order derivative into account and cannot distinguish between maxima and minima (it only works if the Hessian is positive definite). It therefore depends on the starting point. Newton's method can be faster than gradient descent (e.g. it found the critical point in b) after only one iteration).
-       \item Newtons method is computationally much more expensive because the inverse of the Hessian Metrix has to be computed every time the matrix is updated. Only minimazition problems with few parameters can be solved using Newton's method.
-   \end{enumerate}
-\end{solution}
-
-
-\begin{exercise}[Activation Functions][1.5 + 1 + 0.5 = 3]
-
-    \begin{enumerate}
-    \item Three of the most commonly-used activation functions are the sigmoid function, hyperbolic tangent, and ReLU.  The equations for these are given below.  Compute the first derivative of each function.  Note that your final derivative for tanh should not be written in terms of other hyperbolic functions, though you may use these in your calculation. Hint: ReLU is not differentiable at x = 0.  For the purposes of your derivative, you may define its derivative piecewise, ignoring this point.
-    \[\sigma(x) = \frac{1}{1+e^{-x}}\,\,\,\,\,\tanh(x) = \frac{e^{2x} - 1}{e^{2x} + 1}\]
-    \[ReLU(x) =   \left\{
-\begin{array}{ll}
-      0 & x < 0 \\
-      x & x > 0 \\
-\end{array} 
-\right. \]
-    
-    \item Using an online resource like Wolfram Alpha or Desmos, graph each function along with its derivative.  Discuss the differences you observe.  What are the advantages and disadvantages of each?  In particular, think about how the range of the function and the amplitude of the derivative would affect a network.
-    
-    \item Which activation function would be most appropriate for a classification problem when there are only two classes?  Would adding more classes change your choice?  Why or why not?
-  \end{enumerate}
-    
-\end{exercise}
-
-
-\begin{solution}
-    \paragraph{a)}
-    
-    \[\sigma'(x) = \frac{(1+e^{-x})'}{(1+e^{-x})^2} = \frac{-e^{-x}}{(1+e^{-x})^2} = \frac{1}{1+e^{-x}} \big( 1 - \frac{1}{1+e^{-x}} \big) = \sigma(x) \cdot (1- \sigma(x))\]
-    \[ tahn'(x) = \Big( \frac{e^{2x}-1}{e^{2x}+1} \cdot \frac{e^{-x}}{e^{-x}} \Big)' \]
-    \[= \Big( \frac{e^x-e^{-x}}{e^x+e^{-x}} \Big)' = \frac{(e^x-e^{-x})'\cdot (e^x+e^{-x}) - (e^x-e^{-x})\cdot (e^x+e^{-x})' }{(e^x+e^{-x})^2} \]
-    \[ = \frac{(e^x+e^{-x})\cdot (e^x+e^{-x}) - (e^x+e^{-x})\cdot (e^x-e^{-x}) }{(e^x-e^{-x})^2} = \frac{(e^x+e^{-x})^2 - (e^x-e^{-x})^2}{(e^x+e^{-x})^2} \]
-    \[ = 1 - \frac{(e^x-e^{-x})^2}{(e^x+e^{-x})^2}\qquad \big(= 1 - tanh^2(x) \big)\]
-    \[ReLU'(x) =   \left\{
-    \begin{array}{ll}
-          0 & x < 0 \\
-          1 & x > 0 \\
-    \end{array} 
-    \right. \]
-    
-    \begin{figure}[ht]
-        \center
-        \includegraphics[width=0.4\linewidth]{img/fig_sig.png}
-        \caption{sigmoid function and its derivative, x:y ratio 5:1 \label{fig:sigmoid}}
-        \includegraphics[width=0.6\linewidth]{img/fig_tanh.png}
-        \caption{tanh function and its derivative, x:y ratio 1:1 \label{fig:tanh}}
-        \includegraphics[width=0.6\linewidth]{img/fig_relu.png}
-        \caption{ReLU function and its derivative, x:y ratio 1:1 \label{fig:relu}}
-    \end{figure}
-    
-    \paragraph{b)}
-
-    All functions (sigmoid: \Cref{fig:sigmoid}, tanh: \Cref{fig:tanh}, ReLU: \Cref{fig:relu}) are non-decreasing. Positive properties of sigmoid and tanh are that their derivatives are continuous and that they are bounded. Both sigmoid and ReLU are non-negative, though this is not an unfixable property of tanh, as it can be moved upward and squashed to also span $(0, 1)$. In fact tanh is just manipulated sigmoid. Tanh and sigmoid require quite demanding computations (can be approximated by precomputed lookup tables), while ReLU is only an \textit{if} statement.
-    
-    Sigmoid is more stretched along the x axis and therefore in comparison the gradient of tanh is more concentrated around the origin. This is also adjustable by just multiplying the argument by a parameter: $\alpha x$.
-    
-    Because of the almost constant derivative of ReLU, it could be difficult to navigate the function landscape with higher order approximation.
-    
-    \paragraph{c)}
-    
-    For binary classification, sigmoid or squashed tanh would make the most sense, because they would directly be able to output the probability of the first class and the probability of the other class as $1-p$ (property of them being bounded).
-    
-    For predicting multiple classes, both sigmoid and tanh would give the same argmax. This would not be the case for ReLU in case all of the feeding values would be $<0$. For multiclass prediction something like softmax (based on sigmoid) would be the most useful.
-    
-\end{solution}
-
 
 \clearpage
 
-\section*{Submission instructions}
+\begin{exercise}[Backpropagate]
 
-\framebox{
-	\begin{minipage}{\linewidth}
-		The following instructions are mandatory. If you are not following them, tutors can
-		decide to not correct your exercise.
-	\end{minipage}
-}
+Biases are simply part of the weight matrices. The forward propagation is vectorized.
 
-\begin{itemize}
-    \item You have to submit the solutions of this assignment sheet as a team of 2-3 students.
-    \item  Hand in a \textbf{single} PDF file with your solutions.
-    \item Make sure to write the student teams ID and the name of each
-    member of your team on your submission.
-    \item Your assignment solution must be uploaded by only \textbf{one} of your team members to the course website.
-    \item If you have any trouble with the submission, contact your tutor \textbf{before} the deadline.
-\end{itemize}
+\newcommand{\starchen}{\qquad \star}
+
+\begingroup
+\allowdisplaybreaks
+Forward pass:
+\begin{align*}
+% forward computation
+L^{(1x1)} = \frac{H}{n} \qquad & \\
+H^{(1x1)} = \sum_{k=1}^n G_{k} \qquad & \\
+G_k^{(1x1)} = F_k^2 \qquad & \\
+F^{(nx1)} = E - \textbf{y}^{nx1} \qquad & \qquad = concat( ReLU(concat(\textbf{X},\textbf{b}) \times \textbf{W}^{(1)}), \textbf{b}) \times \textbf{W}^{(2)} - \textbf{y}\\
+E^{(nx1)} = D \times W^{(2)(5x1)} \qquad & \qquad = concat( ReLU(concat(\textbf{X},\textbf{b}) \times \textbf{W}^{(1)}), \textbf{b}) \times \textbf{W}^{(2)} \\
+D^{(nx5)} = concat(C,\textbf{b}) \qquad & \qquad = concat( ReLU(concat(\textbf{X},\textbf{b}) \times \textbf{W}^{(1)}), \textbf{b})\\
+C^{(nx4)} = ReLU(B)  \qquad & \qquad  = ReLU(concat(\textbf{X},\textbf{b}) \times \textbf{W}^{(1)})\\
+B^{(nx4)} = A \times W^{(1)(4x4)} \qquad & \qquad = concat(\textbf{X},\textbf{b}) \times W^{(1)}\\
+A^{(nx4)} = concat(\textbf{X},\textbf{b}) \qquad & \\
+\end{align*}
+
+Backpropagation $W^{(2)}$
+\begin{align*}
+& \frac{\partial L}{\partial W^{(2)}} = \frac{\partial L}{\partial H} \frac{\partial H}{\partial G} \frac{\partial G}{\partial F} \frac{\partial F}{\partial E} \frac{\partial E}{\partial w^{(2)}_{j}} \\
+& \frac{\partial L}{\partial H} = \frac{1}{n}  \\
+& \frac{\partial H}{\partial G} = \sum^n \\
+& \frac{\partial G}{\partial F} = 2 \cdot F^{(nx1)} = 2 F^{T(1xn)} \\
+& \frac{\partial F}{\partial E} = 1 \\
+& \frac{\partial E}{\partial W^{(2)}} = D \\
+& \Rightarrow \frac{\partial L}{\partial W^{(2)}} = \frac{1}{n} \sum^n [2 \cdot F^{T(1xn)} \cdot 1 \cdot D^{(nx5)}] = \frac{2}{n} \sum[F^T D]^{(1x5)} = \frac{2}{n} F^T D \\
+& \Rightarrow \frac{2}{n} (\hat{y} - y)^{T(1\times n)} \Bigg[ concat( ReLU(concat(\textbf{X},\textbf{b}) \times \textbf{W}^{(1)}), \textbf{b}) \Bigg]^{(n\times 5)}
+\end{align*}
+
+Backpropagation $w^{(1)}_{i,j}$
+\begin{align*}
+& \frac{\partial L}{\partial w^{(1)}_{i,j}} = \frac{\partial L}{\partial H} \frac{\partial H}{\partial G} \frac{\partial G}{\partial F} \frac{\partial F}{\partial E} \frac{\partial E}{\partial D} \frac{\partial D}{\partial C} \frac{\partial C}{\partial B_{i,j}} \frac{\partial B_{i,j}}{\partial w^{(1)}_{i,j}} \\
+& \frac{\partial E}{\partial D} = W^{(2)} \\
+& \frac{\partial D}{\partial C} = this does not work \\
+& \frac{\partial C}{\partial B_{ij}} = R'(B)_{ij} = \begin{cases}
+    1 \hspace{0.3cm} B_{ij} > 0\\ %\, \wedge\, i = j  \\
+    0 \hspace{0.3cm} \text{else} \\
+\end{cases} \\
+& \frac{\partial B_{ij}}{\partial w^{(1)}_{ij}} = A_{ij} \\
+& \Rightarrow \frac{\partial L}{\partial W^{(1)}} = \\
+& = \frac{1}{n} \sum_{k=1}^n \Bigg[ \bigg[  [ 2 \cdot F \times 1 \times (W^{(2)})^T] \times I^4\bigg] \odot R'(B) \Bigg]_{k,*} \times A_{k,*} \\
+& = \frac{2}{n} A^T \Bigg[ \bigg[ F \times (W^{(2)})^T \times I^4\bigg] \odot R'(B) \Bigg] \\
+& \Rightarrow \frac{2}{n} (x + J^{n,4})^{T, (4\times n)} \Bigg[ \bigg[ (\hat{y} - y) \times (W^{(2)})^T \times I^4\bigg]^{(n\times 4)} \odot R'\big((x+J^{n,4}) \times W^{(1)}\big)^{(n\times 4)} \Bigg]^{(n\times 4)}
+\end{align*}
+\endgroup
+
+% old solution
+% \begingroup
+% \allowdisplaybreaks
+% \begin{align*}
+% % L
+% &  \frac{\partial L}{\partial L} = 1 & & \starchen\\
+% % H
+% & L = \frac{H}{n} & \frac{\partial L}{\partial H} = \frac{1}{n} & \starchen \\
+% % G
+% & H = \sum_i^n G_{i,1} & \frac{\partial H}{\partial G_i} = 1 &  \\
+% & \frac{\partial L}{\partial G} = \frac{\partial L}{\partial H} \cdot \frac{\partial H}{\partial G} & = \frac{1}{n} \cdot \sum^n 1 & \starchen \\
+% % F
+% & G_i = F_i^2 & \frac{\partial G_i}{\partial F_i} = 2\cdot F_i & \\
+% & \frac{\partial L}{\partial F} = \frac{\partial L}{\partial G} \cdot \frac{\partial G}{\partial F} & = \frac{2}{n} \sum^n_k F_k & \starchen \\
+% % E
+% & F_i = E_i - y_i & \frac{\partial F}{\partial E} = \mathbf{I}_{(n\times n)} & \\
+% & \frac{\partial L}{\partial E} = \frac{\partial L}{\partial F} \cdot \frac{\partial F}{\partial E} & = \frac{2}{n} F \times \mathbf{I}_{(n\times n)} = \frac{2}{n} \sum^n_k F_k & \starchen \\
+% % W2
+% & E = D \times W^{(2)} & \frac{\partial E}{\partial W^{(2)}} = D & \\
+% & \frac{\partial L}{\partial W^{(2)}} = \frac{\partial L}{\partial E} \cdot \frac{\partial E}{\partial W^{(2)}} & = \frac{2}{n} \sum^n_k F_k \times D_{k*} & \starchen \\
+% % D
+% & \frac{\partial E}{\partial D} = (W^{(2)})^T & \\
+% & \frac{\partial L}{\partial D} = \frac{\partial L}{\partial E} \cdot \frac{\partial E}{\partial D} & = \frac{2}{n} \cdot F \times (W^{(2)})^T & \starchen \\
+% % C
+% & D_{ij} = \begin{cases}
+%     C_{ij} \qquad j \in \{1, 2, 3, 4 \} \\
+%     1 \hspace{0.35cm} \qquad j = 5 \\
+% \end{cases} & \frac{\partial D}{\partial C} = \mathbf{I}_{(5\times 5)} - \mathbf{1}_5 \times \mathbf{1}_5^T & \\
+% & \frac{\partial L}{\partial C} = \frac{\partial L}{\partial D} \cdot \frac{\partial D}{\partial C} & = \frac{2}{n} \cdot [F \times (W^{(2)})^T]^{(n\times 4)} \ \textit{(last column dropped)} & \starchen \\
+% % B
+% & C_{ij} = \begin{cases}
+%     B_{ij} \qquad B_{ij} > 0  \\
+%     0 \hspace{0.35cm} \qquad \text{else} \\
+% \end{cases}
+% & R'(B)_{ij} = \frac{\partial C_{ij}}{\partial B_{ij}} = \begin{cases}
+%     1 \hspace{0.3cm} B_{ij} > 0  \\
+%     0 \hspace{0.3cm} \text{else} \\
+% \end{cases} & \\
+% & \frac{\partial L}{\partial B} = \frac{\partial L}{\partial C} \cdot \frac{\partial C}{\partial B} & = \frac{2}{n} \cdot [F \times (W^{(2)})^T]^{(n\times 4)}\odot R'(B) & \starchen \\
+% % W1
+% & B = A \times W^{(1)} & \frac{\partial B}{\partial W^{(1)}} = A^T & & \\
+% & \frac{\partial L}{\partial W^{(1)}} = \frac{\partial L}{\partial B} \cdot \frac{\partial B}{\partial W^{(1)}} & = \frac{2}{n} \cdot \sum^n_k \big[[F \times (W^{(2)})^T]^{(n\times 4)})_{k*} \odot R'(B)\big] \times A^T_{k*} & \starchen
+% \end{align*}
+% \endgroup
+
+\end{exercise}
+
+
+\begin{exercise}[PyTorch]
+Tensors are smart objects and the operations on them also produce the gradient and can track history. The partial gradient then has to be defined by the operation. The autograd then constructs a dynamic computational graph, which is an acyclic connected graph from this node with leaves as the input vectors. It is invoked using \texttt{backward}.
+\end{exercise}
 
 \end{document}
