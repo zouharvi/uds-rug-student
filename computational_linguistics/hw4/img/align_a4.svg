@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="main_canvas"
+   version="1.1"
+   style="width: 800px; height: 200px;"
+   sodipodi:docname="align_a4.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata143">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs141" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1050"
+     id="namedview139"
+     showgrid="false"
+     inkscape:zoom="0.7348018"
+     inkscape:cx="526.75736"
+     inkscape:cy="126.59067"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="main_canvas"
+     inkscape:document-rotation="0" />
+  <text
+     x="20"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text2">Wählen</text>
+  <line
+     x1="20"
+     x2="93.966667"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line4" />
+  <text
+     x="103.96667"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text6">Sie</text>
+  <line
+     x1="103.96667"
+     x2="134.51666"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line8" />
+  <text
+     x="144.51666"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text10">im</text>
+  <line
+     x1="144.51666"
+     x2="169.55"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line12" />
+  <text
+     x="179.55"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text14">Popupmenü</text>
+  <line
+     x1="179.55"
+     x2="298.36667"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line16" />
+  <text
+     x="308.36667"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text18">unten</text>
+  <line
+     x1="308.36667"
+     x2="366.56665"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line20" />
+  <text
+     x="376.56665"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text22">im</text>
+  <line
+     x1="376.56665"
+     x2="401.60001"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line24" />
+  <text
+     x="411.60001"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text26">Dialogfeld</text>
+  <line
+     x1="411.60001"
+     x2="512.8667"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line28" />
+  <text
+     x="522.8667"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text30">die</text>
+  <line
+     x1="522.8667"
+     x2="553.41669"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line32" />
+  <text
+     x="563.41669"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text34">Option</text>
+  <line
+     x1="563.41669"
+     x2="630.18335"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line36" />
+  <text
+     x="640.18335"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text38">&quot;</text>
+  <line
+     x1="640.18335"
+     x2="649.38336"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line40" />
+  <text
+     x="659.38336"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text42">Exportieren</text>
+  <line
+     x1="659.38336"
+     x2="775.46667"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line44" />
+  <text
+     x="785.46667"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text46">.</text>
+  <line
+     x1="785.46667"
+     x2="791.81665"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line48" />
+  <text
+     x="801.81665"
+     y="200"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text50">&quot;</text>
+  <line
+     x1="801.81665"
+     x2="811.01666"
+     y1="180"
+     y2="180"
+     style="stroke:#000000"
+     id="line52" />
+  <text
+     x="36.33334"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text54">Choose</text>
+  <line
+     x1="36.33334"
+     x2="110.16667"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line56" />
+  <line
+     x1="73.250008"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line58" />
+  <text
+     x="120.16667"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text60">Export</text>
+  <line
+     x1="120.16667"
+     x2="185.78334"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line62" />
+  <line
+     x1="152.97501"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line64" />
+  <text
+     x="195.78334"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text66">from</text>
+  <line
+     x1="195.78334"
+     x2="242.31668"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line68" />
+  <line
+     x1="219.05"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line70" />
+  <text
+     x="252.31668"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text72">the</text>
+  <line
+     x1="252.31668"
+     x2="285.14999"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line74" />
+  <line
+     x1="268.73334"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line76" />
+  <text
+     x="295.14999"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text78">pop-up</text>
+  <line
+     x1="295.14999"
+     x2="365.38333"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line80" />
+  <line
+     x1="330.26666"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line82" />
+  <text
+     x="375.38333"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text84">menu</text>
+  <line
+     x1="375.38333"
+     x2="432.53333"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line86" />
+  <line
+     x1="403.95834"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line88" />
+  <text
+     x="442.53333"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text90">at</text>
+  <line
+     x1="442.53333"
+     x2="462.78333"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line92" />
+  <line
+     x1="452.65833"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line94" />
+  <text
+     x="472.78333"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text96">the</text>
+  <line
+     x1="472.78333"
+     x2="505.61667"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line98" />
+  <line
+     x1="489.20001"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line100" />
+  <text
+     x="515.6167"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text102">bottom</text>
+  <line
+     x1="515.6167"
+     x2="587.96667"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line104" />
+  <line
+     x1="551.79169"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line106" />
+  <text
+     x="597.96667"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text108">of</text>
+  <line
+     x1="597.96667"
+     x2="618.20001"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line110" />
+  <line
+     x1="608.08331"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line112" />
+  <text
+     x="628.20001"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text114">the</text>
+  <line
+     x1="628.20001"
+     x2="661.03333"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line116" />
+  <line
+     x1="644.6167"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line118" />
+  <text
+     x="671.03333"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text120">dialog</text>
+  <line
+     x1="671.03333"
+     x2="732.01666"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line122" />
+  <line
+     x1="701.52502"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line124" />
+  <text
+     x="742.01666"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text126">box</text>
+  <line
+     x1="742.01666"
+     x2="778.33331"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line128" />
+  <line
+     x1="760.17499"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line130" />
+  <text
+     x="788.33331"
+     y="40"
+     font-size="20px"
+     font-family="sans-serif"
+     id="text132">.</text>
+  <line
+     x1="788.33331"
+     x2="794.68335"
+     y1="46"
+     y2="46"
+     style="stroke:#000000"
+     id="line134" />
+  <line
+     x1="791.50836"
+     x2="238.95833"
+     y1="46"
+     y2="180"
+     style="stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line136" />
+  <text
+     xml:space="preserve"
+     style="font-size:20px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px"
+     x="322.06839"
+     y="17.002817"
+     id="text970"><tspan
+       sodipodi:role="line"
+       id="tspan968"
+       x="322.06839"
+       y="17.002817">0.6</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:20px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px"
+     x="389.55066"
+     y="17.324627"
+     id="text974"><tspan
+       sodipodi:role="line"
+       id="tspan972"
+       x="389.55066"
+       y="17.324627">0.5</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:20px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px"
+     x="686.06055"
+     y="16.84058"
+     id="text978"><tspan
+       sodipodi:role="line"
+       id="tspan976"
+       x="686.06055"
+       y="16.84058">0.4</tspan></text>
+</svg>
