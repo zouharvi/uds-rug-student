@@ -30,6 +30,52 @@ Recall    = 0.544379
 AER       = 0.681684
 ```
 
+Third sentence from the dataset. It has complete disregard for the position of the tokens and also quite low precision.
+
+```
+  Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
+  ---------------------------------------------------------------------------
+ |(*)                                                                         | ils
+ |    *                                                                       | sont
+ |       *                                                                    | restreints
+ |          *                                                                 | par
+ |                                                                            | certaines
+ |             *                                                              | limites
+ |                *                                                           | qui
+ |                ?  ?  ?                                                     | ont
+ |                ?  ?  ?                                                     | été
+ |                ?  ?  ?                                                     | fixées
+ |                         ?  ?  ?                                            | pour
+ |                                  *                                         | garantir
+ |                              ( )   (*)( )                     ( )      ( ) | que
+ |                              ( )      (*)   ( )                  ( )   ( ) | la
+ |                                          (*)                               | liberté
+ |                        ( )   ( )      ( )   (*)                  ( )   ( ) | de
+ |                                                 *                          | une
+ |                                                    *                       | personne
+ |                                                         (*)                | ne
+ |                                                       ?     ?              | empiète
+ |                                                         (*)                | pas
+ |                                                       ?     ?              | sur
+ |                                                                *           | celle
+ |                        ( )   ( )      ( )   ( )                  (*)   ( ) | de
+ |                                                                      *     | une
+ |                                                                      *     | autre
+ |                              ( )      ( )   ( )                  ( )   (*) | .
+  ---------------------------------------------------------------------------
+   t  a  c  b  l  w  a  i  i  o  t  e  t  t  f  o  o  p  d  n  v  t  o  a  . 
+   h  r  o  y  i  h  r  m  n  r  o  n  h  h  r  f  n  e  o  o  i  h  f  n    
+   e  e  n     m  i  e  p     d     s  a  e  e     e  r  e  t  o  a     o    
+   y     s     i  c     o     e     u  t     e        s  s     l  t     t    
+         t     t  h     s     r     r        d        o        a        h    
+         r     s        e           e        o        n        t        e    
+         a              d                    m                 e        r    
+         i                                                                   
+         n                                                                   
+         e                                                                   
+         d                                                                   
+```
+
 ### Custom Models
 
 ### IBM1 (A0)
