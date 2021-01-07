@@ -107,7 +107,7 @@ elif args.extractor == 'A2*A3*A4*int':
 
 if args.diagonal:
     alignment = [
-        [(x,y,) for x,y in line if abs(x-y) <= 6]
+        [(x,y,) for x,y in line if abs(x-y) <= 8]
         for line in alignment
     ]
 

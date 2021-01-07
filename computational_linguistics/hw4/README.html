@@ -1,13 +1,7 @@
-## Introduction
-
-Since I [already programmed](https://github.com/zouharvi/mff-student/blob/master/1920-2/statistical_machine_translation/ibm1.py) the IBM Model 1 for a course on Statistical Machine Translation, the submitted code is just a polished and commented version of it.
-I am also attaching a draft of the paper _Leveraging Neural Machine Translation for Word Alignment_, which you may find interesting. Please do not share it outside of your team as it is currently in a review process. It covers three topics: (1) using an NMT to get word alignments, (2) various hard alignment extractor methods and (3) combination of all in a small neural network. The extractor methods are in brackets. Hard alignment extractors are reused from this projects and this document describes them very superficially and without mathematical notation. The original version was based on Kohen's pseudocode, which he recently [revised](http://mt-class.org/jhu/slides/lecture-ibm-model1.pdf). 
-For the graphics I also used [Slow Align](https://vilda.net/s/slowalign/), a small tool for displaying word alignment (needs major reworking).
-
-The submitted files:
-
-```
-img/
+<h2 id="introduction">Introduction</h2>
+<p>Since I <a href="https://github.com/zouharvi/mff-student/blob/master/1920-2/statistical_machine_translation/ibm1.py">already programmed</a> the IBM Model 1 for a course on Statistical Machine Translation, the submitted code is just a polished and commented version of it. I am also attaching a draft of the paper <em>Leveraging Neural Machine Translation for Word Alignment</em>, which you may find interesting. Please do not share it outside of your team as it is currently in a review process. It covers three topics: (1) using an NMT to get word alignments, (2) various hard alignment extractor methods and (3) combination of all in a small neural network. The extractor methods are in brackets. Hard alignment extractors are reused from this projects and this document describes them very superficially and without mathematical notation. The original version was based on Kohen’s pseudocode, which he recently <a href="http://mt-class.org/jhu/slides/lecture-ibm-model1.pdf">revised</a>. For the graphics I also used <a href="https://vilda.net/s/slowalign/">Slow Align</a>, a small tool for displaying word alignment (needs major reworking).</p>
+<p>The submitted files:</p>
+<pre><code>img/
   align_{a3,a4,int}.svg  # illustrations for this document
 src/
   aligner.py             # main aligner code
@@ -17,109 +11,59 @@ src/
   intersector.py         # used for intersection alignments extrensically
   intersect_reverse.py   # computes forward and backward alignments and intersects them
 Leverage_Align.pdf       # draft of Levaraging Neural Machine Translation for Word Alignment paper
-rust/main.rs             # rust implementation of IBM1
-```
-
-## Baseline
-
-Baseline observed.
-
-```
-Precision = 0.243110
+rust/main.rs             # rust implementation of IBM1</code></pre>
+<h2 id="baseline">Baseline</h2>
+<p>Baseline observed.</p>
+<pre><code>Precision = 0.243110
 Recall    = 0.544379
-AER       = 0.681684
-```
-
-### Custom Models
-
-### IBM1 (A0)
-
-Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token.
-
-Results for `IBM1 / A0` with 5 EM steps.
-
-```
-python3 ./src/aligner.py -n 100000 -e A0 -s 5 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
+AER       = 0.681684</code></pre>
+<h3 id="custom-models">Custom Models</h3>
+<h3 id="ibm1-a0">IBM1 (A0)</h3>
+<p>Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token.</p>
+<p>Results for <code>IBM1 / A0</code> with 5 EM steps.</p>
+<pre><code>python3 ./src/aligner.py -n 100000 -e A0 -s 5 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
 Precision = 0.615811
 Recall    = 0.801775
-AER       = 0.324835
-```
-
-### Threshold (A2)
-
-Results for  `A2(0.35)` with 7 EM steps.
-
-```
-python3 ./src/aligner.py -n 100000 -e A2 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
+AER       = 0.324835</code></pre>
+<h3 id="threshold-a2">Threshold (A2)</h3>
+<p>Results for <code>A2(0.35)</code> with 7 EM steps.</p>
+<pre><code>python3 ./src/aligner.py -n 100000 -e A2 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
 Precision = 0.685567
 Recall    = 0.778107
-AER       = 0.280435
-```
-
-
-### Proportion of best (A3)
-
-This extraction method examines all target tokens and selects the best one. All other alignments which have scores of at least `alpha` times the maximum one are taken. Here `alpha` is a parameter. In the following example consider `alpha=0.4`, then _menu_ would align to _Popupmenü_ and _Dialogfeld_ (mistakenly) and not to others. 
-
-<img src='img/align_a3.svg' width='1000px' height='250px'>
-
-Results for `A3(0.98)` with 7 EM steps.
-
-```
-python3 ./src/aligner.py -n 100000 -e A3 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
+AER       = 0.280435</code></pre>
+<h3 id="proportion-of-best-a3">Proportion of best (A3)</h3>
+<p>This extraction method examines all target tokens and selects the best one. All other alignments which have scores of at least <code>alpha</code> times the maximum one are taken. Here <code>alpha</code> is a parameter. In the following example consider <code>alpha=0.4</code>, then <em>menu</em> would align to <em>Popupmenü</em> and <em>Dialogfeld</em> (mistakenly) and not to others.</p>
+<p><img src='img/align_a3.svg' width='1000px' height='250px'></p>
+<p>Results for <code>A3(0.98)</code> with 7 EM steps.</p>
+<pre><code>python3 ./src/aligner.py -n 100000 -e A3 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
 Precision = 0.537281
 Recall    = 0.878698
-AER       = 0.370400
-```
-
-### Proportion of reverse best (A4)
-
-The same approach can be done from the target token perspective. Surprisingly, this works a bit better than A3. In the example for `alpha=0.5`, _Popupmenü_ would align to _pop-up_, _menu_ and _dialog_ (mistakenly).
-
-<img src='img/align_a4.svg' width='1000px' height='250px'>
-
-
-Results for `A4(0.98)` with 7 EM steps.
-
-```
-python3 ./src/aligner.py -n 100000 -e A4 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
+AER       = 0.370400</code></pre>
+<h3 id="proportion-of-reverse-best-a4">Proportion of reverse best (A4)</h3>
+<p>The same approach can be done from the target token perspective. Surprisingly, this works a bit better than A3. In the example for <code>alpha=0.5</code>, <em>Popupmenü</em> would align to <em>pop-up</em>, <em>menu</em> and <em>dialog</em> (mistakenly).</p>
+<p><img src='img/align_a4.svg' width='1000px' height='250px'></p>
+<p>Results for <code>A4(0.98)</code> with 7 EM steps.</p>
+<pre><code>python3 ./src/aligner.py -n 100000 -e A4 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
 Precision = 0.590789
 Recall    = 0.846154
-AER       = 0.330601
-```
-
-### Intersection (A2\*A3\*A4)
-
-As described by Koehn, intersection in alignment directions increases precision. The intersection of different alignment methods also improves the performance. Intersecting the previous two examples leads to _Popupmenü_ being aligned to _pop-up_ and _menu_.
-
-<img src='img/align_int.svg' width='1000px' height='250px'>
-
-The main disadvantage of both A3 and A4 is that even with `alpha=1`, they insist that every token is aligned. Thresholding the alignments improves the performance. Results for `A2(0.25) \cap A3(0.98) \cap A4(0.98)` with 7 EM steps.
-
-```
-python3 ./src/aligner.py -n 100000 -e A2*A3*A4 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
+AER       = 0.330601</code></pre>
+<h3 id="intersection-a2a3a4">Intersection (A2*A3*A4)</h3>
+<p>As described by Koehn, intersection in alignment directions increases precision. The intersection of different alignment methods also improves the performance. Intersecting the previous two examples leads to <em>Popupmenü</em> being aligned to <em>pop-up</em> and <em>menu</em>.</p>
+<p><img src='img/align_int.svg' width='1000px' height='250px'></p>
+<p>The main disadvantage of both A3 and A4 is that even with <code>alpha=1</code>, they insist that every token is aligned. Thresholding the alignments improves the performance. Results for <code>A2(0.25) \cap A3(0.98) \cap A4(0.98)</code> with 7 EM steps.</p>
+<pre><code>python3 ./src/aligner.py -n 100000 -e A2*A3*A4 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
 Precision = 0.758483
 Recall    = 0.784024
-AER       = 0.231228
-```
-
-### Intersection And Reverse (A2'\*A3'\*A4' \* A2\*A3\*A4)
-
-The final step combines the previous approach by computing the alignment from the other direction and intersecting it as well. In this version only alignments which are within 7 places of each other are considered. This promotes diagonal alignment. A more elegant solution would be to not create this hard boundary, but only increase scores to alignments on the diagonal. The decision process would then be delegated to the extractors.
-
-Results for `A2(0.25) \cap A3(0.9) \cap A4(0.9) \cap A2'(0.25) \cap A3'(0.9) \cap A4'(0.9)` with 5 EM steps.
-
-```
-src/intersect_reverse.sh
+AER       = 0.231228</code></pre>
+<h3 id="intersection-and-reverse-a2a3a4-a2a3a4">Intersection And Reverse (A2’*A3’*A4’ * A2*A3*A4)</h3>
+<p>The final step combines the previous approach by computing the alignment from the other direction and intersecting it as well. In this version only alignments which are within 7 places of each other are considered. This promotes diagonal alignment. A more elegant solution would be to not create this hard boundary, but only increase scores to alignments on the diagonal. The decision process would then be delegated to the extractors.</p>
+<p>Results for <code>A2(0.25) \cap A3(0.9) \cap A4(0.9) \cap A2'(0.25) \cap A3'(0.9) \cap A4'(0.9)</code> with 5 EM steps.</p>
+<pre><code>src/intersect_reverse.sh
 Precision = 0.879452
 Recall    = 0.718935
-AER       = 0.197724
-```
-
-The third sentence of the dataset:
-
-```
- Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
+AER       = 0.197724</code></pre>
+<p>The third sentence of the dataset:</p>
+<pre><code> Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
   ---------------------------------------------------------------------------
  |(*)                                                                         | ils
  |   (*)            ( )                                                       | sont
@@ -159,23 +103,14 @@ The third sentence of the dataset:
          i                                                                   
          n                                                                   
          e                                                                   
-         d                                                                   
-```
-
-## fast_align
-
-The script `src/fastalign.sh` runs fast_align with best practice arguments (`-v` Dirichlet prior and `-do` close to diagonal). EM steps are default 5.
-
-```
-Precision = 0.788122
+         d                                                                   </code></pre>
+<h2 id="fast_align">fast_align</h2>
+<p>The script <code>src/fastalign.sh</code> runs fast_align with best practice arguments (<code>-v</code> Dirichlet prior and <code>-do</code> close to diagonal). EM steps are default 5.</p>
+<pre><code>Precision = 0.788122
 Recall    = 0.831361
-AER       = 0.196670
-```
-
-Alignment of the third sentence in the data by fast_align. Neither the current implementation nor fast\_align guessed the _ont été fixées_ phrase correctly, but fast\_align performed slightly better. This is true even for overall performance, where fast\_align is better by `0.001`. I am however sure, that if one would choose better parameters, then both fast\_align and the proposed aligner would produce even better results.
-
-```
-  Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
+AER       = 0.196670</code></pre>
+<p>Alignment of the third sentence in the data by fast_align. Neither the current implementation nor fast_align guessed the <em>ont été fixées</em> phrase correctly, but fast_align performed slightly better. This is true even for overall performance, where fast_align is better by <code>0.001</code>. I am however sure, that if one would choose better parameters, then both fast_align and the proposed aligner would produce even better results.</p>
+<pre><code>  Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
   ---------------------------------------------------------------------------
  |(*)                                                                         | ils
  |   (*)            ( )                                                       | sont
@@ -215,25 +150,14 @@ Alignment of the third sentence in the data by fast_align. Neither the current i
          i                                                                   
          n                                                                   
          e                                                                   
-         d                                                                   
-```
-
-Without `-d` the results are:
-
-```
-Precision = 0.645161
+         d                                                                   </code></pre>
+<p>Without <code>-d</code> the results are:</p>
+<pre><code>Precision = 0.645161
 Recall    = 0.766272
-AER       = 0.313448
-```
-
-# Performance
-
-I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~15s`. This is comparable to fast_align (`~14s`). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other fast_align is multi-threaded.
-
-Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.
-
-```
-Precision = 0.618585
+AER       = 0.313448</code></pre>
+<h1 id="performance">Performance</h1>
+<p>I was quite concerned with the implementation speed. So I wrote it in Rust (<code>rust/</code>). The time went from <code>~10min</code> to <code>~15s</code>. This is comparable to fast_align (<code>~14s</code>). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other fast_align is multi-threaded.</p>
+<p>Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.</p>
+<pre><code>Precision = 0.618585
 Recall    = 0.798817
-AER       = 0.323890
-```
+AER       = 0.323890</code></pre>
