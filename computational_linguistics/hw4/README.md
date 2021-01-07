@@ -203,3 +203,13 @@ Precision = 0.645161
 Recall    = 0.766272
 AER       = 0.313448
 ```
+
+# Performance
+
+I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~15s`. This is comparable to fast_align (`~14s`). Results are almost the as for the IBM1 / A0 model. The small differences are caused by unstable argmax.
+
+```
+Precision = 0.618585
+Recall    = 0.798817
+AER       = 0.323890
+```
