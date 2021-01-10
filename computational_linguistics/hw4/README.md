@@ -80,7 +80,7 @@ Third sentence from the dataset. It has complete disregard for the position of t
 
 ### IBM1 (A0)
 
-Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token.
+Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token. Lowercasing the whole corpus led to slightly better results, therefore I report performance on lowercased input.
 
 Results for `IBM1 / A0` with 5 EM steps.
 
@@ -89,6 +89,16 @@ python3 ./src/aligner.py -n 100000 -e A0 -s 5 | python3 ./jhu-mt-hw/hw2/score-al
 Precision = 0.615811
 Recall    = 0.801775
 AER       = 0.324835
+```
+
+### IBM1 + NULL (A0+NULL)
+
+I also experimented with adding `NULL`. It was added to the target sentence and then went through the rest of the pipeline. Before output all alignments to this token were cancelled. The results were, however, worse than without it.
+
+```
+Precision = 0.587671
+Recall    = 0.760355
+AER       = 0.357678
 ```
 
 ### Threshold (A2)
@@ -274,7 +284,7 @@ AER       = 0.313448
 
 # Performance
 
-I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~15s`. This is comparable to fast_align (`~14s`). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other fast_align is multi-threaded.
+I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~19.1s`. This is comparable to fast_align (`~19.6s`). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other multi-threads only the maximization step. Also these measurements should be taken with a bag of salt, sice it is only one pass on a development notebook.
 
 Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.
 

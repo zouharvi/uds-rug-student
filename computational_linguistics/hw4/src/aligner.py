@@ -26,6 +26,8 @@ with open(args.file1, 'r') as f1, open(args.file2, 'r') as f2:
     for line1, line2 in fiterator:
         items1 = tokenize(line1)
         items2 = tokenize(line2)
+        if 'NULL' in args.extractor:
+            items2 += ['NULL']
         sents.append((items1, items2))
         words1 |= set(items1)
         words2 |= set(items2)
@@ -70,7 +72,14 @@ for step in range(args.steps):
         alignment_probs[sent_i] = probs / np.sum(probs, axis=0)
 
 
-if args.extractor == 'A0':
+if args.extractor == 'A0+NULL':
+    alignment = extract_0(alignment_probs)
+    new_alignment = []
+    # remove NULL alignments
+    for align, (sent1, sent2) in zip(alignment, sents):
+        new_alignment.append([(x,y) for x,y in align if y < len(sent2)-1])
+    alignment = new_alignment
+elif args.extractor == 'A0':
     alignment = extract_0(alignment_probs)
 elif args.extractor == 'A1':
     alignment = extract_1(alignment_probs)

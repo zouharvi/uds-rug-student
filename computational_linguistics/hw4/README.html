@@ -61,12 +61,17 @@ AER       = 0.681684</code></pre>
          d                                                                   </code></pre>
 <h3 id="custom-models">Custom Models</h3>
 <h3 id="ibm1-a0">IBM1 (A0)</h3>
-<p>Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token.</p>
+<p>Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token. Lowercasing the whole corpus led to slightly better results, therefore I report performance on lowercased input.</p>
 <p>Results for <code>IBM1 / A0</code> with 5 EM steps.</p>
 <pre><code>python3 ./src/aligner.py -n 100000 -e A0 -s 5 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
 Precision = 0.615811
 Recall    = 0.801775
 AER       = 0.324835</code></pre>
+<h3 id="ibm1-null-a0null">IBM1 + NULL (A0+NULL)</h3>
+<p>I also experimented with adding <code>NULL</code>. It was added to the target sentence and then went through the rest of the pipeline. Before output all alignments to this token were cancelled. The results were, however, worse than without it.</p>
+<pre><code>Precision = 0.587671
+Recall    = 0.760355
+AER       = 0.357678</code></pre>
 <h3 id="threshold-a2">Threshold (A2)</h3>
 <p>Results for <code>A2(0.35)</code> with 7 EM steps.</p>
 <pre><code>python3 ./src/aligner.py -n 100000 -e A2 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
@@ -198,7 +203,7 @@ AER       = 0.196670</code></pre>
 Recall    = 0.766272
 AER       = 0.313448</code></pre>
 <h1 id="performance">Performance</h1>
-<p>I was quite concerned with the implementation speed. So I wrote it in Rust (<code>rust/</code>). The time went from <code>~10min</code> to <code>~15s</code>. This is comparable to fast_align (<code>~14s</code>). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other fast_align is multi-threaded.</p>
+<p>I was quite concerned with the implementation speed. So I wrote it in Rust (<code>rust/</code>). The time went from <code>~10min</code> to <code>~19.1s</code>. This is comparable to fast_align (<code>~19.6s</code>). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other multi-threads only the maximization step. Also these measurements should be taken with a bag of salt, sice it is only one pass on a development notebook.</p>
 <p>Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.</p>
 <pre><code>Precision = 0.618585
 Recall    = 0.798817
