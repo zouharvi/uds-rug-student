@@ -30,50 +30,37 @@ Recall    = 0.544379
 AER       = 0.681684
 ```
 
-Third sentence from the dataset. It has complete disregard for the position of the tokens and also quite low precision.
+Seventh sentence from the dataset. It has complete disregard for the position of the tokens and also quite low precision.
 
 ```
-  Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
-  ---------------------------------------------------------------------------
- |(*)                                                                         | ils
- |    *                                                                       | sont
- |       *                                                                    | restreints
- |          *                                                                 | par
- |                                                                            | certaines
- |             *                                                              | limites
- |                *                                                           | qui
- |                ?  ?  ?                                                     | ont
- |                ?  ?  ?                                                     | été
- |                ?  ?  ?                                                     | fixées
- |                         ?  ?  ?                                            | pour
- |                                  *                                         | garantir
- |                              ( )   (*)( )                     ( )      ( ) | que
- |                              ( )      (*)   ( )                  ( )   ( ) | la
- |                                          (*)                               | liberté
- |                        ( )   ( )      ( )   (*)                  ( )   ( ) | de
- |                                                 *                          | une
- |                                                    *                       | personne
- |                                                         (*)                | ne
- |                                                       ?     ?              | empiète
- |                                                         (*)                | pas
- |                                                       ?     ?              | sur
- |                                                                *           | celle
- |                        ( )   ( )      ( )   ( )                  (*)   ( ) | de
- |                                                                      *     | une
- |                                                                      *     | autre
- |                              ( )      ( )   ( )                  ( )   (*) | .
-  ---------------------------------------------------------------------------
-   t  a  c  b  l  w  a  i  i  o  t  e  t  t  f  o  o  p  d  n  v  t  o  a  . 
-   h  r  o  y  i  h  r  m  n  r  o  n  h  h  r  f  n  e  o  o  i  h  f  n    
-   e  e  n     m  i  e  p     d     s  a  e  e     e  r  e  t  o  a     o    
-   y     s     i  c     o     e     u  t     e        s  s     l  t     t    
-         t     t  h     s     r     r        d        o        a        h    
-         r     s        e           e        o        n        t        e    
-         a              d                    m                 e        r    
-         i                                                                   
-         n                                                                   
-         e                                                                   
-         d                                                                   
+  Alignment 7  KEY: ( ) = guessed, * = sure, ? = possible
+  ------------------------------------------------
+ |(*)                                              | je
+ |         (?) ?          ( )   ( )            ( ) | le
+ |    *  ?                                         | ai
+ |    ?  ?                                         | cité
+ |                *                                | comme
+ |                   ? (*)                         | exemple
+ |         ( )            (*)   ( )            ( ) | de
+ |                                          (*)    | propriété
+ |                                        *        | publique
+ |                            *                    | créatrice
+ |         ( )            ( )   (*)            ( ) | ,
+ |                                  ?              | dynamique
+ |         ( )                                     | et
+ |                                     *           | efficace
+ |         ( )            ( )   ( )            (*) | .
+  ------------------------------------------------
+   I  h  s  t  C  a  a  e  o  c  ,  a  e  p  o  . 
+      a  t  h  D  s  n  x  f  r     g  f  u  w    
+      v  r  e  C        a     e     g  f  b  n    
+      e  e              m     a     r  e  l  e    
+         s              p     t     e  c  i  r    
+         s              l     i     s  t  c  s    
+         e              e     v     s  i     h    
+         d                    e     i  v     i    
+                                    v  e     p    
+                                    e                                                                            
 ```
 
 ### Custom Models
@@ -112,7 +99,6 @@ Recall    = 0.778107
 AER       = 0.280435
 ```
 
-
 ### Proportion of best (A3)
 
 This extraction method examines all target tokens and selects the best one. All other alignments which have scores of at least `alpha` times the maximum one are taken. Here `alpha` is a parameter. In the following example consider `alpha=0.4`, then _menu_ would align to _Popupmenü_ and _Dialogfeld_ (mistakenly) and not to others. 
@@ -123,9 +109,9 @@ Results for `A3(0.98)` with 7 EM steps.
 
 ```
 python3 ./src/aligner.py -n 100000 -e A3 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
-Precision = 0.537281
+Precision = 0.538631
 Recall    = 0.878698
-AER       = 0.370400
+AER       = 0.368971
 ```
 
 ### Proportion of reverse best (A4)
@@ -139,9 +125,9 @@ Results for `A4(0.98)` with 7 EM steps.
 
 ```
 python3 ./src/aligner.py -n 100000 -e A4 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
-Precision = 0.590789
+Precision = 0.589239
 Recall    = 0.846154
-AER       = 0.330601
+AER       = 0.331818
 ```
 
 ### Intersection (A2\*A3\*A4)
@@ -167,55 +153,43 @@ Results for `A2(0.25) \cap A3(0.9) \cap A4(0.9) \cap A2'(0.25) \cap A3'(0.9) \ca
 
 ```
 src/intersect_reverse.sh
-Precision = 0.879452
+Precision = 0.879781
 Recall    = 0.718935
-AER       = 0.197724
-```
-
-The third sentence of the dataset:
+AER       = 0.197443
 
 ```
- Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
-  ---------------------------------------------------------------------------
- |(*)                                                                         | ils
- |   (*)            ( )                                                       | sont
- |      (*)            ( )                                                    | restreints
- |         (*)                                                                | par
- |                                                                            | certaines
- |            (*)                                                             | limites
- |               (*)                                                          | qui
- |                ?  ?  ?                                                     | ont
- |                ?  ?  ?                                                     | été
- |                ?  ?  ?                                                     | fixées
- |                         ?  ? (?)                                           | pour
- |                                 (*)                                        | garantir
- |                                    (*)                                     | que
- |                                        *                                   | la
- |                                          (*)                               | liberté
- |                                              *                             | de
- |                                                 *                          | une
- |                                                   (*)                      | personne
- |                                                      ( ) *                 | ne
- |                                                       ?     ?              | empiète
- |                                                         (*)                | pas
- |                                                       ?     ?              | sur
- |                                                                *           | celle
- |                                                                   *        | de
- |                                                                      *     | une
- |                                                                     (*)    | autre
- |                                                                        (*) | .
-  ---------------------------------------------------------------------------
-   t  a  c  b  l  w  a  i  i  o  t  e  t  t  f  o  o  p  d  n  v  t  o  a  . 
-   h  r  o  y  i  h  r  m  n  r  o  n  h  h  r  f  n  e  o  o  i  h  f  n    
-   e  e  n     m  i  e  p     d     s  a  e  e     e  r  e  t  o  a     o    
-   y     s     i  c     o     e     u  t     e        s  s     l  t     t    
-         t     t  h     s     r     r        d        o        a        h    
-         r     s        e           e        o        n        t        e    
-         a              d                    m                 e        r    
-         i                                                                   
-         n                                                                   
-         e                                                                   
-         d                                                                   
+
+The seventh sentence of the dataset:
+
+```
+  Alignment 7  KEY: ( ) = guessed, * = sure, ? = possible
+  ------------------------------------------------
+ |(*)                                              | je
+ |         (?) ?                                   | le
+ |    *  ?                                         | ai
+ |    ?  ?                                         | cité
+ |               (*)                               | comme
+ |                   ? (*)                         | exemple
+ |                        (*)                      | de
+ |                                          (*)    | propriété
+ |                                       (*)       | publique
+ |            ( )             *                    | créatrice
+ |                              (*)                | ,
+ |                                  ?              | dynamique
+ |                                                 | et
+ |                                    (*)          | efficace
+ |                                             (*) | .
+  ------------------------------------------------
+   I  h  s  t  C  a  a  e  o  c  ,  a  e  p  o  . 
+      a  t  h  D  s  n  x  f  r     g  f  u  w    
+      v  r  e  C        a     e     g  f  b  n    
+      e  e              m     a     r  e  l  e    
+         s              p     t     e  c  i  r    
+         s              l     i     s  t  c  s    
+         e              e     v     s  i     h    
+         d                    e     i  v     i    
+                                    v  e     p    
+                                    e             
 ```
 
 ## fast_align
@@ -228,50 +202,38 @@ Recall    = 0.831361
 AER       = 0.196670
 ```
 
-Alignment of the third sentence in the data by fast_align. Neither the current implementation nor fast\_align guessed the _ont été fixées_ phrase correctly, but fast\_align performed slightly better. This is true even for overall performance, where fast\_align is better by `0.001`. I am however sure, that if one would choose better parameters, then both fast\_align and the proposed aligner would produce even better results.
+Alignment of the seventh sentence in the data by fast_align. It performed slightly better overall (by `0.001`). I am however sure, that if one would choose better parameters, then both fast\_align and the proposed aligner would produce even better results.
 
 ```
-  Alignment 2  KEY: ( ) = guessed, * = sure, ? = possible
-  ---------------------------------------------------------------------------
- |(*)                                                                         | ils
- |   (*)            ( )                                                       | sont
- |      (*)                                                                   | restreints
- |         (*)         ( )                                                    | par
- |                                                                            | certaines
- |            (*)                                                             | limites
- |               (*)                                                          | qui
- |                ?  ?  ?                                                     | ont
- |                ?  ?  ?                                                     | été
- |                ?  ?  ?                                                     | fixées
- |                         ? (?)(?)                                           | pour
- |                                 (*)                                        | garantir
- |                                    (*)                                     | que
- |                                       (*)                                  | la
- |                                          (*)                               | liberté
- |                                             (*)                            | de
- |                                                 *                          | une
- |                                                ( )(*)                      | personne
- |                                                      ( ) *                 | ne
- |                                                       ?     ?              | empiète
- |                                                         (*)                | pas
- |                                                       ?     ?              | sur
- |                                                               (*)          | celle
- |                                                            ( )   (*)       | de
- |                                                                      *     | une
- |                                                                     (*)    | autre
- |                                                                        (*) | .
-  ---------------------------------------------------------------------------
-   t  a  c  b  l  w  a  i  i  o  t  e  t  t  f  o  o  p  d  n  v  t  o  a  . 
-   h  r  o  y  i  h  r  m  n  r  o  n  h  h  r  f  n  e  o  o  i  h  f  n    
-   e  e  n     m  i  e  p     d     s  a  e  e     e  r  e  t  o  a     o    
-   y     s     i  c     o     e     u  t     e        s  s     l  t     t    
-         t     t  h     s     r     r        d        o        a        h    
-         r     s        e           e        o        n        t        e    
-         a              d                    m                 e        r    
-         i                                                                   
-         n                                                                   
-         e                                                                   
-         d                                                                   
+  Alignment 7  KEY: ( ) = guessed, * = sure, ? = possible
+  ------------------------------------------------
+ |(*)                                              | je
+ |         (?) ?                                   | le
+ |   (*) ?                                         | ai
+ |    ? (?)   ( )                                  | cité
+ |               (*)                               | comme
+ |                  (?)(*)                         | exemple
+ |                        (*)                      | de
+ |                                          (*)    | propriété
+ |                                       (*)       | publique
+ |                           (*)   ( )             | créatrice
+ |                              (*)                | ,
+ |                                  ?              | dynamique
+ |                                                 | et
+ |                                    (*)          | efficace
+ |                                             (*) | .
+  ------------------------------------------------
+   I  h  s  t  C  a  a  e  o  c  ,  a  e  p  o  . 
+      a  t  h  D  s  n  x  f  r     g  f  u  w    
+      v  r  e  C        a     e     g  f  b  n    
+      e  e              m     a     r  e  l  e    
+         s              p     t     e  c  i  r    
+         s              l     i     s  t  c  s    
+         e              e     v     s  i     h    
+         d                    e     i  v     i    
+                                    v  e     p    
+                                    e             
+                                                        
 ```
 
 Without `-d` the results are:
@@ -284,12 +246,12 @@ AER       = 0.313448
 
 # Performance
 
-I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~19.1s`. This is comparable to fast_align (`~19.6s`). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other multi-threads only the maximization step. Also these measurements should be taken with a bag of salt, sice it is only one pass on a development notebook.
+I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~10.2s`. This is better than fast_align (`~12.9s`). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other multi-threads only the maximization step. Also these measurements should be taken with a bag of salt, sice it is only two hot passes on a development notebook.
 
 Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.
 
 ```
 Precision = 0.618585
-Recall    = 0.798817
-AER       = 0.323890
+Recall    = 0.804734
+AER       = 0.322002
 ```

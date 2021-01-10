@@ -45,7 +45,7 @@ sents = [
 
 print('generating initial probabilities', file=sys.stderr)
 alignment_probs = [
-    np.ones((len(sent2), len(sent1)))
+    np.full((len(sent2), len(sent1)), 1/len(sent2))
     for sent1, sent2 in sents
 ]
 
