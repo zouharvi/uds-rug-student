@@ -21,20 +21,20 @@ AER       = 0.681684</code></pre>
 <pre><code>  Alignment 7  KEY: ( ) = guessed, * = sure, ? = possible
   ------------------------------------------------
  |(*)                                              | je
- |         (?) ?          ( )   ( )            ( ) | le
- |    *  ?                                         | ai
+ |         (?) ?                                   | le
+ |   (*) ?                                         | ai
  |    ?  ?                                         | cité
- |                *                                | comme
- |                   ? (*)                         | exemple
- |         ( )            (*)   ( )            ( ) | de
+ |               (*)                               | comme
+ |                  (?)(*)                         | exemple
+ |                        (*)                      | de
  |                                          (*)    | propriété
- |                                        *        | publique
- |                            *                    | créatrice
- |         ( )            ( )   (*)            ( ) | ,
+ |                                       (*)       | publique
+ |      ( )   ( )            (*)   ( )             | créatrice
+ |                              (*)                | ,
  |                                  ?              | dynamique
- |         ( )                                     | et
- |                                     *           | efficace
- |         ( )            ( )   ( )            (*) | .
+ |                                                 | et
+ |                                    (*)          | efficace
+ |                                             (*) | .
   ------------------------------------------------
    I  h  s  t  C  a  a  e  o  c  ,  a  e  p  o  . 
       a  t  h  D  s  n  x  f  r     g  f  u  w    
@@ -45,20 +45,20 @@ AER       = 0.681684</code></pre>
          e              e     v     s  i     h    
          d                    e     i  v     i    
                                     v  e     p    
-                                    e                                                                            </code></pre>
+                                    e             </code></pre>
 <h3 id="custom-models">Custom Models</h3>
 <h3 id="ibm1-a0">IBM1 (A0)</h3>
 <p>Even though the code uses numpy whenever possible, it still takes considerable amount of time to run on all 100k examples (~10 minutes for 5 steps). This version simply takes the maximum aligned token. This makes a strong assumption that every token is aligned to exactly one other token. Lowercasing the whole corpus led to slightly better results, therefore I report performance on lowercased input.</p>
 <p>Results for <code>IBM1 / A0</code> with 5 EM steps.</p>
 <pre><code>python3 ./src/aligner.py -n 100000 -e A0 -s 5 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
-Precision = 0.615811
-Recall    = 0.801775
-AER       = 0.324835</code></pre>
+Precision = 0.627837
+Recall    = 0.786982
+AER       = 0.318318</code></pre>
 <h3 id="ibm1-null-a0null">IBM1 + NULL (A0+NULL)</h3>
 <p>I also experimented with adding <code>NULL</code>. It was added to the target sentence and then went through the rest of the pipeline. Before output all alignments to this token were cancelled. The results were, however, worse than without it.</p>
-<pre><code>Precision = 0.587671
-Recall    = 0.760355
-AER       = 0.357678</code></pre>
+<pre><code>Precision = 0.618380
+Recall    = 0.742604
+AER       = 0.338776</code></pre>
 <h3 id="threshold-a2">Threshold (A2)</h3>
 <p>Results for <code>A2(0.35)</code> with 7 EM steps.</p>
 <pre><code>python3 ./src/aligner.py -n 100000 -e A2 -s 7 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1

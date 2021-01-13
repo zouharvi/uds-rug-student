@@ -73,14 +73,14 @@ for step in range(args.steps):
 
 
 if args.extractor == 'A0+NULL':
-    alignment = extract_0(alignment_probs)
+    alignment = extract_0_rev(alignment_probs)
     new_alignment = []
     # remove NULL alignments
     for align, (sent1, sent2) in zip(alignment, sents):
         new_alignment.append([(x,y) for x,y in align if y < len(sent2)-1])
     alignment = new_alignment
 elif args.extractor == 'A0':
-    alignment = extract_0(alignment_probs)
+    alignment = extract_0_rev(alignment_probs)
 elif args.extractor == 'A1':
     alignment = extract_1(alignment_probs)
 elif args.extractor == 'A2':

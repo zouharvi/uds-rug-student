@@ -34,6 +34,12 @@ def extract_0(*args):
 
     return extract(*args, agregation=agregation)
 
+def extract_0_rev(*args):
+    def agregation(tok_scores):
+        return [np.argmax(tok_scores)]
+
+    return extract_rev(*args, agregation=agregation)
+
 def extract_1(*args):
     return extract_3(*args, alpha=1)
 

@@ -36,20 +36,20 @@ Seventh sentence from the dataset. It has complete disregard for the position of
   Alignment 7  KEY: ( ) = guessed, * = sure, ? = possible
   ------------------------------------------------
  |(*)                                              | je
- |         (?) ?          ( )   ( )            ( ) | le
- |    *  ?                                         | ai
+ |         (?) ?                                   | le
+ |   (*) ?                                         | ai
  |    ?  ?                                         | cité
- |                *                                | comme
- |                   ? (*)                         | exemple
- |         ( )            (*)   ( )            ( ) | de
+ |               (*)                               | comme
+ |                  (?)(*)                         | exemple
+ |                        (*)                      | de
  |                                          (*)    | propriété
- |                                        *        | publique
- |                            *                    | créatrice
- |         ( )            ( )   (*)            ( ) | ,
+ |                                       (*)       | publique
+ |      ( )   ( )            (*)   ( )             | créatrice
+ |                              (*)                | ,
  |                                  ?              | dynamique
- |         ( )                                     | et
- |                                     *           | efficace
- |         ( )            ( )   ( )            (*) | .
+ |                                                 | et
+ |                                    (*)          | efficace
+ |                                             (*) | .
   ------------------------------------------------
    I  h  s  t  C  a  a  e  o  c  ,  a  e  p  o  . 
       a  t  h  D  s  n  x  f  r     g  f  u  w    
@@ -60,7 +60,7 @@ Seventh sentence from the dataset. It has complete disregard for the position of
          e              e     v     s  i     h    
          d                    e     i  v     i    
                                     v  e     p    
-                                    e                                                                            
+                                    e             
 ```
 
 ### Custom Models
@@ -73,9 +73,9 @@ Results for `IBM1 / A0` with 5 EM steps.
 
 ```
 python3 ./src/aligner.py -n 100000 -e A0 -s 5 | python3 ./jhu-mt-hw/hw2/score-alignments --data jhu-mt-hw/hw2/data/hansards -n 1
-Precision = 0.615811
-Recall    = 0.801775
-AER       = 0.324835
+Precision = 0.627837
+Recall    = 0.786982
+AER       = 0.318318
 ```
 
 ### IBM1 + NULL (A0+NULL)
@@ -83,9 +83,9 @@ AER       = 0.324835
 I also experimented with adding `NULL`. It was added to the target sentence and then went through the rest of the pipeline. Before output all alignments to this token were cancelled. The results were, however, worse than without it.
 
 ```
-Precision = 0.587671
-Recall    = 0.760355
-AER       = 0.357678
+Precision = 0.618380
+Recall    = 0.742604
+AER       = 0.338776
 ```
 
 ### Threshold (A2)
