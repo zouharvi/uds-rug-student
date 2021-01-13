@@ -248,7 +248,7 @@ AER       = 0.313448
 
 I was quite concerned with the implementation speed. So I wrote it in Rust (`rust/`). The time went from `~10min` to `~10.2s`. This is better than fast_align (`~12.9s`). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other multi-threads only the maximization step. Also these measurements should be taken with a bag of salt, sice it is only two hot passes on a development notebook.
 
-Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.
+Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The difference here is that I only implemented alignment from source to target and not the other way around, as is done in A0.
 
 ```
 Precision = 0.618585

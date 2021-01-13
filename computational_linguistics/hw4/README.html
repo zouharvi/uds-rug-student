@@ -167,7 +167,7 @@ Recall    = 0.766272
 AER       = 0.313448</code></pre>
 <h1 id="performance">Performance</h1>
 <p>I was quite concerned with the implementation speed. So I wrote it in Rust (<code>rust/</code>). The time went from <code>~10min</code> to <code>~10.2s</code>. This is better than fast_align (<code>~12.9s</code>). The comparison is however not fair from both sides, since the Rust implentation uses only IBM1 EM computation, but on the other multi-threads only the maximization step. Also these measurements should be taken with a bag of salt, sice it is only two hot passes on a development notebook.</p>
-<p>Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The small differences are caused by unstable argmax.</p>
+<p>Only the A0 extraction method was implemented. The results are almost the same as for the IBM1 / A0 model. The difference here is that I only implemented alignment from source to target and not the other way around, as is done in A0.</p>
 <pre><code>Precision = 0.618585
 Recall    = 0.804734
 AER       = 0.322002</code></pre>
