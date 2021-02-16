@@ -1,0 +1,6 @@
+name: vilem
+
+dependencies:
+  - python=3.8
+  - pip
+  # - numpy
