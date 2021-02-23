@@ -8,12 +8,11 @@ author:
 - Vilém Zouhar (presenter)
 theme:
 - Boadilla
-date:
-- February, 2021
+date: \today
 aspectratio: 169
-
 documentclass: beamer
-# classoption: notes
+# classoption: 
+classoption: handout,notes
 
 # pandoc -t beamer main.md -o main.pdf
 ---
@@ -25,8 +24,7 @@ documentclass: beamer
 - - Sentence completion using factual knowledge
 - - Explicit information access
 - Knowledge graph language model
-- - Definition
-- - Example
+- - Definition, Example
 - - Computation
 - - Training and inference
 - Experiments
@@ -44,7 +42,7 @@ Next word completion:
 
 Fluency:
 
-> - `Super Mario is a 1989 video game developed and published by ____`
+- `Super Mario is a 1989 video game developed and published by ____`
 
 . . .
 
@@ -58,7 +56,15 @@ Adequacy / Basic reasoning:
 
 Factual correctness:
 
-> - `Super Mario is a 1989 video game developed and published by Nintendo`
+- `Super Mario is a 1989 video game developed and published by Nintendo`
+
+::: notes
+- Next word prediction is the main part of language modeling.
+- We may be interested in Fluency and Adequacy.
+- Both of these fillings look ok. _Valve_ is a game development company, so that works as well.
+- - Unfortunately, it was founded in 1996, so they could not have made a 1989 game.
+- Therefore we may be interested in explicit factual correctness.
+:::
 
 # Language Modelling
 
@@ -69,6 +75,13 @@ Achievements:
 > - Factual correctness?
 > - - BERT derivatives (stored in the parameters)
 > - - Explicit information structure (KG)
+
+::: notes
+- The way we can achieve fluency is even with sufficiently good n-gram models.
+- Adequacy is more trickier, but it works reasonably well with BERT and similar models.
+- Factual correctness works partly with BERT, but it's not performant enough.
+- Explicit information storage is the motivation for this whole paper.
+:::
 
 # Explicit information access
 
@@ -95,11 +108,15 @@ Disadvantages:
 - Research and mass adoption missing
 - Two components to setup and maintain
 
-\note{
-  - A big advantage is being able to modify facts after the language model training. This is not possible for standard language models, because the facts are stored in the trained parameters - in their generative ability. With separate structures, it is possible to verify that changing the relevant entry will yield different generative results.
+::: notes
+- A big advantage is being able to modify facts after the language model training. This is not possible for standard language models, because the facts are stored in the trained parameters (in their generative ability). With separate structures, it is possible to verify that changing the relevant entry will yield different generative results.
+- Generating unseen or rare entities is more problematic in standdard LM models, because the conditioning is not strong enough. This is less of an issue if frequent and infrequent entities are represented the same way in the external structure.
+- The motivation for explainability is clear: it is simply better if we know exactly where is the information coming from and reduce the size of the black box mechanism.
 
-  - Control is something not immediately useful in LM, but may be in downstream tasks. It also neatly shows the dependence between the model and the knowledge base.
-}
+- Control is something not immediately useful in LM, but may be in downstream tasks. It also neatly shows the dependence between the model and the knowledge base.
+
+- Disadvantages are that the systems are generally more complex and that there is subsequently less research done.
+:::
 
 # Knowledge Graph Language Model
 
@@ -129,16 +146,16 @@ Actions:
 ::::
 :::
 
-\note{
-  - Standard LM, like BERT, which will be slightly modified
-  - External knowledge base
-  - - From which we will keep a subset, called local knowledge graph
+::: notes
+- Standard LM, like BERT, which will be slightly modified
+- External knowledge base
+- - From which we will keep a subset, called local knowledge graph
 
-  - At every token the model can decide between three actions:
-  - Not an entity - fallback to standard model
-  - Generate new entity - retreives the entity from the external graph
-  - Generate a related entity - can be found in the local graph
-}
+- At every token the model can decide between three actions:
+- Not an entity - fallback to standard model
+- Generate new entity - retreives the entity from the external graph
+- Generate a related entity - can be found in the local graph
+:::
 
 # LM + KG
 
@@ -152,9 +169,12 @@ Actions:
   $p(x_t, \mathcal{KG}_t|x_{< t}, \mathcal{KG}_{< t})$
 > - Decision/type of token $t: t_t \in \{\emptyset, \text{new}, \text{related}\}$
 
-\note{
-    New entity mention, new entity, related entity
-}
+::: notes
+- Knowledge graph is just a set of triplets with ordered relations. One of the entities we call the parent.
+- Standard LM models output just the word, but the LM over KG also tries to predict the current local graph.
+- - At every point in the sentence, it makes a decision regarding the current word.
+- - Either it's not an entity, or it's a new entity or it's an entity already in the local graph.
+:::
 
 # LM + KG
 
@@ -175,20 +195,26 @@ Decision/type of token $t: t_t$
   
 . . .
 
-Update local KG: $\mathcal{E}_{< t+1} = \mathcal{E}_{< t+1} \cup \{e_t\}$ 
+Update local KG: $\mathcal{E}_{< t+1} = \mathcal{E}_{< t+1} \cup \{e_t\}$
+
+::: notes
+- This slides just formalizes the entity decisions.
+- If it's unrelated, we just set the current entity to some special undefined symbol.
+- If it's new, we draw a new entity from the external graph.
+- If it's local, we first choose the parent, then from the available relations and finally from the list of entities.
+
+- Finally, at the end we update the local knowledge graph to the next timestep.
+:::
 
 # Linked WikiText-2
 
 ::: columns
-
 :::: column
-
 1. Entity recognition
 2. Coreference using Stanford CoreNLP
 3. Wikipedia links + neural-el entity linker
-4. Sequentially parse tokens and create local KGs
-5. Rule-based post-processing (dates, quantities, entities)
-
+4. Rule-based post-processing (dates, quantities)
+5. Sequentially parse tokens and create local KGs
 ::::
 
 :::: column
@@ -196,15 +222,23 @@ Update local KG: $\mathcal{E}_{< t+1} = \mathcal{E}_{< t+1} \cup \{e_t\}$
 ::::
 :::
 
-\note{
-  - Data hard to come by
-  - Derivative of WikiText-2
-  TODO comment
-}
+::: notes
+- The image on the right shows the local graph for the Super Mario Land sentence. We can clearly see that it's just a oriented graph with named edges. Furthermore, there can be multiple edges between two entities.
+
+- The process of creating LinkedWikitext 2 is the following
+- The gold labels are of course the manual links provided by the editors. They are however only provided for the first occurence of that entity. So coreference tool is used and also entity recognition for things like dates.
+- They also use a few rule based tricks to better capture dates and quantities.
+- The sequential local knowledge graph is created by considering all neighbours of an entity when it is encountered. And if some other entity appears later, it is the child of the first one.
+:::
 
 # Example
 
 ![Example Annotation](img/annotation_example.png){width=100%}
+
+::: notes
+- The example annotation shows the sentence with Super Mario Land.
+- In the first step, the entity Super Mario Land is a new entity, the next two tokens are not entities and the next one is a related entity. 
+:::
 
 # Computation - Picking $e_t$
 
@@ -225,10 +259,14 @@ $t_t = \text{related:}$
 - $r_t = \text{softmax}(v_r\cdot h_{t,r})$ (restricted by $p_t$)
 - $e_t \in \{e|(\text{parent}_t, \text{relation}_t, e) \in \mathcal{KG}_{< t}\}$
 
-\note{
-  - Ideally, the combination of parent and relation fully determines the entity. If there are multiple, one is chosen at random.
-  - QUESTION: The paper does not mention what happens if this set is empty. Probably fallback to LM?
-}
+::: notes
+- The way these decisions are made is that we artificially split the hidden state into three parts, with the first one being the decision.
+- If we want a new entity, it's done by a projection of the sum of the parent and relation part.
+- If we want a related entity, we first choose the parent with a projection vector and a relation. Then we get all possible entities that match the parent and the relation and select an entity. 
+- Ideally, the combination of parent and relation fully determines the entity. If there are multiple, one is chosen at random.
+- QUESTION: The paper does not mention what happens if this set is empty. Probably fallback to LM?
+- QUESTION: The related entity is drawn from the local graph. But we only add already encountered entities to it. So even though the parent is there, when did the relation and child get there?
+:::
 
 # Computation - Rendering $e_t$
 
@@ -248,11 +286,13 @@ $e_t \in \mathcal{E}$:
 
 Marginalize $p(x_t) = \sum_{\mathcal{E}_t} p(x_t, \mathcal{E}_t)$
 
-\note{
-    - Split hidden state to word, parent and relation.
-    - For perplexity we care about the probability of the produced token, therefore we marginalize the distribution.
-    - This may not be obvious why we do it, but the construction of the local graph is also statistical. So even though we could still just take the argmax at every step, that would not be the correct distribution as described by this model. Therefore we need to marginalize by all possible local graphs. Later we will see how to approximate this.
-}
+::: notes
+- If there is no entity to render, we use a standard model.
+- If there is one, we concatenate the hidden state with the embedding of the entity and then do softmax over the original distribution and also the alias distribution.
+
+- For perplexity we care about the probability of the produced token, therefore we marginalize the distribution.
+- This may not be obvious why we do it, but the construction of the local graph is also statistical. So even though we could still just take the argmax at every step, that would not be the correct distribution as described by this model. Therefore we need to marginalize by all possible local graphs. Later we will see how to approximate this.
+:::
 
 # Training, Inference
 
@@ -260,7 +300,7 @@ Training:
 
 ::: columns
 :::: column
-- Loss function: $\sum \log p(x_t, \mathcal{E}_t | x_{< t}, \mathcal{E}_{< t}, \Theta)$
+- Loss function: $\sum_t - \log p(x_t, \mathcal{E}_t | x_{< t}, \mathcal{E}_{< t}, \Theta)$
 
 . . .
 
@@ -278,10 +318,13 @@ Inference
 - $p(x) = \sum_\mathcal{E} p(x, \mathcal{E})$ hard to compute
 - $p(x) = \sum_{\mathcal{E}} \frac{p(x_t, \mathcal{E}_t)}{q(\mathcal{E}_t|x_t)}\cdot q(\mathcal{E}_t|x_t) \approx \frac{1}{N} \sum_{\mathcal{E} \sim q} \frac{p(x_t, \mathcal{E}_t)}{q(\mathcal{E}_t|x_t)}$ 
 
-\note{
-  - $q$ is a proposal distribution made by a model, that just predicts the parents, entities and relationships given the unmasked token
-  - This process is called importance sampling
-}
+::: notes
+- The training is quite straightforward, because we know the target distribution, so we just maximize the log probability.
+- QUESTION: It's negative log likelihood, why does the formula in the paper not have $-$? It makes more sense, since we want to maximize the probability.
+
+- $q$ is a proposal distribution made by a model, that just predicts the parents, entities and relationships given the unmasked token, which is an easier task.
+- This process is called importance sampling.
+:::
 
 # Pretrained Embeddings
 
@@ -300,10 +343,10 @@ Hinge loss (extended): $\mathcal{H} = \sum_{y\ne t} \max (0, 1+w_y x - w_t x)$
 
 For embeddigs: $\mathcal{L} = max(0, \gamma + \delta(v_p, v_r, v_e) - \delta(v_{p'}, v_r, v_{e'}))$
 
-\note{
+::: notes
   - For the pretrained embeddings, the authors use modified hinge loss.
-  - Normally it's summed over all possible classes, which is not possible here. So two random  entities are used to prevent collapes (in that case $\mathcal{L} = \gamma$).
-}
+  - Normally it's summed over all possible classes, which is not possible here. So two random entities are used to prevent collapes (in that case $\mathcal{L} = \gamma$).
+:::
 
 
 # Experiments - Language Modeling
@@ -320,18 +363,19 @@ Unknown penalized perplexity
 > - $p'(\texttt{<UNK>}) = \frac{1}{|\mathcal{U}|} p(\texttt{<UNK>})$
 > - Compute perplexity on $p'$
 
-\note{
+::: notes
   - Standard perplexity is not the best metrics for texts containing named entities: predicting unknown/unseen words as `<UNK>` yields good results, even though no information is transferred.
   - Solution would be to penalize predicting `<UNK>` more than other tokens.
   - Distribute the predicted probability among all tokens that map to `<UNK>`
-}
+:::
 
 # Experiments - Language Modeling
 
 ![Perplexity, Unknown penalized perplexity (on Linked WikiText-2 heldout)](img/perplexity_language_modelling.png){width=55%}
 
-# Experiments - Fact completion
-
+::: notes
+- These are their results. For both the standard perplexity and unknown penalized perplexity they achieve much better results.
+:::
 
 # Experiments - Fact completion
 
@@ -362,15 +406,35 @@ Unknown penalized perplexity
 ::::
 :::
 
+::: notes
+- They also wanted to measure explicit fact completion, which is more dependent on the external knowledge graph.
+- They artificially created sentences like _Paris Hilton was born in ..._
+- This is based on the knowledge graph, because it contains the relation _birthloc_ and _birthdate_.
+- Here the predictions are a bit unclear, because even though the prediction is technically correct and viable, it is not the one matching the gold annotations.
+:::
+
 # Experiments - Fact completion
 
 ![Fact completion (%) top-1/top-5](img/accuracy_fact_completion.png){width=65%}
 
+::: notes
+- Here top-1 measures whether the prediction was correct or not and top-5 measures whether the gold prediction was in the top 5 predicted by the model.
+- An oracle also passes the correct parent entity to the model, therefore there are slightly less errors.
+- Overall, the proposed model had much better accuracy than GPT-2.
+- It is however not clear why, for example, it failed on the nation-capital relation, which surely was in the knowledge base. 
+:::
+
 # Future Work
 
-> - Better system from choosing out of multiple entities (entity rendering).
+> - Better system from choosing out of multiple entities (entity choosing/rendering).
 > - Marginalization approximated during inference
 > - Specific knowledge graph annotation
+
+::: notes
+- As part of the future work, there could be a better way of choosing entities, since currently it's at random.
+- Also the marginalization of the local knowledge graph is just a crude approximation and perhaps better methods exist.
+- Finally, the current model requires specifically annotated knowledge graph with pre-processed generative story.
+:::
 
 # References
 
