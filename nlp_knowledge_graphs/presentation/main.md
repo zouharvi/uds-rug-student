@@ -12,6 +12,7 @@ date: \today
 aspectratio: 169
 documentclass: beamer
 # classoption: 
+# classoption: notes
 classoption: handout,notes
 
 # pandoc -t beamer main.md -o main.pdf
@@ -20,8 +21,11 @@ classoption: handout,notes
 
 # Overview
 
+::: columns
+:::: column
 - Language modelling
-- - Sentence completion using factual knowledge
+- - Fact completion
+- - Slot filling
 - - Explicit information access
 - Knowledge graph language model
 - - Definition, Example
@@ -31,6 +35,12 @@ classoption: handout,notes
 - - Language modelling
 - - Fact completion
 - Future work
+- Discussion
+::::
+:::: column
+$\ $
+::::
+:::
 
 # Language Modelling
 
@@ -59,11 +69,32 @@ Factual correctness:
 - `Super Mario is a 1989 video game developed and published by Nintendo`
 
 ::: notes
-- Next word prediction is the main part of language modeling.
+- Next word prediction is the main part of language modelling.
 - We may be interested in Fluency and Adequacy.
 - Both of these fillings look ok. _Valve_ is a game development company, so that works as well.
 - - Unfortunately, it was founded in 1996, so they could not have made a 1989 game.
-- Therefore we may be interested in explicit factual correctness.
+- Therefore, we may be interested in explicit factual correctness.
+:::
+
+# Language Modelling
+
+Factual correctness (Barack's Wife Hillary):
+
+- Query: `Super Mario is a 1989 video game developed and published by`
+- Answer: `Nintendo`
+- Context: KG
+
+. . .
+
+Slot Filling (KILT):
+
+- Query: `Super Mario | published_by`
+- Answer: `Nintendo`
+- Context: Documents
+
+::: notes
+- The paper KILT also introduces a task that's similar to factual correctness, but in a sense easier, because it explicitly mentions the first entity and the relation.
+- The approaches are however quite complementary, because the first one requires knowledge graph to answer a more complex query, while the second one has access only to a collection of documents to answer a simpler, more structured query.
 :::
 
 # Language Modelling
@@ -97,9 +128,9 @@ Advantages:
 Control:
 
 > 1. Prompt: `Barack is married to ___`
-> 2. Reponse: `Barack is married to Michelle`
+> 2. Response: `Barack is married to Michelle`
 > 3. *Change the entity in the KG
-> 4. Reponse: `Barack is married to Hillary`
+> 4. Response: `Barack is married to Hillary`
 
 . . .
 
@@ -110,10 +141,10 @@ Disadvantages:
 
 ::: notes
 - A big advantage is being able to modify facts after the language model training. This is not possible for standard language models, because the facts are stored in the trained parameters (in their generative ability). With separate structures, it is possible to verify that changing the relevant entry will yield different generative results.
-- Generating unseen or rare entities is more problematic in standdard LM models, because the conditioning is not strong enough. This is less of an issue if frequent and infrequent entities are represented the same way in the external structure.
+- Generating unseen or rare entities is more problematic in standard LM models, because the conditioning is not strong enough. This is less of an issue if frequent and infrequent entities are represented the same way in the external structure.
 - The motivation for explainability is clear: it is simply better if we know exactly where is the information coming from and reduce the size of the black box mechanism.
 
-- Control is something not immediately useful in LM, but may be in downstream tasks. It also neatly shows the dependence between the model and the knowledge base.
+- Control is something not immediately useful in LM, but maybe in downstream tasks. It also neatly shows the dependence between the model and the knowledge base.
 
 - Disadvantages are that the systems are generally more complex and that there is subsequently less research done.
 :::
@@ -153,7 +184,7 @@ Actions:
 
 - At every token the model can decide between three actions:
 - Not an entity - fallback to standard model
-- Generate new entity - retreives the entity from the external graph
+- Generate new entity - retrieves the entity from the external graph
 - Generate a related entity - can be found in the local graph
 :::
 
@@ -223,10 +254,10 @@ Update local KG: $\mathcal{E}_{< t+1} = \mathcal{E}_{< t+1} \cup \{e_t\}$
 :::
 
 ::: notes
-- The image on the right shows the local graph for the Super Mario Land sentence. We can clearly see that it's just a oriented graph with named edges. Furthermore, there can be multiple edges between two entities.
+- The image on the right shows the local graph for the Super Mario Land sentence. We can clearly see that it's just an oriented graph with named edges. Furthermore, there can be multiple edges between two entities.
 
 - The process of creating LinkedWikitext 2 is the following
-- The gold labels are of course the manual links provided by the editors. They are however only provided for the first occurence of that entity. So coreference tool is used and also entity recognition for things like dates.
+- The gold labels are of course the manual links provided by the editors. They are however only provided for the first occurrence of that entity. So coreference tool is used and also entity recognition for things like dates.
 - They also use a few rule based tricks to better capture dates and quantities.
 - The sequential local knowledge graph is created by considering all neighbours of an entity when it is encountered. And if some other entity appears later, it is the child of the first one.
 :::
@@ -264,7 +295,7 @@ $t_t = \text{related:}$
 - If we want a new entity, it's done by a projection of the sum of the parent and relation part.
 - If we want a related entity, we first choose the parent with a projection vector and a relation. Then we get all possible entities that match the parent and the relation and select an entity. 
 - Ideally, the combination of parent and relation fully determines the entity. If there are multiple, one is chosen at random.
-- QUESTION: The paper does not mention what happens if this set is empty. Probably fallback to LM?
+- QUESTION: The paper does not mention what happens if this set is empty. Probably fallback to LM? Or act as if entity is new?
 - QUESTION: The related entity is drawn from the local graph. But we only add already encountered entities to it. So even though the parent is there, when did the relation and child get there?
 :::
 
@@ -345,7 +376,7 @@ For embeddigs: $\mathcal{L} = max(0, \gamma + \delta(v_p, v_r, v_e) - \delta(v_{
 
 ::: notes
   - For the pretrained embeddings, the authors use modified hinge loss.
-  - Normally it's summed over all possible classes, which is not possible here. So two random entities are used to prevent collapes (in that case $\mathcal{L} = \gamma$).
+  - Normally it's summed over all possible classes, which is not possible here. So two random entities are used to prevent collapses (in that case $\mathcal{L} = \gamma$).
 :::
 
 
@@ -354,7 +385,7 @@ For embeddigs: $\mathcal{L} = max(0, \gamma + \delta(v_p, v_r, v_e) - \delta(v_{
 Perplexity
 
 - geometric average probability of the all data: \newline
-  $p(x_1, x_2, x_3, \ldots)^{1/T} = exp(\frac{1}{T} \sum_1^T log p(x_t))$
+  $p(x_1, x_2, x_3, \ldots)^{1/T} = exp(\frac{1}{T} \sum_1^T \log p(x_t))$
 
 Unknown penalized perplexity
 
@@ -436,10 +467,61 @@ Unknown penalized perplexity
 - Finally, the current model requires specifically annotated knowledge graph with pre-processed generative story.
 :::
 
+# Discussion 1/3
+
+1. How to transfer this mechanism to other tasks?
+  - Question Answering
+  - Dialogue
+  - Fact Checking
+  - Slot Filling
+  - Can tasks be switched? (LM, QA, FC, ...)
+  - Will training an LM improve the performance on FC and vice versa?
+
+::: notes
+- Question Answering is conditioned on the question in human readable form and we want 
+- - Solution: Extract parent entity, extract relation, finally entity.
+- - Issue: What about multi-source reasoning?
+- - - P1: Mustard gas hurts people.
+- - - P2: Group A used mustard gas on group B.
+- - - Q: What is the intention of group A to group B?
+- Fact Checking is conditioned on a statement in a textual form and the output is either True/False (no evidence as well)
+- - Solution similar, but same issue
+- Slot Filling: structured input, quite easy for KG
+- Dialogue: Just condition the LM on larger context/history?
+:::
+
+# Discussion 2/3
+
+2. How to make knowledge representation end-to-end trainable?
+  - Embeddings are frozen
+  - So far, KG is fixed `(Mario, published_by, Valve)`
+  - Constraint: still explainable
+
+::: notes
+2. In the paper the pre-trained projection embeddings were fixed. Why is that?
+- Currently the knowledge graph is fixed. So even though there may be some relation, that's leading to bad results, like Mario published by Valve. Is there a way to modify the knowledge graph to update this faulty knowledge? If yes, how do we know it's not just the failure of the addressing mechanism (e.g. wrong parent selected)?
+:::
+
+# Discussion 3/3
+
+3. What's the best representation?
+  - Knowledge Graph + addressing mechanism
+  - Collection of documents + retrieval system and text conditioning
+  - Multi-task gains?
+
+::: notes
+- Finally, what is the best representation overall?
+- On one hand, KGs are a neat way to get explicit information out of the storage.
+- They however lack the capacity for "reasoning" and require strong pre-processing.
+- On the other hand, just collection of documents may be harder to address and condition on, but they allow for the documents to be dynamically added and updated.
+- The paper KILT also showed that reasoning across different sources can be done here.
+- Lastly, we would want something that can be used across different tasks end-to-end, so that the representation improves
+:::
+
 # References
 
-Research content and all figures:
-
+::: frame
+\small
 ```
 @article{logan2019barack,
   title={Barack's Wife Hillary: Using Knowledge-Graphs for
@@ -450,3 +532,19 @@ Research content and all figures:
   year={2019}
 }
 ```
+:::
+
+::: frame
+\small
+```
+@article{petroni2020kilt,
+  title={KILT: a benchmark for knowledge intensive language tasks},
+  author={Petroni, Fabio and Piktus, Aleksandra and Fan, Angela and
+    Lewis, Patrick and Yazdani, Majid and De Cao, Nicola and
+    Thorne, James and Jernite, Yacine and Plachouras, Vassilis
+    and Rockt{\"a}schel, Tim and others},
+  journal={arXiv preprint arXiv:2009.02252},
+  year={2020}
+}
+```
+:::
