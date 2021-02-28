@@ -46,7 +46,7 @@ class OntoNotes(datasets.GeneratorBasedBuilder):
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
-                    "data": data[int(0.0*len(data)):int(0.9*len(data))],
+                    "data": data[int(0.4*len(data)):int(0.8*len(data))],
                 },
             ),
             datasets.SplitGenerator(
