@@ -1,3 +1,4 @@
-data/*conll
+*conll
 data/*info
 data/*.tsv
+*.lock
