@@ -11,9 +11,9 @@ theme:
 date: \today
 aspectratio: 169
 documentclass: beamer
-# classoption: 
+classoption: 
 # classoption: notes
-classoption: handout,notes
+# classoption: handout,notes
 
 # pandoc -t beamer main.md -o main.pdf
 ---
