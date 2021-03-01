@@ -3,6 +3,7 @@ name: vilem
 dependencies:
   - python=3.8
   - pip
-  - datasets=1.3
-  - transformers=4.3
-  - torch=1.7
+  - pip:
+    - datasets=1.3
+    - transformers=4.3
+    - torch=1.7

@@ -20,7 +20,7 @@ This project is written in Python, with the environment defined in `envirovnment
 
 - Concatenate all files into one, e.g. by `cat data/ontonetes-4.0/*.gold_conll > data/all.conll`
 - Extract the tripet (word position, word, POS) using `src/data/extract_pos.sh INPUT_CONLL OUTPUT_TSV`
-- For overview of the POS data (in .tsv), run `src/data/info.py data/sample.tsv > data/sample.info`:
+- For overview of the POS data (in .tsv), run `./src/data/info.py data/sample.tsv > data/sample.info`:
 
 ```
 Tags:                   Overall:
