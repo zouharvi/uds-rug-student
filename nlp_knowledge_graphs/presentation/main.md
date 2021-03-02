@@ -34,6 +34,7 @@ classoption:
 - Experiments
 - - Language modelling
 - - Fact completion
+- Summary
 - Future work
 - Discussion
 ::::
@@ -42,9 +43,35 @@ $\ $
 ::::
 :::
 
+
 # Language Modelling
 
-Next word completion:
+\begin{block}{Task}
+Language modeling is the task of predicting the next word or character in a document.
+
+\begin{gather*}
+p(x_t|x_{< t})
+\end{gather*}
+\end{block}
+
+. . . 
+
+Approaches:
+
+- n-grams $p(x_t|x_{(t-H):t})$
+- LSTM/GRU
+- GPT
+- BERT
+
+::: notes
+- Language modeling is a task that boils down to predicting the next word in a sentence.
+- There are numerous approaches to it, ranging from n-grams to transformers.
+- This has applications in for example information retrieval, but it can also be used as a proxy task for pre-training BERT.
+:::
+
+# Language Modelling
+
+Next word prediction:
 
 - `Super Mario Land is a 1989 video game developed and ____`
 
@@ -86,7 +113,7 @@ Factual correctness (Barack's Wife Hillary):
 
 . . .
 
-Slot Filling (KILT):
+Slot Filling (KILT [2]):
 
 - Query: `Super Mario | published_by`
 - Answer: `Nintendo`
@@ -94,7 +121,7 @@ Slot Filling (KILT):
 
 ::: notes
 - The paper KILT also introduces a task that's similar to factual correctness, but in a sense easier, because it explicitly mentions the first entity and the relation.
-- The approaches are however quite complementary, because the first one requires knowledge graph to answer a more complex query, while the second one has access only to a collection of documents to answer a simpler, more structured query.
+- The approaches are however quite complementary, because the first one requires knowledge graph to answer a more complex natural language query, while the second one has access only to a collection of documents to answer a simpler, more structured query.
 :::
 
 # Language Modelling
@@ -190,17 +217,35 @@ Actions:
 
 # LM + KG
 
-> - Standard LM: \newline
+Standard LM: \newline
   $p(x_t|x_{< t}) = \text{softmax}(W_h h_t + b_h), h_t = \text{LSTM}(h_{t-1},x_{t-1})$
-> - Knowledge graph: \newline
+
+. . .
+
+Knowledge graph: \newline
   $\mathcal{KG} = \{(\text{parent}, \text{relation}, \text{entity})| \text{parent, entity} \in \mathcal{E}, \text{relation} \in \mathcal{R}\}$
-> - Local knowledge graph: \newline
+
+. . .
+
+Local knowledge graph: \newline
   $\mathcal{KG}_{< t}$ entities participating in first $t$ tokens
-> - LM + KG: \newline
+
+. . .
+
+LM + KG: \newline
   $p(x_t, \mathcal{KG}_t|x_{< t}, \mathcal{KG}_{< t})$
-> - Decision/type of token $t: t_t \in \{\emptyset, \text{new}, \text{related}\}$
+
+. . .
+
+Decision/type of token $t: t_t \in \{\emptyset, \text{new}, \text{related}\}$
 
 ::: notes
+- Explain variables
+- - $x_t$: current token
+- - $x_{< t}$: token history
+- - $W_h$: projection matrix
+- - $h_t$: hidden state
+- - $\mathcal{KG}_t$ current local graph iteration
 - Knowledge graph is just a set of triplets with ordered relations. One of the entities we call the parent.
 - Standard LM models output just the word, but the LM over KG also tries to predict the current local graph.
 - - At every point in the sentence, it makes a decision regarding the current word.
@@ -229,6 +274,8 @@ Decision/type of token $t: t_t$
 Update local KG: $\mathcal{E}_{< t+1} = \mathcal{E}_{< t+1} \cup \{e_t\}$
 
 ::: notes
+- Explain variables
+- - $t_t$ current decision/type of the current entity
 - This slides just formalizes the entity decisions.
 - If it's unrelated, we just set the current entity to some special undefined symbol.
 - If it's new, we draw a new entity from the external graph.
@@ -290,13 +337,17 @@ $t_t = \text{related:}$
 - $r_t = \text{softmax}(v_r\cdot h_{t,r})$ (restricted by $p_t$)
 - $e_t \in \{e|(\text{parent}_t, \text{relation}_t, e) \in \mathcal{KG}_{< t}\}$
 
+. . .
+
+\texttt{QUESTION}: What if $\{e|(\text{parent}_t, \text{relation}_t, e) \in \mathcal{KG}_{< t}\} = \emptyset$?
+
 ::: notes
 - The way these decisions are made is that we artificially split the hidden state into three parts, with the first one being the decision.
 - If we want a new entity, it's done by a projection of the sum of the parent and relation part.
 - If we want a related entity, we first choose the parent with a projection vector and a relation. Then we get all possible entities that match the parent and the relation and select an entity. 
 - Ideally, the combination of parent and relation fully determines the entity. If there are multiple, one is chosen at random.
 - QUESTION: The paper does not mention what happens if this set is empty. Probably fallback to LM? Or act as if entity is new?
-- QUESTION: The related entity is drawn from the local graph. But we only add already encountered entities to it. So even though the parent is there, when did the relation and child get there?
+- Note to self: The related entity is drawn from the local graph. We add the parent entities but also the relations and their children.
 :::
 
 # Computation - Rendering $e_t$
@@ -331,7 +382,8 @@ Training:
 
 ::: columns
 :::: column
-- Loss function: $\sum_t - \log p(x_t, \mathcal{E}_t | x_{< t}, \mathcal{E}_{< t}, \Theta)$
+- Loss function: $\sum_t \log p(x_t, \mathcal{E}_t | x_{< t}, \mathcal{E}_{< t}, \Theta)$
+- \texttt{QUESTION}: Why not $-$?
 
 . . .
 
@@ -402,7 +454,16 @@ Unknown penalized perplexity
 
 # Experiments - Language Modeling
 
-![Perplexity, Unknown penalized perplexity (on Linked WikiText-2 heldout)](img/perplexity_language_modelling.png){width=55%}
+\centering 
+
+||PPL|UPP|
+|:-|:-:|:-:|
+|EntityNLM (Ji et al., 2017)|85.4|189.2|
+|EntityCopyNet|76.1|144.0|
+|AWD-LSTM (Merity et al., 2018)|74.8|165.8|
+|KGLM|**44.1**|**88.5**|
+
+Perplexity, Unknown penalized perplexity (on Linked WikiText-2 heldout)
 
 ::: notes
 - These are their results. For both the standard perplexity and unknown penalized perplexity they achieve much better results.
@@ -446,13 +507,54 @@ Unknown penalized perplexity
 
 # Experiments - Fact completion
 
-![Fact completion (%) top-1/top-5](img/accuracy_fact_completion.png){width=65%}
+\centering
+
+||**AWD-LSTM**|**GPT-2**|**KGLM**-Oracle|**KGLM**-NEL|
+|:-|:-:|:-:|:-:|:-:|
+|nation-capital|0/0|6/7|0/0|0/4|
+|birthloc|0/9|14/14|94/95|85/92|
+|birthdate|0/25|8/9|65/68|61/67|
+|spouse|0/0|2/3|2/2|1/19|
+|city-state|0/13|62/62|9/59|4/59|
+|book-author|0/2|0/0|61/62|25/28|
+|**Average**|0.0/8.2|15.3/15.8|38.5/47.7|29.3/44.8|
+
+Fact completion (%) top-1/top-5
 
 ::: notes
 - Here top-1 measures whether the prediction was correct or not and top-5 measures whether the gold prediction was in the top 5 predicted by the model.
 - An oracle also passes the correct parent entity to the model, therefore there are slightly less errors.
 - Overall, the proposed model had much better accuracy than GPT-2.
 - It is however not clear why, for example, it failed on the nation-capital relation, which surely was in the knowledge base. 
+:::
+
+# Summary
+
+\centering
+
+::: columns
+:::: {.column width=55%}
+Contributions:
+
+- Explicit access to information
+- Combined with parameter storage
+- Clear explainability
+- Data can be changed post-training
+
+\vspace{0.2cm}
+Disadvantages:
+
+- Very complex datastore
+- Limited to relations explicit in training data 
+- New entities / relations can not be added
+::::
+:::: {.column width=25%}
+\begin{block}{LM+KG}
+  $p(x_t, \mathcal{KG}_t|x_{< t}, \mathcal{KG}_{< t})$ \\
+  \vspace{0.2cm}
+  $t_t \in \{\emptyset, \text{new}, \text{related}\}$
+\end{block}
+::::
 :::
 
 # Future Work
@@ -522,29 +624,10 @@ Unknown penalized perplexity
 
 ::: frame
 \small
-```
-@article{logan2019barack,
-  title={Barack's Wife Hillary: Using Knowledge-Graphs for
-    Fact-Aware Language Modeling},
-  author={Logan IV, Robert L and Liu, Nelson F and Peters, Matthew E
-    and Gardner, Matt and Singh, Sameer},
-  journal={arXiv preprint arXiv:1906.07241},
-  year={2019}
-}
-```
+[1] Logan IV, R. L., Liu, N. F., Peters, M. E., Gardner, M., & Singh, S. (2019). Barack's Wife Hillary: Using Knowledge-Graphs for Fact-Aware Language Modeling. arXiv preprint arXiv:1906.07241.
 :::
 
 ::: frame
 \small
-```
-@article{petroni2020kilt,
-  title={KILT: a benchmark for knowledge intensive language tasks},
-  author={Petroni, Fabio and Piktus, Aleksandra and Fan, Angela and
-    Lewis, Patrick and Yazdani, Majid and De Cao, Nicola and
-    Thorne, James and Jernite, Yacine and Plachouras, Vassilis
-    and Rockt{\"a}schel, Tim and others},
-  journal={arXiv preprint arXiv:2009.02252},
-  year={2020}
-}
-```
+[2] Petroni, F., Piktus, A., Fan, A., Lewis, P., Yazdani, M., De Cao, N., ... & Riedel, S. (2020). KILT: a benchmark for knowledge intensive language tasks. arXiv preprint arXiv:2009.02252.
 :::
