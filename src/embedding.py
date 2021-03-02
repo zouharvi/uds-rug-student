@@ -13,11 +13,16 @@ print("* Tokenizing data")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 data = {
     split: [
-        {**sentence, **tokenizer(sentence["raw"])}
+        {
+            "sid": sentence["sid"],
+            "sequence": sentence["sequence"],
+            "input_ids": tokenizer(sentence["raw"])["input_ids"]
+        }
         for sentence in data[split]
     ]
     for split in data
 }
+
 
 print("* Computing embeddings")
 model = BertModel.from_pretrained("bert-base-cased")
@@ -28,7 +33,7 @@ for split in ["test"]:
     data_embd[split] = []
     for i, sentence in enumerate(data[split]):
         print(f"{i/len(data[split])*100:.5}%")
-        
+
         # This could be done faster by padding the sentences and increasing the batch size,
         # on the other hand, the cost of this is just leaving the computer to run overnight
         # for an hour.
@@ -44,5 +49,5 @@ for split in ["test"]:
             )
         })
 
-with open("data/embedding_train.pkl", "wb") as f:
+with open("data/embedding_test2.pkl", "wb") as f:
     pickle.dump(data_embd, f)

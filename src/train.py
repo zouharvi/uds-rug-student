@@ -1,9 +1,10 @@
-import datasets
-from transformers import AutoTokenizer, BertModel
-import torch
-import pickle
+from data.ontonotes import OntoNotesEmbd, tags_order
 
-with open("data/embedding_test.pkl", "rb") as f:
-    data_embd = pickle.load(f)
+data = OntoNotesEmbd("data/embedding_").get("test")
+classes_map, classes_count = tags_order(data)
+print(classes_map)
 
+
+
+print(data[0].keys())
 input()
