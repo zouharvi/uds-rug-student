@@ -29,6 +29,7 @@ model = BertModel.from_pretrained("bert-base-cased")
 model.eval()
 
 data_embd = {}
+
 for split in ["test"]:
     data_embd[split] = []
     for i, sentence in enumerate(data[split]):
