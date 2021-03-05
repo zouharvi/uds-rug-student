@@ -2,11 +2,19 @@ import datasets
 from transformers import AutoTokenizer, BertModel
 import torch
 import pickle
+from utils import DEVICE
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--data', default="data/all.tsv", help='Path to parsed tsv')
+parser.add_argument('--out', default="data/embedding_x.pkl", help='Where to store pickled embeddings')
+args = parser.parse_args()
+
 
 print("* Loading data")
 data = datasets.load_dataset(
     "./src/data/ontonotes.py",
-    data_files="data/all.tsv",
+    data_files=args.data,
 )
 
 print("* Tokenizing data")
@@ -26,6 +34,7 @@ data = {
 
 print("* Computing embeddings")
 model = BertModel.from_pretrained("bert-base-cased")
+model.to(DEVICE)
 model.eval()
 
 data_embd = {}
@@ -39,7 +48,7 @@ for split in ["test"]:
         # on the other hand, the cost of this is just leaving the computer to run overnight
         # for an hour.
         output = model(
-            torch.LongTensor([sentence["input_ids"]]),
+            torch.LongTensor([sentence["input_ids"]], device=DEVICE),
             output_hidden_states=True
         )
         data_embd[split].append({
@@ -50,5 +59,5 @@ for split in ["test"]:
             )
         })
 
-with open("data/embedding_test2.pkl", "wb") as f:
+with open(args.out, "wb") as f:
     pickle.dump(data_embd, f)

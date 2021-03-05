@@ -119,6 +119,7 @@ def average_embd(data):
     """
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
     data_new = []
+    unparsable_sents = 0
     for sent in data:
         buffer = []
         embeddings_new = []
@@ -129,14 +130,17 @@ def average_embd(data):
         for i, sub_token in enumerate(tokenizer.convert_ids_to_tokens(sent["input_ids"])):
             if sub_token == "[CLS]":
                 continue
-            if len(buffer_str) == len(cur_token) and len(buffer) != 0:
+            if (buffer_str == "[UNK]" or len(buffer_str) == len(cur_token)) and len(buffer) != 0:
                 # can also be [SEP]
                 embeddings_new.append(
                     torch.mean(torch.stack(buffer, dim=0), dim=0)
                 )
                 if len(token_list) == 0:
                     break
-                assert(buffer_str == cur_token)
+                if buffer_str != cur_token and buffer_str != "[UNK]":
+                    unparsable_sents += 1
+                    break
+                
                 cur_token = token_list.pop(0)
                 buffer = []
                 buffer_str = ""
@@ -147,12 +151,15 @@ def average_embd(data):
                 buffer_str += sub_token
             buffer.append(sent["embedding"][i])
 
-        assert(len(embeddings_new) == len(sent["sequence"]["POS"]))
-        data_new.append({
-            "sequence": sent["sequence"],
-            "sid": sent["sid"],
-            "embedding": embeddings_new,
-        })
+        if len(embeddings_new) != len(sent["sequence"]["POS"]):
+            unparsable_sents += 1
+        else:
+            data_new.append({
+                "sequence": sent["sequence"],
+                "sid": sent["sid"],
+                "embedding": embeddings_new,
+            })
+    print(f"Unparsed sents: {unparsable_sents}/{len(data)}")
 
     return data_new
 

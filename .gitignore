@@ -5,3 +5,4 @@ data/*info
 data/*.tsv
 *.lock
 __pycache__
+*lock
