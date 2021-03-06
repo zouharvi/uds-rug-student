@@ -5,11 +5,11 @@ from utils import DEVICE
 
 FACTORY = {
     "mcc": lambda params: MostCommonClass(params["classes_map"]),
-    "d0": lambda params: ModelDense([('L', params["embd"], params["classes"])]),
-    "d1": lambda params: ModelDense([('L', params["embd"], 20), ('L', 20, params["classes"])]),
-    "d2": lambda params: ModelDense([('L', params["embd"], 100), ('D', 0.2), ('L', 100, params["classes"])]),
-    "c0": lambda params: ModelCNN([('C1', 1, 64, 4), ('M', 765), ('F', 1), ('L', 64, params["classes"])]),
-    "c1": lambda params: ModelCNN([('C1', 1, 64, 4), ('C1', 64, 64, 4), ('C1', 64, 64, 4), ('M', 759), ('F', 1), ('L', 64, params["classes"])]),
+    "d0": lambda params: ModelDense([('L', params["embd_size"], params["classes_count"])]),
+    "d1": lambda params: ModelDense([('L', params["embd_size"], 20), ('L', 20, params["classes_count"])]),
+    "d2": lambda params: ModelDense([('L', params["embd_size"], 100), ('D', 0.2), ('L', 100, params["classes_count"])]),
+    "c0": lambda params: ModelCNN([('C1', 1, 64, 4), ('M', 765), ('F', 1), ('L', 64, params["classes_count"])]),
+    "c1": lambda params: ModelCNN([('C1', 1, 64, 4), ('C1', 64, 64, 4), ('C1', 64, 64, 4), ('M', 759), ('F', 1), ('L', 64, params["classes_count"])]),
 }
 
 
