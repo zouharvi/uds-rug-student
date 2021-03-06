@@ -89,11 +89,8 @@ class OntoNotesEmbd():
             )
 
     def get(self, name):
-        name_ret = name
-        if name_ret == "dev":
-            name_ret = "validation"
         with open(f"{self.prefix}{name}{self.suffix}", "rb") as f:
-            return pickle.load(f)[name_ret]
+            return pickle.load(f)
 
 
 def tags_order(data):

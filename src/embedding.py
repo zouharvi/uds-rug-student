@@ -7,9 +7,13 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data', default="data/all.tsv", help='Path to parsed tsv')
-parser.add_argument('--out', default="data/embedding_x.pkl", help='Where to store pickled embeddings')
+parser.add_argument('--data-out', default="data/embedding_x.pkl", help='Where to store pickled embeddings')
+parser.add_argument('--name', default="test", help='Section of the data to use (train, validation/dev, test)')
+parser.add_argument('--no-hotswap', action="store_true", help='Hotswap to CPU when GPU is out of memory')
 args = parser.parse_args()
 
+if args.name == "dev":
+    args.name = "validation"
 
 print("* Loading data")
 data = datasets.load_dataset(
@@ -37,21 +41,36 @@ model = BertModel.from_pretrained("bert-base-cased")
 model.to(DEVICE)
 model.eval()
 
-data_embd = {}
+if not args.no_hotswap:
+    hotswap_ptr = 0
+    gpu_total = torch.cuda.get_device_properties(device=DEVICE).total_memory
 
-for split in ["test"]:
-    data_embd[split] = []
-    for i, sentence in enumerate(data[split]):
-        print(f"{i/len(data[split])*100:.5}%")
+data_embd = []
+
+
+with torch.no_grad():
+    for i, sentence in enumerate(data[args.name]):
+        gpu_used = torch.cuda.memory_allocated(device=DEVICE)
+        if not args.no_hotswap:
+            if (gpu_total - gpu_used) <= 2560*1024*1024:
+                if hotswap_ptr >= len(data_embd):
+                    raise Exception("Attempted to hotswap out of GPU, but not enough computed.")
+                tmp = data_embd[hotswap_ptr]["embedding"].detach().cpu()
+                del data_embd[hotswap_ptr]["embedding"]
+                data_embd[hotswap_ptr]["embedding"] = tmp
+                torch.cuda.empty_cache()
+                hotswap_ptr += 1
+
+        if i % 200 == 0:
+            print(f"{i/len(data[args.name])*100:5.3}%", f"Free mem: {(gpu_total - gpu_used)/1024/1024:4.0f}MB" if not args.no_hotswap else "")
 
         # This could be done faster by padding the sentences and increasing the batch size,
-        # on the other hand, the cost of this is just leaving the computer to run overnight
-        # for an hour.
+        # on the other hand, the cost of this is just extra an extra few minutes.
         output = model(
-            torch.LongTensor([sentence["input_ids"]], device=DEVICE),
+            torch.LongTensor([sentence["input_ids"]]).to(DEVICE),
             output_hidden_states=True
         )
-        data_embd[split].append({
+        data_embd.append({
             **sentence,
             "embedding": torch.reshape(
                 output.hidden_states[0],
@@ -59,5 +78,5 @@ for split in ["test"]:
             )
         })
 
-with open(args.out, "wb") as f:
+with open(args.data_out, "wb") as f:
     pickle.dump(data_embd, f)
