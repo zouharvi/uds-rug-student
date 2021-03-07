@@ -11,15 +11,15 @@ parser.add_argument('--batch', type=int, default=4096,
                     help='Batch size to use')
 parser.add_argument('--data', default="data/embedding_",
                     help='Prefix of path to embedding_{train,dev,test}.pkl')
-parser.add_argument('--train-size', type=int, default=10000,
+parser.add_argument('--train-size', type=int, default=None,
                     help='Number of training examples to use')
-parser.add_argument('--dev-size', type=int, default=7000,
+parser.add_argument('--dev-size', type=int, default=None,
                     help='Number of dev examples to use')
 args = parser.parse_args()
 
 data_train, classes_map, classes_count = OntoNotesEmbd(args.data).get("train", args.train_size)
 data_dev, _, _ = OntoNotesEmbd(args.data).get("dev", args.dev_size)
-embd_size = data_train[0]["embedding"].size()[1]
+embd_size = data_train[0][0].size()[0]
 print("Embeddings size", embd_size)
 print("Classes count", classes_count)
 

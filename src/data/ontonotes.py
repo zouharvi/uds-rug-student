@@ -91,7 +91,8 @@ class OntoNotesEmbd():
     def get(self, name, size=None):
         with open(f"{self.prefix}{name}{self.suffix}", "rb") as f:
             data = pickle.load(f)
-            return (tuple_embd(data["data"][:size]), data["classes_map"], data["classes_map"])
+            print("loaded")
+            return (tuple_embd(data["data"][:size], data["classes_map"]), data["classes_map"], data["classes_count"])
 
 
 def tags_order(data):
@@ -104,14 +105,14 @@ def tags_order(data):
     for sent in data:
         tags = tags.union(sent["sequence"]["POS"])
 
-    tags = list(tags)
+    tags = sorted(list(tags), key=lambda x: x)
     tagsFW = {tstr: tid for tstr, tid in enumerate(tags)}
     tagsBW = {tid: tstr for tstr, tid in enumerate(tags)}
 
     return {**tagsFW, **tagsBW}, len(tagsFW)
 
 
-def average_embd(data):
+def average_embd(data, device="cuda:0"):
     """
     Averages embeddings of subwords in one token
     """
@@ -131,7 +132,7 @@ def average_embd(data):
             if (buffer_str == "[UNK]" or len(buffer_str) == len(cur_token)) and len(buffer) != 0:
                 # can also be [SEP]
                 embeddings_new.append(
-                    torch.mean(torch.stack(buffer, dim=0), dim=0)
+                    torch.mean(torch.stack(buffer, dim=0), dim=0).to(device)
                 )
                 if len(token_list) == 0:
                     break

@@ -58,7 +58,7 @@ with torch.no_grad():
     for i, sentence in enumerate(data[args.name]):
         if not args.no_hotswap:
             gpu_used = torch.cuda.memory_allocated(device=DEVICE)
-            if (gpu_total - gpu_used) <= 2560*1024*1024:
+            if (gpu_total - gpu_used) <= 2048*1024*1024:
                 if hotswap_ptr >= len(data_embd):
                     raise Exception(
                         "Attempted to hotswap out of GPU, but not enough computed.")
@@ -88,7 +88,7 @@ with torch.no_grad():
 
 with open(args.data_out, "wb") as f:
     pickle.dump({
-        "data": average_embd(data_embd),
+        "data": average_embd(data_embd, "cpu"),
         "classes_map": classes_map,
         "classes_count": classes_count
     }, f)
