@@ -1,15 +1,20 @@
 import datasets
 from transformers import AutoTokenizer, BertModel
+from data.ontonotes import average_embd, tags_order
 import torch
 import pickle
 from utils import DEVICE
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--data', default="data/all.tsv", help='Path to parsed tsv')
-parser.add_argument('--data-out', default="data/embedding_x.pkl", help='Where to store pickled embeddings')
-parser.add_argument('--name', default="test", help='Section of the data to use (train, validation/dev, test)')
-parser.add_argument('--no-hotswap', action="store_true", help='Hotswap to CPU when GPU is out of memory')
+parser.add_argument('--data', default="data/all.tsv",
+                    help='Path to parsed tsv')
+parser.add_argument('--data-out', default="data/embedding_x.pkl",
+                    help='Where to store pickled embeddings')
+parser.add_argument('--name', default="test",
+                    help='Section of the data to use (train, validation/dev, test)')
+parser.add_argument('--no-hotswap', action="store_true",
+                    help='Hotswap to CPU when GPU is out of memory')
 args = parser.parse_args()
 
 if args.name == "dev":
@@ -44,17 +49,19 @@ model.eval()
 if not args.no_hotswap:
     hotswap_ptr = 0
     gpu_total = torch.cuda.get_device_properties(device=DEVICE).total_memory
-
 data_embd = []
 
-
+classes_map, classes_count = tags_order(
+    data["train"]+data["validation"]+data["test"]
+)
 with torch.no_grad():
     for i, sentence in enumerate(data[args.name]):
-        gpu_used = torch.cuda.memory_allocated(device=DEVICE)
         if not args.no_hotswap:
+            gpu_used = torch.cuda.memory_allocated(device=DEVICE)
             if (gpu_total - gpu_used) <= 2560*1024*1024:
                 if hotswap_ptr >= len(data_embd):
-                    raise Exception("Attempted to hotswap out of GPU, but not enough computed.")
+                    raise Exception(
+                        "Attempted to hotswap out of GPU, but not enough computed.")
                 tmp = data_embd[hotswap_ptr]["embedding"].detach().cpu()
                 del data_embd[hotswap_ptr]["embedding"]
                 data_embd[hotswap_ptr]["embedding"] = tmp
@@ -62,7 +69,8 @@ with torch.no_grad():
                 hotswap_ptr += 1
 
         if i % 200 == 0:
-            print(f"{i/len(data[args.name])*100:5.3}%", f"Free mem: {(gpu_total - gpu_used)/1024/1024:4.0f}MB" if not args.no_hotswap else "")
+            print(f"{i/len(data[args.name])*100:5.3}%",
+                  f"Free mem: {(gpu_total - gpu_used)/1024/1024:4.0f}MB" if not args.no_hotswap else "")
 
         # This could be done faster by padding the sentences and increasing the batch size,
         # on the other hand, the cost of this is just extra an extra few minutes.
@@ -79,4 +87,8 @@ with torch.no_grad():
         })
 
 with open(args.data_out, "wb") as f:
-    pickle.dump(data_embd, f)
+    pickle.dump({
+        "data": average_embd(data_embd),
+        "classes_map": classes_map,
+        "classes_count": classes_count
+    }, f)

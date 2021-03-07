@@ -19,8 +19,8 @@ This project is written in Python, with the environment defined in `envirovnment
 ## Data Preprocessing
 
 - Concatenate all files into one, e.g. by `cat data/ontonetes-4.0/*.gold_conll > data/all.conll`
-- Extract the tripet (word position, word, POS) using `src/data/extract_pos.sh INPUT_CONLL OUTPUT_TSV`
-- For overview of the POS data (in .tsv), run `./src/data/info.py data/sample.tsv > data/sample.info`:
+- Extract the tripet (word position, word, POS) using `src/data/extract_pos.sh data/all.conll data/all.tsv`
+- For overview of the POS data (in .tsv), run `./src/data/info.py data/all.tsv > data/all.info`:
 
 ```
 Tags:                   Overall:
@@ -37,7 +37,8 @@ VBD       5.20%
 
 ## Tokenization & Embedding
 
-This part tokenizes the words (in a sense of subword units + BERT specific indexing) with BERT Tokenizer. The input is then fed into BERT and the hidden states in the last layer are used as embeddings. Run `python3 src/embedding.py INPUT_TSV OUTPUT_PKL` to compute the embeddings and store them. Caution, this is a highly memory sensitive task, requiring for save usage ~15GB of free RAM.
+<!-- TODO: this is incorrect -->
+This part tokenizes the words (in a sense of subword units + BERT specific indexing) with BERT Tokenizer. The input is then fed into BERT and the hidden states in the last layer are used as embeddings. Run `python3 src/embedding.py train INPUT_TSV OUTPUT_PKL` to compute the embeddings and store them. Caution, this is a highly memory sensitive task, requiring for save usage ~15GB of free memory (CPU and GPU in total). There is a mechanism that starts swapping sentences to CPU RAM when GPU is about to be full. To disable this, add `--no-hotswap`.
 
 ## Models
 

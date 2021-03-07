@@ -88,9 +88,10 @@ class OntoNotesEmbd():
                 "All `get` calls will fail"
             )
 
-    def get(self, name):
+    def get(self, name, size=None):
         with open(f"{self.prefix}{name}{self.suffix}", "rb") as f:
-            return pickle.load(f)
+            data = pickle.load(f)
+            return (tuple_embd(data["data"][:size]), data["classes_map"], data["classes_map"])
 
 
 def tags_order(data):
