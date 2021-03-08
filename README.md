@@ -35,11 +35,68 @@ VBD       5.20%
 ...
 ```
 
-## Tokenization & Embedding
+## Tokenization, Embedding and Training
 
-<!-- TODO: this is incorrect -->
-This part tokenizes the words (in a sense of subword units + BERT specific indexing) with BERT Tokenizer. The input is then fed into BERT and the hidden states in the last layer are used as embeddings. Run `python3 src/embedding.py train INPUT_TSV OUTPUT_PKL` to compute the embeddings and store them. Caution, this is a highly memory sensitive task, requiring for save usage ~15GB of free memory (CPU and GPU in total). There is a mechanism that starts swapping sentences to CPU RAM when GPU is about to be full. To disable this, add `--no-hotswap`.
+This part tokenizes the words (in a sense of subword units + BERT specific indexing) with BERT Tokenizer. The input is then fed into BERT and the hidden states in the last layer are used as embeddings. Run `python3 src/embedding.py --name SPLIT --data data/all.tsv --data.out data/embedding_SPLIT.pkl` to compute the embeddings and store them. Replace split with `train, validation/dev, test` to produce a specific split. See [Appendix](#Appendix) for further usage details. This step also aggregates (averaging) embedding for multiple subwords for a token. A small number of sentences (8) were impossible to reconstruct using the simple parser and were discarded. The total number is reported by this script.
+
+To train a model, run `python3 src/train.py MODEL --data "data/embedding_"`. See [Models][#Models] for the list of models. The full pipeline for logistic regression (model `dense1`) would then be:
+
+```
+cat data/ontonetes-4.0/*.gold_conll > data/all.conll
+bash src/data/extract_pos.sh data/all.conll data/all.tsv
+python3 src/embedding.py --name test --data data/all.tsv --data.out data/embedding_test.pkl
+python3 src/embedding.py --name dev --data data/all.tsv --data.out data/embedding_dev.pkl
+python3 src/embedding.py --name train --data data/all.tsv --data.out data/embedding_train.pkl
+python3 src/train.py dense1 --data "data/embedding_"
+```
 
 ## Models
 
 TODO
+
+# Appendix
+
+## Script usage
+
+This section lists script usage dumps as well as a few miscellaneous notes.
+
+`src/embedding.py`
+
+```
+usage: embedding.py [-h] [--data DATA] [--data-out DATA_OUT] [--name NAME] [--no-hotswap] [--seed SEED]
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --data DATA          Path to parsed tsv
+  --data-out DATA_OUT  Where to store pickled embeddings
+  --name NAME          Section of the data to use (train, validation/dev, test)
+  --no-hotswap         Hotswap to CPU when GPU is out of memory
+  --seed SEED          Seed to use for shuffling
+```
+
+Caution, `embedding.py --name train` is a highly memory sensitive task, requiring for save usage ~20GB of free memory (CPU and GPU in total). There is a mechanism that starts swapping sentences to CPU RAM when GPU is about to be full. To disable this, add `--no-hotswap`.
+
+By default, this decreases the original precision (32-bit) to half the size (16-bit) floats. To disable this, add `--no-half`. 
+
+`src/train.py`
+
+```
+usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] model
+
+positional arguments:
+  model                 Model to use
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --epochs EPOCHS       Number of epochs to use
+  --batch BATCH         Batch size to use
+  --data DATA           Prefix of path to embedding_{train,dev,test}.pkl
+  --train-size TRAIN_SIZE
+                        Number of training examples to use
+  --dev-size DEV_SIZE   Number of dev examples to use
+  --seed SEED           Seed to use for shuffling
+```
+
+## Note on difficulty
+
+The biggest issue I was struggling with was the lack of overall memory (both CPU and GPU). This forced me to adjust the scripts so that they would be more memory aware and even implement the hotswapping mechanism in `embedding.py`. Eventually the embedding precision was halved.

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import datasets
 from transformers import AutoTokenizer, BertModel
 from data.ontonotes import average_embd, tags_order
@@ -15,6 +16,12 @@ parser.add_argument('--name', default="test",
                     help='Section of the data to use (train, validation/dev, test)')
 parser.add_argument('--no-hotswap', action="store_true",
                     help='Hotswap to CPU when GPU is out of memory')
+parser.add_argument('--no-half', action="store_true",
+                    help='Disable halving the precision')
+parser.add_argument('--hotswap-threshold', default=3072, type=int,
+                    help='Threshold (in MB) from which to store data on CPU')
+parser.add_argument('--seed', type=int, default=0,
+                    help='Seed to use for shuffling')
 args = parser.parse_args()
 
 if args.name == "dev":
@@ -24,6 +31,7 @@ print("* Loading data")
 data = datasets.load_dataset(
     "./src/data/ontonotes.py",
     data_files=args.data,
+    config={"seed": args.seed}
 )
 
 print("* Tokenizing data")
@@ -58,7 +66,7 @@ with torch.no_grad():
     for i, sentence in enumerate(data[args.name]):
         if not args.no_hotswap:
             gpu_used = torch.cuda.memory_allocated(device=DEVICE)
-            if (gpu_total - gpu_used) <= 2048*1024*1024:
+            if (gpu_total - gpu_used) <= args.hotswap_threshold*1024*1024:
                 if hotswap_ptr >= len(data_embd):
                     raise Exception(
                         "Attempted to hotswap out of GPU, but not enough computed.")
@@ -78,12 +86,15 @@ with torch.no_grad():
             torch.LongTensor([sentence["input_ids"]]).to(DEVICE),
             output_hidden_states=True
         )
+        final_tensor = torch.reshape(
+                output.hidden_states[0],
+                (len(sentence["input_ids"]), -1),
+            )
+        if not args.no_half:
+            final_tensor = final_tensor.half()
         data_embd.append({
             **sentence,
-            "embedding": torch.reshape(
-                output.hidden_states[0],
-                (len(sentence["input_ids"]), -1)
-            )
+            "embedding": final_tensor
         })
 
 with open(args.data_out, "wb") as f:

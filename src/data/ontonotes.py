@@ -1,8 +1,9 @@
-import datasets
-import pickle
-from transformers import AutoTokenizer
-from os.path import isfile
 import torch
+import datasets
+from transformers import AutoTokenizer
+import pickle
+import random
+from os.path import isfile
 
 
 class OntoNotes(datasets.GeneratorBasedBuilder):
@@ -10,6 +11,10 @@ class OntoNotes(datasets.GeneratorBasedBuilder):
     Huggingface-like loader for pre-processed .tsv files with POS tags
     Train/Dev/Test split is 80/10/10
     """
+
+    def __init__(self, config, **kwargs):
+        super().__init__(**kwargs)
+        self.seed = config["seed"]
 
     def _info(self):
         return datasets.DatasetInfo(
@@ -47,6 +52,8 @@ class OntoNotes(datasets.GeneratorBasedBuilder):
                         "token": x[1],
                         "POS": x[2],
                     })
+        random.seed(self.seed)
+        random.shuffle(data)
 
         return [
             datasets.SplitGenerator(
@@ -72,28 +79,6 @@ class OntoNotes(datasets.GeneratorBasedBuilder):
     def _generate_examples(self, data):
         for x in data:
             yield x
-
-
-class OntoNotesEmbd():
-    """
-    Custom loader for computed embeddings
-    """
-
-    def __init__(self, prefix, suffix=".pkl"):
-        self.prefix = prefix
-        self.suffix = suffix
-        if all([not isfile(prefix + name + suffix) for name in {"train", "dev", "test"}]):
-            raise Exception(
-                "None of the embedding pickle files exist (train, dev, test). " +
-                "All `get` calls will fail"
-            )
-
-    def get(self, name, size=None):
-        with open(f"{self.prefix}{name}{self.suffix}", "rb") as f:
-            data = pickle.load(f)
-            print("loaded")
-            return (tuple_embd(data["data"][:size], data["classes_map"]), data["classes_map"], data["classes_count"])
-
 
 def tags_order(data):
     """
@@ -139,7 +124,7 @@ def average_embd(data, device="cuda:0"):
                 if buffer_str != cur_token and buffer_str != "[UNK]":
                     unparsable_sents += 1
                     break
-                
+
                 cur_token = token_list.pop(0)
                 buffer = []
                 buffer_str = ""
@@ -153,21 +138,47 @@ def average_embd(data, device="cuda:0"):
         if len(embeddings_new) != len(sent["sequence"]["POS"]):
             unparsable_sents += 1
         else:
-            data_new.append({
-                "sequence": sent["sequence"],
-                "sid": sent["sid"],
-                "embedding": embeddings_new,
-            })
+            data_new.append((embeddings_new, sent["sequence"]["POS"]))
     print(f"Unparsed sents: {unparsable_sents}/{len(data)}")
 
     return data_new
 
 
-def tuple_embd(data, pos_mapper):
+class OntoNotesEmbd():
+    """
+    Custom loader for computed embeddings
+    """
+
+    def __init__(self, prefix, suffix=".pkl"):
+        self.prefix = prefix
+        self.suffix = suffix
+        if all([not isfile(prefix + name + suffix) for name in {"train", "dev", "test"}]):
+            raise Exception(
+                "None of the embedding pickle files exist (train, dev, test). " +
+                "All `get` calls will fail"
+            )
+
+    def get(self, name, size=None, keep_sent=False):
+        with open(f"{self.prefix}{name}{self.suffix}", "rb") as f:
+            data = pickle.load(f)
+            print("loaded", name)
+            return (tuple_embd(data["data"][:size], data["classes_map"], keep_sent), data["classes_map"], data["classes_count"])
+
+
+def tuple_embd(data, pos_mapper, keep_sent):
     """
     TODO
     """
-    return [
-        (embd, pos_mapper[pos])
-        for sent in data for (embd, pos) in zip(sent["embedding"], sent["sequence"]["POS"])
-    ]
+    if keep_sent:
+        return [
+            (
+                sent[0],
+                [pos_mapper[pos] for pos in sent[1]]
+            )
+            for sent in data
+        ]
+    else:
+        return [
+            (embd, pos_mapper[pos])
+            for sent in data for embd, pos in zip(sent[0], sent[1])
+        ]
