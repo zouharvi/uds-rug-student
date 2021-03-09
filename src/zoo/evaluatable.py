@@ -27,7 +27,7 @@ class Fittable():
             epoch += 1
             lossTrain = self.train_epoch(dataTrain)
             log_obj = {"epoch": epoch, "loss_train": lossTrain, "acc_dev": self.evaluate(dataDev)}
-            torch.save(self.state_dict(), f"{save_path}/{self.name}/e{epoch:0>3}.pt")
+            torch.save(self, f"{save_path}/{self.name}/e{epoch:0>3}.pt")
             wandb.log(log_obj)
             print(
                 f'{log_obj["epoch"]:>5}',

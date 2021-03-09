@@ -1,12 +1,13 @@
 from collections import Counter
 import torch
+import wandb
 
 class MostCommonClass():
     def __init__(self, classes_map):
         self.most_common = None
         self.classes_map = classes_map
 
-    def fit(self, dataTrain, dataDev, epochs):
+    def fit(self, dataTrain, dataDev, epochs, save_path):
         ys = Counter()
         for _x, y in dataTrain:
             ys.update(y.tolist())
@@ -16,8 +17,10 @@ class MostCommonClass():
             self.most_common,
             f'({self.classes_map[self.most_common]})'
         )
-
-        print('Acc', f'{self.evaluate(dataDev)*100:.2f}')
+        log_obj = {"acc_dev": self.evaluate(dataDev)}
+        wandb.log(log_obj)
+            
+        print('Acc', f'{log_obj["acc_dev"]*100:.2f}')
 
     def evaluate(self, test):
         matches = 0

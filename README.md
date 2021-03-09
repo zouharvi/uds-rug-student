@@ -39,7 +39,13 @@ VBD       5.20%
 
 This part tokenizes the words (in a sense of subword units + BERT specific indexing) with BERT Tokenizer. The input is then fed into BERT and the hidden states in the last layer are used as embeddings. Run `python3 src/embedding.py --name SPLIT --data data/all.tsv --data.out data/embedding_SPLIT.pkl` to compute the embeddings and store them. Replace split with `train, validation/dev, test` to produce a specific split. See [Appendix](#Appendix) for further usage details. This step also aggregates (averaging) embedding for multiple subwords for a token. A small number of sentences (8) were impossible to reconstruct using the simple parser and were discarded. The total number is reported by this script.
 
-To train a model, run `python3 src/train.py MODEL --data "data/embedding_"`. See [Models][#Models] for the list of models. The full pipeline for logistic regression (model `dense1`) would then be:
+To train a model, run `python3 src/train.py MODEL"`. See [Models][#Models] for the list of models. Logs are stored using [Weights & Biases](https://wandb.ai/).
+
+Evaluation on test can be done with `python3 src/test.py PATH_TO_MODEL`.
+
+## Full Example
+
+The full pipeline for logistic regression (model `dense1`) would then be:
 
 ```
 cat data/ontonetes-4.0/*.gold_conll > data/all.conll
@@ -47,8 +53,13 @@ bash src/data/extract_pos.sh data/all.conll data/all.tsv
 python3 src/embedding.py --name test --data data/all.tsv --data.out data/embedding_test.pkl
 python3 src/embedding.py --name dev --data data/all.tsv --data.out data/embedding_dev.pkl
 python3 src/embedding.py --name train --data data/all.tsv --data.out data/embedding_train.pkl
+
 python3 src/train.py dense1 --data "data/embedding_"
+
+python3 src/evaluate.py data/models/dense1/e050.pt
 ```
+
+This section omitted multiple arguments when calling the scripts. Please see [Appendix][#Appendix] for more options and their defaults.
 
 ## Models
 
@@ -59,8 +70,6 @@ TODO
 ## Script usage
 
 This section lists script usage dumps as well as a few miscellaneous notes.
-
-`src/embedding.py`
 
 ```
 usage: embedding.py [-h] [--data DATA] [--data-out DATA_OUT] [--name NAME] [--no-hotswap] [--seed SEED]
@@ -77,8 +86,6 @@ optional arguments:
 Caution, `embedding.py --name train` is a highly memory sensitive task, requiring for save usage ~20GB of free memory (CPU and GPU in total). There is a mechanism that starts swapping sentences to CPU RAM when GPU is about to be full. To disable this, add `--no-hotswap`.
 
 By default, this decreases the original precision (32-bit) to half the size (16-bit) floats. To disable this, add `--no-half`. 
-
-`src/train.py`
 
 ```
 usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] model
@@ -97,6 +104,10 @@ optional arguments:
   --seed SEED           Seed to use for shuffling
 ```
 
-## Note on difficulty
+## Source
+
+TODO
+
+## Note on Difficulty
 
 The biggest issue I was struggling with was the lack of overall memory (both CPU and GPU). This forced me to adjust the scripts so that they would be more memory aware and even implement the hotswapping mechanism in `embedding.py`. Eventually the embedding precision was halved.

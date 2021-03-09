@@ -5,7 +5,7 @@ from zoo.evaluatable import Evaluatable
 class ModelDense(nn.Module, Evaluatable):
     def __init__(self, params):
         nn.Module.__init__(self)
-        Evaluatable.__init__(self, lr=0.01)
+        Evaluatable.__init__(self, lr=0.005)
 
         layers = []
         for param_i, param in enumerate(params):

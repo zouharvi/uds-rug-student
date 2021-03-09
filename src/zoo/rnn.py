@@ -7,9 +7,9 @@ from zoo.evaluatable import Fittable
 class ModelRNN(nn.Module, Fittable):
     def __init__(self, type, bidirectional, num_layers, embd_size, classes_count, hidden_dim=None):
         nn.Module.__init__(self)
-        Fittable.__init__(self, 0.01)
+        Fittable.__init__(self, 0.001)
         if hidden_dim == None:
-            hidden_dim = 2*(classes_count+1)
+            hidden_dim = classes_count+1
         if type == "rnn":
             self.unit = nn.RNN(
                 input_size=embd_size,
