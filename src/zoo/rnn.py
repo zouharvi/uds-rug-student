@@ -1,12 +1,15 @@
 import torch
 import torch.nn as nn
+import numpy as np
 from utils import DEVICE
+from zoo.evaluatable import Fittable
 
-class ModelRNN(nn.Module):
+class ModelRNN(nn.Module, Fittable):
     def __init__(self, type, bidirectional, num_layers, embd_size, classes_count, hidden_dim=None):
         nn.Module.__init__(self)
+        Fittable.__init__(self, 0.01)
         if hidden_dim == None:
-            hidden_dim = classes_count+1
+            hidden_dim = 2*(classes_count+1)
         if type == "rnn":
             self.unit = nn.RNN(
                 input_size=embd_size,
@@ -32,14 +35,12 @@ class ModelRNN(nn.Module):
             self.linear = nn.Linear(2*hidden_dim, classes_count)
         else:
             self.linear = nn.Linear(hidden_dim, classes_count)
-        self.f = nn.Softmax(dim=1)
-        self.to(DEVICE)
-        self.lr = 0.01
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         lstm_out, _ = self.unit(x.view(len(x), 1, -1))
         tag_space = self.linear(lstm_out.view(len(x), -1))
-        tag_scores = self.f(tag_space)
+        tag_scores = self.softmax(tag_space)
         return tag_scores
 
     def evaluate(self, test):
@@ -50,33 +51,21 @@ class ModelRNN(nn.Module):
             x = torch.stack(x, dim=0).float().to(DEVICE)
             y = torch.ShortTensor(y).to(DEVICE)
             yhat = self(x).argmax(dim=1)
-
             matches += torch.sum(torch.eq(yhat, y))
             total += y.shape[0]
         return matches/total
+    
+    def train_epoch(self, data):
+        self.train(True)
+        losses = []
 
-    def fit(self, dataTrain, dataDev, epochs):
-        print("epoch\tloss\tacc")
-        print(f'    0\tNaN\t{self.evaluate(dataDev)*100:>5.3f}%')
-
-        loss_fn = nn.NLLLoss()
-        opt = torch.optim.Adam(self.parameters(), lr=self.lr)
-        for epoch in range(epochs):
-            epoch += 1
-            self.train(True)
-
-            for x, y in dataTrain:
-                x = torch.stack(x, dim=0).float().to(DEVICE)
-                y = torch.LongTensor(y).to(DEVICE)
-                pred = self(x)
-                lossTrain = loss_fn(pred, y)
-                lossTrain.backward(retain_graph=True)
-                opt.step()
-                opt.zero_grad()
-
-            print(
-                f'{epoch:>5}',
-                f'{lossTrain.to("cpu").item():>5.3f}',
-                f'{self.evaluate(dataDev)*100:>5.2f}%',
-                sep="\t"
-            )
+        for x, y in data:
+            x = torch.stack(x, dim=0).float().to(DEVICE)
+            y = torch.LongTensor(y).to(DEVICE)
+            pred = self(x)
+            lossTrain = self.loss_fn(pred, y)
+            losses.append(lossTrain.detach().cpu())
+            lossTrain.backward(retain_graph=True)
+            self.opt.step()
+            self.opt.zero_grad()
+        return np.average(losses)

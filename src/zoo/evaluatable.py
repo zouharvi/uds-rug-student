@@ -1,10 +1,55 @@
 import torch
 import torch.nn as nn
 from utils import DEVICE
+import numpy as np
+import wandb
 
-class Evaluatable():
+class Fittable():
     def __init__(self, lr):
         self.lr = lr
+        wandb.config.learning_rate = lr
+        self.loss_fn = nn.CrossEntropyLoss()
+
+    def fit(self, dataTrain, dataDev, epochs, save_path):
+        print("epoch\tloss\tacc")
+        log_obj = {"epoch": -1, "loss_train": np.nan, "acc_dev": self.evaluate(dataDev)}
+        wandb.log(log_obj)
+        print(
+            f'{log_obj["epoch"]:>5}',
+            f'{log_obj["loss_train"]:>5.3f}',
+            f'{log_obj["acc_dev"]*100:>5.2f}%',
+            sep="\t"
+        )
+        self.opt = torch.optim.Adam(self.parameters(), lr=self.lr)
+
+        wandb.watch(self)
+        for epoch in range(epochs):
+            epoch += 1
+            lossTrain = self.train_epoch(dataTrain)
+            log_obj = {"epoch": epoch, "loss_train": lossTrain, "acc_dev": self.evaluate(dataDev)}
+            torch.save(self.state_dict(), f"{save_path}/{self.name}/e{epoch:0>3}.pt")
+            wandb.log(log_obj)
+            print(
+                f'{log_obj["epoch"]:>5}',
+                f'{log_obj["loss_train"]:>5.3f}',
+                f'{log_obj["acc_dev"]*100:>5.2f}%',
+                sep="\t"
+            )
+
+class Evaluatable(Fittable):
+    def train_epoch(self, data):
+        self.train(True)
+        losses = []
+        for x, y in data:
+            x = x.float().to(DEVICE)
+            y = y.to(DEVICE)
+            pred = self(x)
+            lossTrain = self.loss_fn(pred, y)
+            losses.append(lossTrain.detach().cpu())
+            lossTrain.backward(retain_graph=True)
+            self.opt.step()
+            self.opt.zero_grad()
+        return np.average(losses)
 
     def evaluate(self, test):
         self.eval()
@@ -16,29 +61,3 @@ class Evaluatable():
             matches += torch.sum(self(x).argmax(dim=1) == y)
             total += y.size()[0]
         return matches/total
-
-    def fit(self, dataTrain, dataDev, epochs):
-        print("epoch\tloss\tacc")
-        print(f'   -1\tNaN\t{self.evaluate(dataDev)*100:>5.3f}%')
-
-        loss_fn = nn.CrossEntropyLoss()
-        opt = torch.optim.Adam(self.parameters(), lr=self.lr)
-        for epoch in range(epochs):
-            epoch += 1
-            self.train(True)
-
-            for x, y in dataTrain:
-                x = x.float().to(DEVICE)
-                y = y.to(DEVICE)
-                pred = self(x)
-                lossTrain = loss_fn(pred, y)
-                lossTrain.backward(retain_graph=True)
-                opt.step()
-                opt.zero_grad()
-
-            print(
-                f'{epoch:>5}',
-                f'{lossTrain.to("cpu").item():>5.3f}',
-                f'{self.evaluate(dataDev)*100:>5.2f}%',
-                sep="\t"
-            )

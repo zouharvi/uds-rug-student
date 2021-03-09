@@ -18,9 +18,8 @@ class ModelDense(nn.Module, Evaluatable):
             if param_i != len(params):
                 layers.append(nn.LeakyReLU())
 
-        self.f = nn.Softmax(dim=1)
+        self.softmax = nn.Softmax(dim=1)
         self.layers = nn.Sequential(*layers)
-        self.to(DEVICE)
 
     def forward(self, x):
-        return self.f(self.layers(x))
+        return self.softmax(self.layers(x))

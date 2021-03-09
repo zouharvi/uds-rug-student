@@ -1,9 +1,11 @@
+from utils import DEVICE
 from zoo.dense import ModelDense
 from zoo.most_common import MostCommonClass
 from zoo.cnn import ModelCNN
 from zoo.rnn import ModelRNN
+from pathlib import Path
 
-FACTORY = {
+_FACTORY = {
     "common": lambda params: MostCommonClass(params["classes_map"]),
     "rnn1b": lambda params: ModelRNN('rnn', True, 1, params["embd_size"], params["classes_count"]),
     "rnn2b": lambda params: ModelRNN('rnn', True, 2, params["embd_size"], params["classes_count"]),
@@ -24,3 +26,10 @@ FACTORY = {
     "cnn1": lambda params: ModelCNN([('C1', 1, 64, 4), ('C1', 64, 64, 4), ('C1', 64, 64, 4), ('M', 759), ('F', 1), ('L', 64, params["classes_count"])]),
 }
 
+
+def factory(name, params, save_path):
+    model = _FACTORY[name](params)
+    model.to(DEVICE)
+    model.name = name
+    Path(save_path+"/"+name).mkdir(parents=True, exist_ok=True)
+    return model

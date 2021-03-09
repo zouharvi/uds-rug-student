@@ -21,9 +21,8 @@ class ModelCNN(nn.Module, Evaluatable):
                     nn.Linear(param[1], param[2], bias=True)
                 )
 
-        self.f = nn.Softmax(dim=1)
+        self.softmax = nn.Softmax(dim=1)
         self.layers = nn.Sequential(*layers)
-        self.to(DEVICE)
 
     def forward(self, x):
-        return self.f(self.layers(x.reshape((x.size()[0], 1, -1))))
+        return self.softmax(self.layers(x.reshape((x.size()[0], 1, -1))))

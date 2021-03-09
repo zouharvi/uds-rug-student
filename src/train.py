@@ -2,8 +2,9 @@
 from data.ontonotes import OntoNotesEmbd
 import torch
 import argparse
-from utils import DEVICE
-from zoo import FACTORY
+import wandb
+from zoo import factory
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('model', help='Model to use')
@@ -13,6 +14,8 @@ parser.add_argument('--batch', type=int, default=4096,
                     help='Batch size to use')
 parser.add_argument('--data', default="data/embedding_",
                     help='Prefix of path to embedding_{train,dev,test}.pkl')
+parser.add_argument('--save-path', default="data/models",
+                    help='Directory to which store models')
 parser.add_argument('--train-size', type=int, default=None,
                     help='Number of training examples to use')
 parser.add_argument('--dev-size', type=int, default=None,
@@ -20,12 +23,15 @@ parser.add_argument('--dev-size', type=int, default=None,
 parser.add_argument('--seed', type=int, default=0,
                     help='Seed to use for shuffling')
 args = parser.parse_args()
+
 torch.manual_seed(args.seed)
+wandb.init(project='bert-pos')
+wandb.config.update(args)
 
 keep_sent = any(args.model.startswith(x) for x in {"lstm", "gru", "rnn"})
 
 data_dev, _, _ = OntoNotesEmbd(args.data).get("dev", args.dev_size, keep_sent)
-data_train, classes_map, classes_count = OntoNotesEmbd(args.data).get("train", args.train_size, keep_sent)
+data_train, classes_map, classes_count = OntoNotesEmbd(args.data).get("dev", args.train_size, keep_sent)
 if keep_sent:
     embd_size = data_train[0][0][0].size()[0]
 else:
@@ -38,5 +44,5 @@ print("Classes count", classes_count)
 
 
 params = {"embd_size": embd_size, "classes_count": classes_count, "classes_map": classes_map}
-model = FACTORY[args.model](params)
-model.fit(data_train, data_dev, args.epochs)
+model = factory(args.model, params, args.save_path)
+model.fit(data_train, data_dev, args.epochs, args.save_path)

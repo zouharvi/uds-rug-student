@@ -6,3 +6,5 @@ data/*.tsv
 *.lock
 __pycache__
 *lock
+*.pt
+wandb
