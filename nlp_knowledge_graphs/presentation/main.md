@@ -569,15 +569,37 @@ Disadvantages:
 - Finally, the current model requires specifically annotated knowledge graph with pre-processed generative story.
 :::
 
-# Discussion 1/3
+# Discussion 1/4
 
-1. How to transfer this mechanism to other tasks?
+- _Barack Obama studied Occidental College and Columbia University_
+- `(Barack Obama, studied, Occidental College)`
+- `(Barack Obama, studied, Columbia University)`
+
+. . .
+
+> - _Barack Obama studied Occidental College ---_
+> - _Barack Obama studied Occidental College and ---_ ?
+> - _Barack Obama studied Occidental College and Columbia University_
+
+::: notes
+- One discussion point is combination of facts. On the first glance, this model should not be able to produce this sentence based on the provided knowledge base.
+- My theory is that it is certainly able to produce the first segment and if it produces the word `and`, then the second university can easily get selected.
+- The question is, why does _and_ get selected.
+:::
+
+# Discussion 2/4
+
+How to transfer this mechanism to other tasks?
   - Question Answering
   - Dialogue
   - Fact Checking
   - Slot Filling
   - Can tasks be switched? (LM, QA, FC, ...)
   - Will training an LM improve the performance on FC and vice versa?
+
+. . .
+
+Priming?
 
 ::: notes
 - Question Answering is conditioned on the question in human readable form and we want 
@@ -592,9 +614,9 @@ Disadvantages:
 - Dialogue: Just condition the LM on larger context/history?
 :::
 
-# Discussion 2/3
+# Discussion 3/4
 
-2. How to make knowledge representation end-to-end trainable?
+How to make knowledge representation end-to-end trainable?
   - Embeddings are frozen
   - So far, KG is fixed `(Mario, published_by, Valve)`
   - Constraint: still explainable
@@ -604,9 +626,9 @@ Disadvantages:
 - Currently the knowledge graph is fixed. So even though there may be some relation, that's leading to bad results, like Mario published by Valve. Is there a way to modify the knowledge graph to update this faulty knowledge? If yes, how do we know it's not just the failure of the addressing mechanism (e.g. wrong parent selected)?
 :::
 
-# Discussion 3/3
+# Discussion 4/4
 
-3. What's the best representation?
+What's the best representation?
   - Knowledge Graph + addressing mechanism
   - Collection of documents + retrieval system and text conditioning
   - Multi-task gains?
