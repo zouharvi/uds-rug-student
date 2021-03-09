@@ -4,15 +4,16 @@ from utils import DEVICE
 import numpy as np
 import wandb
 
-class Fittable():
+class Fittable(nn.Module):
     def __init__(self, lr):
+        super().__init__()
         self.lr = lr
         wandb.config.learning_rate = lr
         self.loss_fn = nn.CrossEntropyLoss()
 
     def fit(self, dataTrain, dataDev, epochs, save_path):
         print("epoch\tloss\tacc")
-        log_obj = {"epoch": -1, "loss_train": np.nan, "acc_dev": self.evaluate(dataDev)}
+        log_obj = {"epoch": 0, "loss_train": np.nan, "acc_dev": self.evaluate(dataDev)}
         wandb.log(log_obj)
         print(
             f'{log_obj["epoch"]:>5}',

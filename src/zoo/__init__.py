@@ -21,9 +21,14 @@ _FACTORY = {
     "gru2": lambda params: ModelRNN('gru', False, 2, params["embd_size"], params["classes_count"], hidden_dim=100),
     "dense1": lambda params: ModelDense([('L', params["embd_size"], params["classes_count"])]),
     "dense2": lambda params: ModelDense([('L', params["embd_size"], 20), ('L', 20, params["classes_count"])]),
-    "dense3d": lambda params: ModelDense([('L', params["embd_size"], 100), ('D', 0.2), ('L', 100, params["classes_count"])]),
-    "cnn0": lambda params: ModelCNN([('C1', 1, 64, 4), ('M', 765), ('F', 1), ('L', 64, params["classes_count"])]),
-    "cnn1": lambda params: ModelCNN([('C1', 1, 64, 4), ('C1', 64, 64, 4), ('C1', 64, 64, 4), ('M', 759), ('F', 1), ('L', 64, params["classes_count"])]),
+    "dense3": lambda params: ModelDense([('L', params["embd_size"], 60), ('L', 60, params["classes_count"])]),
+    "dense3d": lambda params: ModelDense([('L', params["embd_size"], 60), ('D', 0.1), ('L', 60, params["classes_count"])]),
+    "dense4": lambda params: ModelDense([('L', params["embd_size"], 64), ('L', 64, 64), ('L', 64, params["classes_count"])]),
+    "dense4d": lambda params: ModelDense([('L', params["embd_size"], 64), ('D', 0.1), ('L', 64, 64), ('D', 0.1), ('L', 64, params["classes_count"])]),
+    "cnn1": lambda params: ModelCNN([('C1', 1, 64, 16), ('M', 50), ('F', 1), ('L', 960, params["classes_count"])]),
+    "cnn2": lambda params: ModelCNN([('C1', 1, 64, 128), ('M', 641), ('F', 1), ('L', 64, params["classes_count"])]),
+    # TODO
+    "cnn3": lambda params: ModelCNN([('C1', 1, 64, 4), ('C1', 64, 64, 4), ('C1', 64, 64, 4), ('M', 759), ('F', 1), ('L', 64, params["classes_count"])]),
 }
 
 

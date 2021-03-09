@@ -4,10 +4,9 @@ import numpy as np
 from utils import DEVICE
 from zoo.evaluatable import Fittable
 
-class ModelRNN(nn.Module, Fittable):
+class ModelRNN(Fittable):
     def __init__(self, type, bidirectional, num_layers, embd_size, classes_count, hidden_dim=None):
-        nn.Module.__init__(self)
-        Fittable.__init__(self, 0.001)
+        super().__init__(0.001)
         if hidden_dim == None:
             hidden_dim = classes_count+1
         if type == "rnn":

@@ -10,7 +10,7 @@
 
 ## General
 
-This repository is mandatory for the UdS NNIA class of 2020/2021. This project is centered around POS prediction using BERT embeddings and variety of different models.
+This repository is mandatory for the UdS NNIA class of 2020/2021. This project is centered around POS prediction using BERT embeddings and variety of different models. The research question is simply comparing different architectures (dense, CNN, recurrent). Despite that, the scripts provide arguments to also research the effect of training data size on the performance.
 
 # Pipeline
 
@@ -106,7 +106,26 @@ optional arguments:
 
 ## Source
 
-TODO
+Source code structure:
+
+```
+src/
+├── data
+│   ├── extract_pos.sh   # preprocessing to TSV
+│   ├── info.py          # preprocessing summary
+│   ├── ontonotes.py     # complex data loader
+├── embedding.py         # computes and stores BERT embeddings
+├── test.py              # evaluation on test data
+├── train.py             # training of multiple models
+├── utils.py             # misc. utilities
+└── zoo                  # model zoo
+    ├── __init__.py      # model factory, parameter definition
+    ├── cnn.py           # CNN model
+    ├── dense.py         # dense layers model
+    ├── evaluatable.py   # model base class
+    ├── most_common.py   # most common classifier
+    └── rnn.py           # RNN/LSTM/GRU model
+```
 
 ## Note on Difficulty
 

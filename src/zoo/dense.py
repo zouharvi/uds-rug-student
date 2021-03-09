@@ -2,10 +2,9 @@ import torch.nn as nn
 from utils import DEVICE
 from zoo.evaluatable import Evaluatable
 
-class ModelDense(nn.Module, Evaluatable):
+class ModelDense(Evaluatable):
     def __init__(self, params):
-        nn.Module.__init__(self)
-        Evaluatable.__init__(self, lr=0.005)
+        super().__init__(lr=0.005)
 
         layers = []
         for param_i, param in enumerate(params):

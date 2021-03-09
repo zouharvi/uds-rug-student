@@ -3,21 +3,20 @@ import torch.nn as nn
 from utils import DEVICE
 from zoo.evaluatable import Evaluatable
 
-class ModelCNN(nn.Module, Evaluatable):
+class ModelCNN(Evaluatable):
     def __init__(self, params):
-        nn.Module.__init__(self)
-        Evaluatable.__init__(self, lr=0.01)
+        super().__init__(lr=0.0005)
 
         layers = []
         for param_i, param in enumerate(params):
             if param[0] == 'C1':
                 layers.append(nn.Conv1d(param[1], param[2], param[3]))
             elif param[0] == 'M':
-                layers.append(torch.nn.MaxPool1d(param[1]))
+                layers.append(nn.MaxPool1d(param[1]))
             elif param[0] == 'F':
-                layers.append(torch.nn.Flatten(start_dim=param[1]))
+                self.flt = (nn.Flatten(start_dim=param[1]))
             elif param[0] == 'L':
-                layers.append(
+                self.lin = (
                     nn.Linear(param[1], param[2], bias=True)
                 )
 
@@ -25,4 +24,11 @@ class ModelCNN(nn.Module, Evaluatable):
         self.layers = nn.Sequential(*layers)
 
     def forward(self, x):
-        return self.softmax(self.layers(x.reshape((x.size()[0], 1, -1))))
+        # print("----")
+        y = self.layers(x.reshape((x.shape[0], 1, -1)))
+        # print(y.shape)
+        y = self.flt(y)
+        # print(y.shape)
+        y = self.lin(y)
+        # print(y.shape)
+        return self.softmax(y)
