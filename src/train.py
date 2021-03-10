@@ -28,7 +28,7 @@ torch.manual_seed(args.seed)
 wandb.init(project='bert-pos')
 wandb.config.update(args)
 
-keep_sent = any(args.model.startswith(x) for x in {"lstm", "gru", "rnn"})
+keep_sent = any(args.model.startswith(x) for x in {"lstm", "gru", "rnn", "cnnsent"})
 
 data_dev, _, _ = OntoNotesEmbd(args.data).get("dev", args.dev_size, keep_sent)
 data_train, classes_map, classes_count = OntoNotesEmbd(args.data).get("dev", args.train_size, keep_sent)

@@ -2,7 +2,7 @@ from collections import Counter
 import torch
 import wandb
 
-class MostCommonClass():
+class MajorityClassifier():
     def __init__(self, classes_map):
         self.most_common = None
         self.classes_map = classes_map

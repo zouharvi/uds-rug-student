@@ -88,7 +88,7 @@ Caution, `embedding.py --name train` is a highly memory sensitive task, requirin
 By default, this decreases the original precision (32-bit) to half the size (16-bit) floats. To disable this, add `--no-half`. 
 
 ```
-usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] model
+usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--save-path SAVE_PATH] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] model
 
 positional arguments:
   model                 Model to use
@@ -98,10 +98,26 @@ optional arguments:
   --epochs EPOCHS       Number of epochs to use
   --batch BATCH         Batch size to use
   --data DATA           Prefix of path to embedding_{train,dev,test}.pkl
+  --save-path SAVE_PATH
+                        Directory to which store models
   --train-size TRAIN_SIZE
                         Number of training examples to use
   --dev-size DEV_SIZE   Number of dev examples to use
   --seed SEED           Seed to use for shuffling
+```
+
+&nbsp;
+
+```
+usage: test.py [-h] [--data DATA] [--batch BATCH] model
+
+positional arguments:
+  model          Path to the model to use
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --data DATA    Prefix of path to embedding_{train,dev,test}.pkl
+  --batch BATCH  Batch size to use
 ```
 
 ## Source
@@ -123,7 +139,7 @@ src/
     ├── cnn.py           # CNN model
     ├── dense.py         # dense layers model
     ├── evaluatable.py   # model base class
-    ├── most_common.py   # most common classifier
+    ├── majority.py      # majority class classifier
     └── rnn.py           # RNN/LSTM/GRU model
 ```
 
