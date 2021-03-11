@@ -63,7 +63,18 @@ This section omitted multiple arguments when calling the scripts. Please see [Ap
 
 ## Models
 
-TODO
+All models are described in detail in the paper (please request by email). Quick overview:
+
+- Majority classifier (baseline)
+- Densely connected feed forward with optional dropout (baseline)
+- RNN (vanilla, LSTM, GRU) with varying hyperparameters
+- - dropout
+- - hidden state size
+- - number of stacked recurrent layers
+- - bidirectionality
+- - dense layers
+- Token-level CNN (nonworking, deprecated)
+- Sentence-aware CNN (nonworking, deprecated)
 
 To run all experiments, as described by the paper, run `meta/run_all.sh`.
 
@@ -90,10 +101,12 @@ Caution, `embedding.py --name train` is a highly memory sensitive task, requirin
 By default, this decreases the original precision (32-bit) to half the size (16-bit) floats. To disable this, add `--no-half`. 
 
 ```
-usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--save-path SAVE_PATH] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] model
+usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--save-path SAVE_PATH] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] [--dropout DROPOUT]
+                [--dense-model DENSE_MODEL] [--rnn-hidden-size RNN_HIDDEN_SIZE] [--rnn-layers RNN_LAYERS] [--rnn-bidir] [--rnn-dense-model RNN_DENSE_MODEL]
+                model
 
 positional arguments:
-  model                 Model to use
+  model                 Model to use (majority, dense, rnn+tanh, rnn+relu, lstm, gru)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -106,6 +119,16 @@ optional arguments:
                         Number of training examples to use
   --dev-size DEV_SIZE   Number of dev examples to use
   --seed SEED           Seed to use for shuffling
+  --dropout DROPOUT     Dropout probability
+  --dense-model DENSE_MODEL
+                        Dense model (1, 2, 3)
+  --rnn-hidden-size RNN_HIDDEN_SIZE
+                        RNN hidden state size
+  --rnn-layers RNN_LAYERS
+                        RNN stacked recurrent layers
+  --rnn-bidir           RNN bidirectional
+  --rnn-dense-model RNN_DENSE_MODEL
+                        RNN dense model (1,2,3)
 ```
 
 &nbsp;

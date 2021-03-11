@@ -12,7 +12,7 @@ class ModelRNN(Fittable):
                 input_size=embd_size,
                 hidden_size=hidden_dim,
                 num_layers=num_layers,
-                bidirectional=bidirectional
+                bidirectional=bidirectional,
                 nonlinearity="relu",
             )
         elif unit == "rnn+tanh":
@@ -56,7 +56,7 @@ class ModelRNN(Fittable):
             self.linear_layers = nn.Sequential(
                 nn.Linear(2*hidden_dim, 64),
                 nn.LeakyReLU(),
-                nn.Linear(64, 64)
+                nn.Linear(64, 64),
                 nn.LeakyReLU(),
                 nn.Linear(64, classes_count)
             )
