@@ -65,6 +65,8 @@ This section omitted multiple arguments when calling the scripts. Please see [Ap
 
 TODO
 
+To run all experiments, as described by the paper, run `meta/run_all.sh`.
+
 # Appendix
 
 ## Script usage

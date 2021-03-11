@@ -3,22 +3,32 @@ from utils import DEVICE
 from zoo.evaluatable import Evaluatable
 
 class ModelDense(Evaluatable):
-    def __init__(self, params):
+    def __init__(self, dense_model, dropout, embd_size, classes_count):
         super().__init__(lr=0.005)
 
-        layers = []
-        for param_i, param in enumerate(params):
-            if param[0] == 'L':
-                layers.append(
-                    nn.Linear(param[1], param[2], bias=True)
-                )
-            if param[0] == 'D':
-                layers.append(nn.Dropout(param[1]))
-            if param_i != len(params):
-                layers.append(nn.LeakyReLU())
+        assert(dropout in {0, 0.1})
 
-        self.softmax = nn.Softmax(dim=1)
-        self.layers = nn.Sequential(*layers)
+        if dense_model == 1:
+            self.layers = nn.sequential(
+                nn.Linear(embd_size, classes_count)
+            )
+        elif dense_model == 2:
+            self.layers = nn.sequential(
+                nn.Linear(embd_size, 64),
+                nn.LeakyReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(64, classes_count),
+            )
+        elif dense_model == 3:
+            self.layers = nn.sequential(
+                nn.Linear(embd_size, 64),
+                nn.LeakyReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(64, 64),
+                nn.LeakyReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(64, classes_count),
+            )
 
     def forward(self, x):
         return self.softmax(self.layers(x))

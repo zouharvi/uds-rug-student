@@ -7,8 +7,8 @@ from zoo import factory
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('model', help='Model to use')
-parser.add_argument('--epochs', type=int, default=50,
+parser.add_argument('model', help='Model to use (majority, dense, rnn+tanh, rnn+relu, lstm, gru)')
+parser.add_argument('--epochs', type=int, default=100,
                     help='Number of epochs to use')
 parser.add_argument('--batch', type=int, default=4096,
                     help='Batch size to use')
@@ -22,6 +22,21 @@ parser.add_argument('--dev-size', type=int, default=None,
                     help='Number of dev examples to use')
 parser.add_argument('--seed', type=int, default=0,
                     help='Seed to use for shuffling')
+# Model parameters 
+parser.add_argument('--dropout', type=float, default=0,
+                    help='Dropout probability')
+# Dense model parameters
+parser.add_argument('--dense-model', type=int, default=1,
+                    help='Dense model (1, 2, 3)')
+# RNN model parameters
+parser.add_argument('--rnn-hidden-size', type=int, default=64,
+                    help='RNN hidden state size')
+parser.add_argument('--rnn-layers', type=int, default=1,
+                    help='RNN stacked recurrent layers')
+parser.add_argument('--rnn-bidir', action="store_true",
+                    help='RNN bidirectional')
+parser.add_argument('--rnn-dense-model', type=int, default=1,
+                    help='RNN dense model (1,2,3)')
 args = parser.parse_args()
 
 torch.manual_seed(args.seed)
@@ -44,5 +59,5 @@ print("Classes count", classes_count)
 
 
 params = {"embd_size": embd_size, "classes_count": classes_count, "classes_map": classes_map}
-model = factory(args.model, params, args.save_path)
+model = factory(args.model, params, args)
 model.fit(data_train, data_dev, args.epochs, args.save_path)
