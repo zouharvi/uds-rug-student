@@ -1,4 +1,4 @@
-# UdS NNIA Project 2021
+# Hyperparameters of RNN Architectures for POS Tagging using Surface-Level BERT Embeddings
 
 ## Table of Contents
 
