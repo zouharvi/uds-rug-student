@@ -24,14 +24,14 @@ This project is written in Python, with the environment defined in `envirovnment
 
 ```
 Tags:                   Overall:
-NN       12.93%         Max sequence length:      73
-IN        9.94%         Min sequence length:       2
-DT        9.68%         Mean sequence length:  18.75
-PRP       7.01%         Number of sequences:     309
-,         6.44%
-RB        5.56%
-.         5.23%
-VBD       5.20%
+NN       13.71%         Max sequence length:     228
+IN       11.16%         Min sequence length:       1
+DT        8.92%         Mean sequence length:  21.72
+NNP       8.65%         Number of sequences:   69880
+JJ        6.16%
+NNS       5.65%
+,         4.69%
+.         4.44%
 ...
 ```
 
