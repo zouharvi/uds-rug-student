@@ -5,7 +5,8 @@ from utils import DEVICE
 from zoo.evaluatable import Fittable
 
 class ModelRNN(Fittable):
-    def __init__(self, unit, bidirectional, num_layers, embd_size, classes_count, hidden_dim, dense_model):
+    def __init__(self, unit, bidirectional, num_layers, embd_size, classes_count, hidden_dim, dense_model, batch):
+        self.batch = batch
         super().__init__(0.001)
         if unit == "rnn+relu":
             self.unit = nn.RNN(
@@ -44,17 +45,17 @@ class ModelRNN(Fittable):
 
         if dense_model == 1:
             self.linear_layers = nn.Sequential(
-                nn.Linear(2*hidden_dim, classes_count)
+                nn.Linear(start_size, classes_count)
             )
         elif dense_model == 2:
             self.linear_layers = nn.Sequential(
-                nn.Linear(2*hidden_dim, 64),
+                nn.Linear(start_size, 64),
                 nn.LeakyReLU(),
                 nn.Linear(64, classes_count)
             )
         elif dense_model == 3:
             self.linear_layers = nn.Sequential(
-                nn.Linear(2*hidden_dim, 64),
+                nn.Linear(start_size, 64),
                 nn.LeakyReLU(),
                 nn.Linear(64, 64),
                 nn.LeakyReLU(),
@@ -84,13 +85,14 @@ class ModelRNN(Fittable):
         self.train(True)
         losses = []
 
-        for x, y in data:
+        for iteration, (x, y) in enumerate(data):
             x = torch.stack(x, dim=0).float().to(DEVICE)
             y = torch.LongTensor(y).to(DEVICE)
             pred = self(x)
             lossTrain = self.loss_fn(pred, y)
             losses.append(lossTrain.detach().cpu())
             lossTrain.backward(retain_graph=True)
-            self.opt.step()
-            self.opt.zero_grad()
+            if iteration % self.batch == 0 or iteration == len(data)-1:
+                self.opt.step()
+                self.opt.zero_grad()
         return np.average(losses)

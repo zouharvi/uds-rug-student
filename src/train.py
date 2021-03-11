@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('model', help='Model to use (majority, dense, rnn+tanh, rnn+relu, lstm, gru)')
 parser.add_argument('--epochs', type=int, default=100,
                     help='Number of epochs to use')
-parser.add_argument('--batch', type=int, default=4096,
+parser.add_argument('--batch', type=int, default=768,
                     help='Batch size to use')
 parser.add_argument('--data', default="data/embedding_",
                     help='Prefix of path to embedding_{train,dev,test}.pkl')
@@ -40,13 +40,13 @@ parser.add_argument('--rnn-dense-model', type=int, default=1,
 args = parser.parse_args()
 
 torch.manual_seed(args.seed)
-wandb.init(project='bert-pos')
+run = wandb.init(project='bert-pos')
 wandb.config.update(args)
 
 keep_sent = any(args.model.startswith(x) for x in {"lstm", "gru", "rnn", "cnnsent"})
 
 data_dev, _, _ = OntoNotesEmbd(args.data).get("dev", args.dev_size, keep_sent)
-data_train, classes_map, classes_count = OntoNotesEmbd(args.data).get("dev", args.train_size, keep_sent)
+data_train, classes_map, classes_count = OntoNotesEmbd(args.data).get("train", args.train_size, keep_sent)
 if keep_sent:
     embd_size = data_train[0][0][0].size()[0]
 else:
@@ -59,5 +59,5 @@ print("Classes count", classes_count)
 
 
 params = {"embd_size": embd_size, "classes_count": classes_count, "classes_map": classes_map}
-model = factory(args.model, params, args)
+model = factory(args.model, run.name, params, args)
 model.fit(data_train, data_dev, args.epochs, args.save_path)

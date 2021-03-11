@@ -9,18 +9,18 @@ class ModelDense(Evaluatable):
         assert(dropout in {0, 0.1})
 
         if dense_model == 1:
-            self.layers = nn.sequential(
+            self.layers = nn.Sequential(
                 nn.Linear(embd_size, classes_count)
             )
         elif dense_model == 2:
-            self.layers = nn.sequential(
+            self.layers = nn.Sequential(
                 nn.Linear(embd_size, 64),
                 nn.LeakyReLU(),
                 nn.Dropout(dropout),
                 nn.Linear(64, classes_count),
             )
         elif dense_model == 3:
-            self.layers = nn.sequential(
+            self.layers = nn.Sequential(
                 nn.Linear(embd_size, 64),
                 nn.LeakyReLU(),
                 nn.Dropout(dropout),
@@ -29,6 +29,7 @@ class ModelDense(Evaluatable):
                 nn.Dropout(dropout),
                 nn.Linear(64, classes_count),
             )
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         return self.softmax(self.layers(x))

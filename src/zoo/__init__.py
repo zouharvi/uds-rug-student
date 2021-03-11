@@ -9,9 +9,10 @@ from pathlib import Path
 _FACTORY = {
     "majority": lambda params, _: MajorityClassifier(params["classes_map"]),
     "dense": lambda params, args: ModelDense(args.dense_model, args.dropout, params["embd_size"], params["classes_count"]),
-    "rnn": lambda params, args: ModelRNN('rnn', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model),
-    "gru": lambda params, args: ModelRNN('gru', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model),
-    "lstm": lambda params, args: ModelRNN('lstm', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model),
+    "rnn+relu": lambda params, args: ModelRNN('rnn+relu', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
+    "rnn+tanh": lambda params, args: ModelRNN('rnn+tanh', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
+    "gru": lambda params, args: ModelRNN('gru', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
+    "lstm": lambda params, args: ModelRNN('lstm', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
 
     # Broken, deprecated
     "cnnsent1": lambda params, _: ModelCNNSent(params["embd_size"], params["classes_count"]),
@@ -21,10 +22,10 @@ _FACTORY = {
 }
 
 
-def factory(name, params, args):
+def factory(name, run_name, params, args):
     model = _FACTORY[name](params, args)
     if name != "majority":
         model.to(DEVICE)
-    model.name = name
-    Path(args.save_path+"/"+name).mkdir(parents=True, exist_ok=True)
+    model.name = name+"_"+run_name
+    Path(args.save_path+"/"+name+"_"+run_name).mkdir(parents=True, exist_ok=True)
     return model
