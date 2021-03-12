@@ -7,6 +7,7 @@ This repository is not that interesting, really. Many classes omitted. Please do
 - Neural Networks: Implementation and Application
 - Foundations of Linguistics
 - Foundations of Empirical Methods
-- Explainability Methods for Neural Networks
 - Machine Learning in Cyber Security
+- Explainability Methods for Neural Networks
+- Natural Language Processing over Knowledge Graphs
 ```
