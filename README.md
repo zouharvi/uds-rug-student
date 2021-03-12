@@ -68,9 +68,8 @@ All models are described in detail in the paper (please request by email). Quick
 - Majority classifier (baseline)
 - Densely connected feed forward with optional dropout (baseline)
 - RNN (vanilla, LSTM, GRU) with varying hyperparameters
-- - dropout
 - - hidden state size
-- - number of stacked recurrent layers
+- - number of stacked recurrent layers + dropout
 - - bidirectionality
 - - dense layers
 - Token-level CNN (nonworking, deprecated)

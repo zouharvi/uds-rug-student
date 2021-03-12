@@ -8,7 +8,7 @@ from zoo import factory
 
 parser = argparse.ArgumentParser()
 parser.add_argument('model', help='Model to use (majority, dense, rnn+tanh, rnn+relu, lstm, gru)')
-parser.add_argument('--epochs', type=int, default=100,
+parser.add_argument('--epochs', type=int, default=50,
                     help='Number of epochs to use')
 parser.add_argument('--batch', type=int, default=768,
                     help='Batch size to use')
@@ -29,7 +29,7 @@ parser.add_argument('--dropout', type=float, default=0,
 parser.add_argument('--dense-model', type=int, default=1,
                     help='Dense model (1, 2, 3)')
 # RNN model parameters
-parser.add_argument('--rnn-hidden-size', type=int, default=64,
+parser.add_argument('--rnn-hidden-size', type=int, default=128,
                     help='RNN hidden state size')
 parser.add_argument('--rnn-layers', type=int, default=1,
                     help='RNN stacked recurrent layers')

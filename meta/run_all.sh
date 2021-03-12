@@ -21,16 +21,14 @@ done
 for UNIT in lstm gru "rnn+tanh" "rnn+relu"; do
     run_rnn $UNIT
 done
-for DROPOUT in 0 0.1 0.2 0.3 0.4; do
-    run_rnn lstm --dropout $DROPOUT
-done
-for HIDDEN_SIZE in 16 32 64 128 256 512 1024; do
+for HIDDEN_SIZE in 64 256 512 1024; do
     run_rnn lstm --rnn-hidden-size $HIDDEN_SIZE
 done
-for RNN_LAYERS in 1 2 3; do
+for RNN_LAYERS in 2 3; do
     run_rnn lstm --rnn-layers $RNN_LAYERS
+    run_rnn lstm --rnn-layers $RNN_LAYERS --dropout 0.1
 done
 run_rnn lstm --rnn-bidir
-for RNN_DENSE_MODEL in 1 2 3; do
+for RNN_DENSE_MODEL in 2 3; do
     run_rnn lstm --rnn-dense-model $RNN_DENSE_MODEL
 done

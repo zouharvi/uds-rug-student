@@ -9,10 +9,10 @@ from pathlib import Path
 _FACTORY = {
     "majority": lambda params, _: MajorityClassifier(params["classes_map"]),
     "dense": lambda params, args: ModelDense(args.dense_model, args.dropout, params["embd_size"], params["classes_count"]),
-    "rnn+relu": lambda params, args: ModelRNN('rnn+relu', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
-    "rnn+tanh": lambda params, args: ModelRNN('rnn+tanh', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
-    "gru": lambda params, args: ModelRNN('gru', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
-    "lstm": lambda params, args: ModelRNN('lstm', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model, args.batch),
+    "rnn+relu": lambda params, args: ModelRNN('rnn+relu', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dropout, args.dense_model, args.batch),
+    "rnn+tanh": lambda params, args: ModelRNN('rnn+tanh', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dropout, args.dense_model, args.batch),
+    "gru": lambda params, args: ModelRNN('gru', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dropout, args.dense_model, args.batch),
+    "lstm": lambda params, args: ModelRNN('lstm', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dropout, args.dense_model, args.batch),
 
     # Broken, deprecated
     "cnnsent1": lambda params, _: ModelCNNSent(params["embd_size"], params["classes_count"]),
