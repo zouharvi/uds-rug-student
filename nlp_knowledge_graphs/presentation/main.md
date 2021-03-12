@@ -590,12 +590,13 @@ Disadvantages:
 # Discussion 2/4
 
 How to transfer this mechanism to other tasks?
-  - Question Answering
-  - Dialogue
-  - Fact Checking
-  - Slot Filling
-  - Can tasks be switched? (LM, QA, FC, ...)
-  - Will training an LM improve the performance on FC and vice versa?
+
+- Question Answering
+- Dialogue
+- Fact Checking
+- Slot Filling
+- Can tasks be switched? (LM, QA, FC, ...)
+- Will training an LM improve the performance on FC and vice versa?
 
 . . .
 
@@ -617,9 +618,10 @@ Priming?
 # Discussion 3/4
 
 How to make knowledge representation end-to-end trainable?
-  - Embeddings are frozen
-  - So far, KG is fixed `(Mario, published_by, Valve)`
-  - Constraint: still explainable
+
+- Embeddings are frozen
+- So far, KG is fixed `(Mario, published_by, Valve)`
+- Constraint: still explainable
 
 ::: notes
 2. In the paper the pre-trained projection embeddings were fixed. Why is that?
@@ -629,9 +631,10 @@ How to make knowledge representation end-to-end trainable?
 # Discussion 4/4
 
 What's the best representation?
-  - Knowledge Graph + addressing mechanism
-  - Collection of documents + retrieval system and text conditioning
-  - Multi-task gains?
+
+- Knowledge Graph + addressing mechanism
+- Collection of documents + retrieval system and text conditioning
+- Multi-task gains?
 
 ::: notes
 - Finally, what is the best representation overall?
