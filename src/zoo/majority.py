@@ -17,7 +17,7 @@ class MajorityClassifier():
             self.most_common,
             f'({self.classes_map[self.most_common]})'
         )
-        log_obj = {"acc_dev": self.evaluate(dataDev)}
+        log_obj = {"acc_dev": self.evaluate(dataDev), "acc_train": self.evaluate(dataTrain)}
         wandb.log(log_obj)
             
         print('Acc', f'{log_obj["acc_dev"]*100:.2f}')

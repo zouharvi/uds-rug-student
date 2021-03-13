@@ -12,13 +12,14 @@ class Fittable(nn.Module):
         self.loss_fn = nn.CrossEntropyLoss()
 
     def fit(self, dataTrain, dataDev, epochs, save_path):
-        print("epoch\tloss\tacc")
-        log_obj = {"epoch": 0, "loss_train": np.nan, "acc_dev": self.evaluate(dataDev)}
+        print("epoch\tloss\tdev\ttrain")
+        log_obj = {"epoch": 0, "loss_train": np.nan, "acc_dev": self.evaluate(dataDev), "acc_train": self.evaluate(dataTrain)}
         wandb.log(log_obj)
         print(
             f'{log_obj["epoch"]:>5}',
             f'{log_obj["loss_train"]:>5.3f}',
             f'{log_obj["acc_dev"]*100:>5.2f}%',
+            f'{log_obj["acc_train"]*100:>5.2f}%',
             sep="\t"
         )
         self.opt = torch.optim.Adam(self.parameters(), lr=self.lr)
@@ -27,13 +28,14 @@ class Fittable(nn.Module):
         for epoch in range(epochs):
             epoch += 1
             lossTrain = self.train_epoch(dataTrain)
-            log_obj = {"epoch": epoch, "loss_train": lossTrain, "acc_dev": self.evaluate(dataDev)}
+            log_obj = {"epoch": epoch, "loss_train": lossTrain, "acc_dev": self.evaluate(dataDev), "acc_train": self.evaluate(dataTrain)}
             torch.save(self, f"{save_path}/{self.name}/e{epoch:0>3}.pt")
             wandb.log(log_obj)
             print(
                 f'{log_obj["epoch"]:>5}',
                 f'{log_obj["loss_train"]:>5.3f}',
                 f'{log_obj["acc_dev"]*100:>5.2f}%',
+                f'{log_obj["acc_train"]*100:>5.2f}%',
                 sep="\t"
             )
 

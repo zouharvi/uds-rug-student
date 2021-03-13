@@ -1,39 +1,34 @@
 #/bin/bash
 
 function run_single {
-    echo "> python3 src/train.py $@";
-    sleep 1;
-    # python3 src/train.py "$@"
+    echo "Running > python3 src/train.py $@";
+    python3 src/train.py "$@"
 }
 
-function run_rnns {
-    run_single "rnn+tanh" "$@";
-    run_single "rnn+relu" "$@";
-    run_single "gru" "$@";
-    run_single "lstm" "$@";
+function run_rnn {
+    run_single "$@" --batch 16;
 }
 
 # baselines
 run_single majority
 for DROPOUT in 0 0.1; do
     for DENSE_MODEL in 1 2 3; do
-        run_single dense --dense-model $DENSE_MODEL --dropout $DROPOUT
+        run_single dense --dense-model $DENSE_MODEL --dropout $DROPOUT --batch 2048
     done
 done
 
 # rnn
-for DROPOUT in 0 0.1 0.2 0.3 0.4; do
-    run_rnns --dropout $DROPOUT
+for UNIT in lstm gru "rnn+tanh" "rnn+relu"; do
+    run_rnn $UNIT
 done
-for HIDDEN_SIZE in 16 32 64 128 256 512 1024; do
-    run_rnns --rnn-hidden-size $HIDDEN_SIZE
+for HIDDEN_SIZE in 64 256 512 1024; do
+    run_rnn lstm --rnn-hidden-size $HIDDEN_SIZE
 done
-for RNN_LAYERS in 1 2 3; do
-    run_rnns --rnn-layers $RNN_LAYERS
+for RNN_LAYERS in 2 3; do
+    run_rnn lstm --rnn-layers $RNN_LAYERS
+    run_rnn lstm --rnn-layers $RNN_LAYERS --dropout 0.1
 done
-for RNN_BIDIR in false true; do
-    run_rnns --rnn-bidir $RNN_BIDIR
-done
-for RNN_DENSE_MODEL in 1 2 3; do
-    run_rnns --rnn-dense-model $RNN_DENSE_MODEL
+run_rnn lstm --rnn-bidir
+for RNN_DENSE_MODEL in 2 3; do
+    run_rnn lstm --rnn-dense-model $RNN_DENSE_MODEL
 done
