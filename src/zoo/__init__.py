@@ -9,9 +9,9 @@ from pathlib import Path
 _FACTORY = {
     "majority": lambda params, _: MajorityClassifier(params["classes_map"]),
     "dense": lambda params, args: ModelDense(args.dense_model, args.dropout, params["embd_size"], params["classes_count"]),
-    "rnn": lambda params, args: ModelRNN('rnn', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model),
-    "gru": lambda params, args: ModelRNN('gru', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model),
-    "lstm": lambda params, args: ModelRNN('lstm', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.dense_model),
+    "rnn": lambda params, args: ModelRNN('rnn', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.rnn_dense_model),
+    "gru": lambda params, args: ModelRNN('gru', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.rnn_dense_model),
+    "lstm": lambda params, args: ModelRNN('lstm', args.rnn_bidir, args.rnn_layers, params["embd_size"], params["classes_count"], args.rnn_hidden_size, args.rnn_dense_model),
 
     # Broken, deprecated
     "cnnsent1": lambda params, _: ModelCNNSent(params["embd_size"], params["classes_count"]),
