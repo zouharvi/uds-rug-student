@@ -14,7 +14,7 @@ This repository is mandatory for the UdS NNIA class of 2020/2021. This project i
 
 # Pipeline
 
-This project is written in Python, with the environment defined in `envirovnment.yml` (managed by Anaconda). We further assume, that all data are stored in `data/`.
+This project is written in Python, with the environment defined in `envirovnment.yml` (managed by Anaconda). We further assume, that all data are stored in `data/`. Ideally run with reasonably sized GPU.
 
 ## Data Preprocessing
 
@@ -39,7 +39,7 @@ NNS       5.65%
 
 This part tokenizes the words (in a sense of subword units + BERT specific indexing) with BERT Tokenizer. The input is then fed into BERT and the hidden states in the last layer are used as embeddings. Run `python3 src/embedding.py --name SPLIT --data data/all.tsv --data.out data/embedding_SPLIT.pkl` to compute the embeddings and store them. Replace split with `train, validation/dev, test` to produce a specific split. See [Appendix](#Appendix) for further usage details. This step also aggregates (averaging) embedding for multiple subwords for a token. A small number of sentences (8) were impossible to reconstruct using the simple parser and were discarded. The total number is reported by this script.
 
-To train a model, run `python3 src/train.py MODEL"`. See [Models][#Models] for the list of models. Logs are stored using [Weights & Biases](https://wandb.ai/).
+To train a model, run `python3 src/train.py MODEL"`. See [Models][#Models] for the list of models. Logs are stored using [Weights & Biases](https://wandb.ai/). On 3070, baselines take ~10 min to train, while for recurrent models it is ~1.5 hr.
 
 Evaluation on test can be done with `python3 src/test.py PATH_TO_MODEL`.
 
@@ -100,8 +100,8 @@ Caution, `embedding.py --name train` is a highly memory sensitive task, requirin
 By default, this decreases the original precision (32-bit) to half the size (16-bit) floats. To disable this, add `--no-half`. 
 
 ```
-usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--save-path SAVE_PATH] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] [--dropout DROPOUT]
-                [--dense-model DENSE_MODEL] [--rnn-hidden-size RNN_HIDDEN_SIZE] [--rnn-layers RNN_LAYERS] [--rnn-bidir] [--rnn-dense-model RNN_DENSE_MODEL]
+usage: train.py [-h] [--epochs EPOCHS] [--batch BATCH] [--data DATA] [--save-path SAVE_PATH] [--train-size TRAIN_SIZE] [--dev-size DEV_SIZE] [--seed SEED] [--dropout DROPOUT] [--dense-model DENSE_MODEL]
+                [--rnn-hidden-size RNN_HIDDEN_SIZE] [--rnn-layers RNN_LAYERS] [--rnn-bidir] [--rnn-dense-model RNN_DENSE_MODEL]
                 model
 
 positional arguments:
@@ -144,6 +144,18 @@ optional arguments:
   --batch BATCH  Batch size to use
 ```
 
+&nbsp;
+
+```
+usage: test_continuous.py [-h] [--data DATA] [--batch BATCH] [--no-keep-sent]
+
+optional arguments:
+  -h, --help      show this help message and exit
+  --data DATA     Prefix of path to embedding_{train,dev,test}.pkl
+  --batch BATCH   Batch size to use
+  --no-keep-sent  Flatten test data
+```
+
 ## Source
 
 Source code structure:
@@ -156,6 +168,7 @@ src/
 │   ├── ontonotes.py     # complex data loader
 ├── embedding.py         # computes and stores BERT embeddings
 ├── test.py              # evaluation on test data
+├── test_continuous.py   # evaluation of multiple models on test data
 ├── train.py             # training of multiple models
 ├── utils.py             # misc. utilities
 └── zoo                  # model zoo
