@@ -45,7 +45,7 @@ Evaluation on test can be done with `python3 src/test.py PATH_TO_MODEL`.
 
 ## Full Example
 
-The full pipeline for logistic regression (model `dense1`) would then be:
+The full pipeline for logistic regression (base model `dense`) would then be:
 
 ```
 cat data/ontonetes-4.0/*.gold_conll > data/all.conll
@@ -54,9 +54,9 @@ python3 src/embedding.py --name test --data data/all.tsv --data.out data/embeddi
 python3 src/embedding.py --name dev --data data/all.tsv --data.out data/embedding_dev.pkl
 python3 src/embedding.py --name train --data data/all.tsv --data.out data/embedding_train.pkl
 
-python3 src/train.py dense1 --data "data/embedding_"
+python3 src/train.py dense --data "data/embedding_"
 
-python3 src/evaluate.py data/models/dense1/e050.pt
+python3 src/test.py data/models/dense1/e050.pt --no-keep-sent
 ```
 
 This section omitted multiple arguments when calling the scripts. Please see [Appendix][#Appendix] for more options and their defaults.
