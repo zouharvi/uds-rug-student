@@ -1,5 +1,7 @@
 # Hyperparameters of RNN Architectures for POS Tagging using Surface-Level BERT Embeddings
 
+See the [final paper](meta/paper.pdf) of this project.
+
 ## Table of Contents
 
 - [General](#General): information about this project
