@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+
+\renewcommand\t[1]{\text{#1}}
+\newcommand\lwt[1]{$_\text{#1}$}
+
+\usepackage{graphicx}
+
+\begin{document}
+
+% \maketitle
+
+\section{}
+
+In all cases we assume that the result it \textit{t}.
+
+\subsection*{a)}
+
+[Darth Vader]\lwt{e}
+[is [[the father of]\lwt{(e,e)} Luke\lwt{e}]]\lwt{(e,t)}
+
+\begin{gather*}
+\t{father}(dw, l)
+\end{gather*}
+
+\subsection*{b)}
+
+[[Every]\lwt{e} Jedi\lwt{(e,t)}]
+[has [a lightsaber]\lwt{e}]\lwt{(e,t)}
+
+
+\begin{gather*}
+\forall x: \t{jedi}(x) \rightarrow \t{has}(x,l)
+\end{gather*}
+
+\subsection*{c)}
+
+[Padmé Amidala]\lwt{e}
+[is
+[the [[most\lwt{(((e,t),(e,t)),((e,t),(e,t)))} beautiful\lwt{((e,t),(e,t))}] woman\lwt{(e,t)}]]
+on Naboo\lwt{e}]\lwt{(e,t)}
+
+
+\begin{gather*}
+\t{woman}(pa) \wedge \t{is\_on}(pa,nb) \wedge \forall w: (\t{woman}(w)\wedge \t{is\_on}(w,nb)) \rightarrow  \t{more\_same\_beautiful}(pa,w)
+\end{gather*}
+
+
+\section{}
+
+\subsection{}
+
+\subsubsection*{a)}
+
+\begin{gather*}
+V_M(\t{anakin}) = e_1,\ 
+V_M(\t{yoda}) = e_2,\ 
+V_M(\t{padme}) = e_3, 
+\end{gather*}
+
+
+\subsubsection*{b)}
+
+\begin{gather*}
+V_M(\t{jedi}) = [e_1 \rightarrow 1, e_2 \rightarrow 1, e_3 \rightarrow 0]
+\end{gather*}
+
+
+\subsubsection*{c)}
+
+\begin{gather*}
+V_M(\t{help}) = [\\
+e_1 \rightarrow [e_1 \rightarrow 0, e_2 \rightarrow 1, e_3 \rightarrow 1],\\
+e_2 \rightarrow [e_1 \rightarrow 1, e_2 \rightarrow 0, e_3 \rightarrow 1],\\
+e_3 \rightarrow [e_1 \rightarrow 0, e_2 \rightarrow 0, e_3 \rightarrow 0]\\
+]
+\end{gather*}
+
+\subsection{}
+
+\subsubsection*{a)}
+
+\begin{gather*}
+\llbracket\t{help}(\t{padme})\rrbracket^{M,g} = \llbracket\t{help}\rrbracket^{M,g}(\llbracket\t{padme}\rrbracket^{M,g}) =
+[e_1 \rightarrow 1, e_2 \rightarrow 1, e_3 \rightarrow 1]
+\end{gather*}
+
+\subsubsection*{b)}
+
+\begin{gather*}
+\llbracket\forall x \t{help}(x)(x) \rightarrow \neg \t{jedi}(x)\rrbracket^{M,g} = 1
+\end{gather*}
+
+\subsubsection*{c)}
+
+\begin{gather*}
+\llbracket\forall F \exists x: F(x)\rrbracket^{M,g} = 1
+\end{gather*}
+
+\end{document}
+
