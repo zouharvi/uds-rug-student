@@ -45,16 +45,36 @@ $$
 (\lambda x_e \d \lambda L_{(e,t)} \ \t{on}^*(L)(x))(p')(\lambda y_e \d \t{live}(y_e))(n')
 $$
 
+$$
+(\lambda x_e \d \lambda L_{(e,t)} \ \t{on}^*(L)(x))(p')(\t{live}(n'))
+$$
+
+$$
+(\lambda x_e \ \t{on}^*(\t{live}(n'))(x))(p')
+$$
+
+$$
+\t{on}^*(\t{live}(n'))(p')
+$$
+
 \subsubsection*{b)}
 
 $$
 (\lambda x_e \d \lambda y_e \d \lambda P_{(e,t)} \ P(x) \wedge P(y))(l')(d')(\t{fight}')
 $$
 
+$$
+(\lambda x_e \d \lambda y_e \d \lambda P_{(e,t)} \ \t{fight}'(x) \wedge \t{fight}'(y))(l')(d')
+$$
+
+$$
+\t{fight}'(d') \wedge \t{fight}'(l')
+$$
+
 \subsubsection*{c)}
 
 $$
-(\lambda x_e \d \lambda P_{(e,t)} \ P(x) \wedge \forall y: P(y) \rightarrow x = y)
+(\lambda x_e \d \lambda P_{(e,t)} \ P(x) \wedge \forall y: P(y) \rightarrow x = y)(l')
 (
 (\lambda F_{(e,t)} \ F)
 (
@@ -62,6 +82,28 @@ $$
 (\t{jedi}')
 )
 )
+$$
+
+$$
+(\lambda x_e \d \lambda P_{(e,t)} \ P(x) \wedge \forall y: P(y) \rightarrow x = y)(l')
+(
+(\lambda F_{(e,t)} \ F)
+(\lambda x_e \ \t{jedi}'(x) \wedge \t{blond}^*(x))
+)
+$$
+
+$$
+(\lambda x_e \d \lambda P_{(e,t)} \ P(x) \wedge \forall y: P(y) \rightarrow x = y)(l')
+(\lambda x_e \ \t{jedi}'(x) \wedge \t{blond}^*(x))
+$$
+
+$$
+(\lambda P_{(e,t)} \ P(l') \wedge \forall y: P(y) \rightarrow l' = y)
+(\lambda x_e \ \t{jedi}'(x) \wedge \t{blond}^*(x))
+$$
+
+$$
+(\t{jedi}'(l') \wedge \t{blond}^*(l')) \wedge \forall y: (\t{jedi}'(y) \wedge \t{blond}^*(y)) \rightarrow l' = y
 $$
 
 \end{document}
