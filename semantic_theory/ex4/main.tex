@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage[a4paper, margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+
+\renewcommand\t[1]{\text{#1}}
+\renewcommand\d{\text{ . }}
+\newcommand\lwt[1]{$_\text{#1}$}
+
+\usepackage{graphicx}
+
+\begin{document}
+
+% \maketitle
+
+\section{}
+
+\subsection*{a}
+
+$$
+\exists e: \text{call}(s',t',e) \wedge \text{in}(w',e) \wedge \text{PAST}(e)
+$$
+
+$$
+\exists e: \text{call}(s',t',e) \wedge \text{in}(w',s') \wedge \text{PAST}(e)
+$$
+
+In the first case the call happened (originated?) Washington. In the second case, the modifier attaches to the senator, therefore they were in Washington.
+
+\subsection*{b}
+
+$$
+(\lambda E \d \exists e: E(e) \wedge e < e_u) % (et),t
+(\lambda z \lambda F \lambda v \d \t{in'}(z)(v)\wedge F(v)) % e,(et),(et)
+(w')
+(
+    (\lambda Q \lambda x \lambda e \d Q(\t{call}(y)(x)(e))) % e,(et)
+    (\lambda S \d \exists m: s'(m) \wedge S(m)) % a senator, (et),t
+    (t')
+)
+$$
+$$
+\t{reduction}
+$$
+$$
+(\lambda E \d \exists e: E(e) \wedge e < e_u) % (et),t
+(\lambda z \lambda F \lambda v \d \t{in'}(z)(v)\wedge F(v)) % (et),(et)
+(w')
+(\lambda e \d \exists m: s'(m) \wedge \t{call}(m)(t')(e)))
+$$
+$$
+\t{reduction}
+$$
+$$
+(\lambda E \d \exists e: E(e) \wedge e < e_u) % (et),t
+(\lambda v \d \exists m: \t{in'}(w')(v)\wedge s'(m) \wedge \t{call}(m)(t')(v))
+$$
+$$
+\t{reduction}
+$$
+$$
+\exists e: (\exists m: \t{in'}(w')(e)\wedge s'(m) \wedge \t{call}(m)(t')(e)) \wedge e < e_u
+$$
+
+
+\vspace{1cm}
+
+$$
+(\lambda E \d \exists e: E(e) \wedge e < e_u) % (et),t
+(\lambda Q \lambda x \lambda e \d Q(\t{call}(y)(x)(e))) % e,(et)
+(\lambda S \d \exists m: s'(m) \wedge S(m)) % a senator, (et),t
+(
+    (\lambda z \lambda F \lambda v \d \t{in'}(z)(v)\wedge F(v)) % e,(et),(et)
+    (w')
+    (t')
+)
+$$
+
+\section{}
+
+The standard model is extended by the following predicate: $\t{shortly\_after} :: (eet)$ which is an ordering without the mathematical sense, basically only antisymmetry and transitivity. It compares the starts of events and could be denoted as a special comparison operator: $<_\t{sh.}$. In a similar way we could introduce $\t{twice\_as\_long} :: (eet)$ though a more elegant solution would be to introduce some formalism for basic timestamp arithmetics, therefore: $- :: (eee)$ (time difference, duration), $\times :: (eee)$ (multiplication) and $\simeq :: (eee)$ (coloquial perception of equal quantities\footnote{Since the intended meaning is "roughly twice as long", not "exactly twice as many miliseconds".}) 
+
+The standard predicates then not only take an event object but two objects: beginning and ending of an event. The binary operators are used with infix notation.
+
+$$
+\exists e_1, e_2,e_1',e_2': e_1 <_\t{sh.} e_2 \wedge \t{run}(m',e_2,e_2') \wedge \t{run}(j',e_1,e_1') \wedge 2\times (e_1'-e_1) \simeq (e_2'-e_2)
+$$
+
+Interpreting even beginning and ending is quite versatile and allows for more precise comparison between events and also to describe e.g. that two things started at the same time.
+The obvious disadvantage is the excessive descriptiveness which requires an extra event object (ending). Furthermore, the incorporation of arithmetics seems formally unsound, though that's a separate issue and probably solved in some elegant manner.
+
+\end{document}
+
