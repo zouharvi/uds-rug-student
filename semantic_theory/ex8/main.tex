@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage[a4paper, margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand\t[1]{\text{#1}}
+\renewcommand\d{\text{ . }}
+\newcommand\lwt[1]{$_\text{#1}$}
+\newcommand\TODO[1]{\textcolor{red}{TODO: #1}}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+% \maketitle
+
+\section{}
+
+\begin{gather*}
+U = \{\t{mike}, \t{will}, \t{elli}\} \\
+\t{atomic prep.} = \{\t{ride\_bike}(x)| x \in U\} \cup \{\t{sleep}(x)| x \in U\} \cup \{\t{tease}(x,y)| x,y \in U\times U\} = \\
+\bigg\{
+\t{ride\_bike}(\t{mike}), \t{ride\_bike}(\t{will}), \t{ride\_bike}(\t{elli}),
+\t{sleep}(\t{mike}), \t{sleep}(\t{will}), \t{sleep}(\t{elli}),
+\t{tease}(\t{mike}, \t{mike}), \t{tease}(\t{mike}, \t{will}),\\
+\t{tease}(\t{will}, \t{mike}), \t{tease}(\t{will}, \t{will}),
+\t{tease}(\t{will}, \t{elli}), \t{tease}(\t{elli}, \t{will}),
+\t{tease}(\t{elli}, \t{elli}), \t{tease}(\t{elli}, \t{mike}),
+\t{tease}(\t{mike}, \t{elli}) \bigg\}
+\end{gather*}
+
+\section{}
+
+Using the preposition ordering from the above.
+
+\begin{gather*}
+M = \bigg\{ \\
+(
+1, % ride mike
+0, % ride will
+0, % ride elli
+0, % sleep mike
+0, % sleep will
+1, % sleep elli
+0, % tease mike, mike
+1, % tease mike, will
+0, % tease will, mike
+0, % tease will, will
+0, % tease will, elli
+0, % tease elli, will
+0, % tease elli, elli
+0, % tease elli, mike
+0  % tease mike, elli
+),\\
+(
+1, % ride mike
+1, % ride will
+0, % ride elli
+0, % sleep mike
+0, % sleep will
+1, % sleep elli
+0, % tease mike, mike
+1, % tease mike, will
+0, % tease will, mike
+0, % tease will, will
+0, % tease will, elli
+0, % tease elli, will
+0, % tease elli, elli
+0, % tease elli, mike
+1  % tease mike, elli
+),\\
+(
+0, % ride mike
+0, % ride will
+0, % ride elli
+1, % sleep mike
+1, % sleep will
+1, % sleep elli
+0, % tease mike, mike
+0, % tease mike, will
+0, % tease will, mike
+0, % tease will, will
+0, % tease will, elli
+0, % tease elli, will
+0, % tease elli, elli
+0, % tease elli, mike
+0  % tease mike, elli
+),\\
+(
+0, % ride mike
+0, % ride will
+0, % ride elli
+1, % sleep mike
+0, % sleep will
+1, % sleep elli
+0, % tease mike, mike
+0, % tease mike, will
+0, % tease will, mike
+0, % tease will, will
+0, % tease will, elli
+0, % tease elli, will
+0, % tease elli, elli
+0, % tease elli, mike
+0  % tease mike, elli
+),\\
+(
+1, % ride mike
+1, % ride will
+0, % ride elli
+0, % sleep mike
+0, % sleep will
+1, % sleep elli
+0, % tease mike, mike
+0, % tease mike, will
+0, % tease will, mike
+0, % tease will, will
+0, % tease will, elli
+0, % tease elli, will
+0, % tease elli, elli
+0, % tease elli, mike
+0  % tease mike, elli
+),\\
+\bigg\}
+\end{gather*}
+
+\section{}
+
+\subsection{}
+
+This probability/cuount should be 0. And indeed, in no model does anyone sleep and ride at the same time $\rightarrow 0$.
+
+\subsection{}
+
+Mike rides in 3 models and sleeps in 2 of them. From that, $\frac{3}{5} > \frac{2}{5}$.
+
+However, I would disagree with using the frequency of an action as a proxy for liking something. E.g. in every model the boys brush their teeth but that does not mean that they enjoy it more than riding a bike.
+
+\subsection{}
+
+Elli sleeps in 5 models and rides the bike in 0 of them. From that, $\frac{5}{5} > \frac{0}{5}$.
+
+\subsection{}
+
+Mike teases Will in two models and Elli in no model. From that, $\frac{2}{5} > \frac{0}{5}$.
+
+\subsection{}
+
+Will never teases anybody, therefore the implication is trivially fulfilled.
+
+\subsection*{Further inferences}
+
+\begin{itemize}
+\item Nobody can tease while asleep.
+\item Nobody teases themselves.
+\item Elli doesn't tease anyone and is not teased by anyone.
+\end{itemize}
+
+\clearpage
+
+\section{}
+
+\begin{enumerate}[a)]
+\item $(1,1,0,0,0)^T$
+\item $(1,1,0,0,1)^T$
+\item $(0,0,0,0,0)^T$
+\item $(0,0,0,0,0)^T$
+\item $(0,0,1,1,0)^T$
+\end{enumerate}
+
+\section{}
+
+(a) \textit{Mike is sleeping}, (b) \textit{A boy is sleeping}.
+
+\bigskip
+
+$p(a) = \frac{1}{5}, p(a|b) = \frac{1}{2}$, 
+$\text{inference}(a,b) = \frac{\frac{1}{2}-\frac{1}{5}}{1-\frac{1}{5}} = \frac{\frac{3}{10}}{\frac{8}{10}} = \frac{3}{8}$
+
+\bigskip
+
+The score is higher than $0$, therefore is a boy sleeps, then it suggests that Mike is also sleeping. However, it is not $1$, therefore there are some cases in which some boy is sleeping but not Mike. With more samples the inference would probably be higher.
+
+\end{document}
