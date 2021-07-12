@@ -14,6 +14,8 @@ fn main() {
         // expectation
 
         for (dice_i, dice_param) in params.iter().enumerate() {
+            // this should be powers, not multiplication
+            // e.g. 0.6^5 * 0.4^5
             for (run_i, run_h) in run_h_count.iter().enumerate() {
                 partial_counts[run_i][dice_i][0] += (*run_h as f32) * dice_param;
                 partial_counts[run_i][dice_i][1] += ((10 - *run_h) as f32) * (1.0 - dice_param);
