@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="essay_venn.svg"
+   inkscape:export-filename="/home/vilda/venn.png"
+   inkscape:export-xdpi="148.71001"
+   inkscape:export-ydpi="148.71001">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="371.57923"
+     inkscape:cy="150.56621"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     showguides="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#0986ff;fill-opacity:0.215192;stroke:#000000;stroke-width:1.57608"
+       id="path848"
+       cx="77.880966"
+       cy="87.696785"
+       r="33.212387" />
+    <circle
+       style="fill:#ff2c00;fill-opacity:0.21519202;stroke:#000000;stroke-width:1.57608"
+       id="circle856"
+       cx="129.44466"
+       cy="87.696785"
+       r="33.212387" />
+    <ellipse
+       style="fill:#098600;fill-opacity:0.215192;stroke:#000000;stroke-width:1.57608"
+       id="circle858"
+       cx="103.0005"
+       cy="50.058762"
+       rx="33.21246"
+       ry="33.212387" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="103.90199"
+       y="37.253757"
+       id="text862"><tspan
+         sodipodi:role="line"
+         id="tspan860"
+         x="103.90199"
+         y="37.253757"
+         style="font-size:5.29167px;text-align:center;text-anchor:middle;stroke-width:0.264583">MP</tspan><tspan
+         sodipodi:role="line"
+         x="103.90199"
+         y="43.868343"
+         style="font-size:5.29167px;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan864">(morally permissible)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="74.691162"
+       y="98.927414"
+       id="text870"><tspan
+         sodipodi:role="line"
+         x="74.691162"
+         y="98.927414"
+         style="font-size:5.29167px;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan868">S</tspan><tspan
+         sodipodi:role="line"
+         x="74.691162"
+         y="105.542"
+         style="font-size:5.29167px;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan874">(solutions)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="133.52773"
+       y="98.927414"
+       id="text880"><tspan
+         sodipodi:role="line"
+         x="133.52773"
+         y="98.927414"
+         style="font-size:5.29167px;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan876">BG</tspan><tspan
+         sodipodi:role="line"
+         x="133.52773"
+         y="105.542"
+         style="font-size:5.29167px;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan878">(gains &gt;burdens)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="98.82872"
+       y="80.699883"
+       id="text904"><tspan
+         sodipodi:role="line"
+         id="tspan902"
+         x="98.82872"
+         y="80.699883"
+         style="font-style:italic;font-size:5.29167px;stroke-width:0.264583">C1''</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="81.517921"
+       y="68.927414"
+       id="text908"><tspan
+         sodipodi:role="line"
+         id="tspan906"
+         x="81.517921"
+         y="68.927414"
+         style="font-style:italic;font-size:5.29167px;stroke-width:0.264583">P3''</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="117.5534"
+       y="68.927414"
+       id="text912"><tspan
+         sodipodi:role="line"
+         id="tspan910"
+         x="117.5534"
+         y="68.927414"
+         style="font-style:italic;stroke-width:0.264583">P2''</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="103.39745"
+       y="52.36565"
+       id="text916"
+       inkscape:export-filename="/home/vilda/venn.png"
+       inkscape:export-xdpi="148"
+       inkscape:export-ydpi="148"><tspan
+         sodipodi:role="line"
+         id="tspan914"
+         x="103.39745"
+         y="52.36565"
+         style="font-style:italic;text-align:center;text-anchor:middle;stroke-width:0.264583">P1'' (all)</tspan></text>
+  </g>
+</svg>
