@@ -1,0 +1,54 @@
+\documentclass[a4paper, 11pt]{scrartcl}
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[right=4.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+
+\onehalfspacing
+
+%%%%   ARGUMENTS
+\newenvironment{argument}{
+	\begin{flushleft} \vspace{5mm}
+		\begin{tabular}{p{1em} p{0.08\linewidth} p{0.75\linewidth}}
+		}
+		{
+		\end{tabular}
+	\end{flushleft}
+}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO #1}}
+\newcommand{\premise}[2]{& #1: & #2 \\[0.4em]}
+\newcommand{\premiseEq}[3]{& #1: \newline {\footnotesize =#2} & #3 \\[0.4em]}
+\newcommand{\intermediate}[3]{& #1: & \emph{Therefore}: #2 (#3) \\[0.4em]}
+\newcommand{\conclusion}[3]{\cline{2-3} \\[-0.8em] & #1: & \emph{Therefore}: #2 (#3)\\[0.4em]}
+\newcommand{\conclusionSimple}[3]{\cline{2-3} \\[-0.8em] & #1: & #2 #3\\[0.4em]}
+
+\title{In favour of Hyper-Tracking\\ in Early 2020}
+\author{Vilém Zouhar}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+\begin{center}
+	\small (2999 words)
+% 	http://www.montereylanguages.com/pdf-word-count-online-free-tool.html
+\end{center}
+
+
+\tableofcontents
+
+\clearpage
+
+\input{content.tex}
+
+
+
+\end{document}
