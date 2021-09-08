@@ -5,7 +5,8 @@
 - Our part would be to predict the future difficulty
 - - Based on sentence properties in combination with the specific user history
 - - For correct/incorrect answers we could use reference translations with automatic metrics or self-evaluation (both is doable)
-- This is very applicable to MT industry where estimation of future cost is very vital.
+- This is very applicable to MT industry where estimation of future cost is very vital (asked professional colleagues and they find it interesting)
+- Presentation lists: _Improve the user model’s response time predictions_ which is directly this
 
 The experiments could be done as follows:
 
@@ -14,3 +15,10 @@ The experiments could be done as follows:
 - We can do predictions on whole document size and on sentence-level (i.e. How long will it take me to translate this document on this topic given my history?)
 - This could also have a cross-linguistic aspect but lets not go into that right now.
 - I asked a colleague for his opinion on this. :-)
+
+Cons:
+- Translation time has a lot of variance and great number of outliers
+
+Pros:
+- Super interesting (for me at least)
+- I know a journal where we could publish both positive and/ror negative results
