@@ -18,6 +18,7 @@ The experiments could be done as follows:
 
 Cons:
 - Translation time has a lot of variance and great number of outliers
+- Standard approaches can't be applied because no repetition (hence no activation), this can also be a good thing
 
 Pros:
 - Super interesting (for me at least)
