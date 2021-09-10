@@ -1,4 +1,4 @@
-# T.B.D.
+# Learning Foreign Language Vocabulary with Adaptive Color Palette (WIP)
 
 ## Introduction / motivation
 _Leander_
@@ -9,9 +9,30 @@ _Tianyi_
 
 
 ## Experiments setup
-_Vilda_
 
+The experiment will be based on learning words from English to a foreign language, most probably Swahili.
+We need 3 contrastive groups:
+- G0: no color palette
+- G1: color palette chosen by the user
+- G2: color palette chosen randomly
 
-## Data analysis / hyothesis
+Vilém also thinks that we should include a fourth control group, _word colors chosen randomly_ to contrast the following phenomenon: 
+If a word is for a longer time in e.g. brigh red color, I can associate this with the answer (similar to my *star* example).
+In order to rule out that this phenomenon is positively influencing the results (and not the palette), we would need the fourth group of people.
+
+### Adaptivity
+
+Another factor would be the palette working scheme.
+Is the palette with a fixed threshold or is it adapted to the current user progress?
+- Fixed: 0 incorrect - white, 1-2 incorrect - pink, 3+ incorrect - red
+- Adaptive: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (harderst) - red
+
+### Scale
+
+The exact scale is yet to be determined (number words, sessions and people).
+Since we have 3 or 4 groups, we may need e.g. 8 people to get 2 people per condition, and possibly more. 
+Depending on whether we accept adaptivity as another factor, that increases the amount of conditions.
+
+## Data analysis / hypothesis
 _Anjali_
 
