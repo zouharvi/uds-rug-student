@@ -2,6 +2,8 @@
 
 ## Introduction / motivation
 _Leander_
+This user model focuses on enhancing learning a foreign vocabulary. While other user models with similar purpose focus on differing the repetition time between words based on their difficulty for the user, this model uses color instead. 
+During the learning process each word is accompanied by a certain color. This color changed based on the difficulty of the word for the user. 
 
 
 ## User model / interface
