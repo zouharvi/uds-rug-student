@@ -19,7 +19,9 @@ The experiments could be done as follows:
 Cons:
 - Translation time has a lot of variance and great number of outliers
 - Standard approaches can't be applied because no repetition (hence no activation), this can also be a good thing
+- Not really learning of the users but of the system
 
 Pros:
 - Super interesting (for me at least)
 - I know a journal where we could publish both positive and/ror negative results
+- Highly applicatble
