@@ -36,5 +36,5 @@ Since we have 3 or 4 groups, we may need e.g. 8 people to get 2 people per condi
 Depending on whether we accept adaptivity as another factor, that increases the amount of conditions.
 
 ## Data analysis / hypothesis
-_Anjali_
+We hypothesis that colours have an impact on the learning process. For example, a colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context. We further hope to investigate the experimental results in determining if certain palletes are globally identified with a certain level of hardness. These findings may enable us in bulding a UI that makes fact learning more efficient.
 
