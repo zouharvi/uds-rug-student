@@ -7,7 +7,8 @@ During the learning process each word is accompanied by a certain color. This co
 
 
 ## User model / interface
-_Tianyi_
+
+Our model will base on the [spacing model used in the SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the color palette system in the model, we have to modify the background color as the users learning. The colors for each fact change according to how easy for the user to remember the fact. In the spacing model, the `rate of forgetting` shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The color palette from the easiest to the hardest scale should change in the proportion of the forgetting rate. 
 
 
 ## Experiments setup
