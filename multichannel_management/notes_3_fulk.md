@@ -11,16 +11,23 @@
 - function of accessibility, experience, cost, time, communicatoin requirements
 
 # Concepts
+- retrospective rationality (rationalize previous behaviour)
+
+## Theories
+- symbolic interactionism (?)
+- social learning theory (learn from others)
+- social information processing (?)
+- attribution theory (?)
 
 ## Rational Choice Models of Media Use
 - matching based on given requirements
 - "the medium has neither more or less communication capability that match the requirements"
 - if match is perfect, becomes efficient example
 - social presence theory
-- - degree to which the medium facilitates  awareness of the other person and interpersonal relationships during the 
+- - degree to which the medium facilitates awareness of the other person and interpersonal relationships during the 
 interaction
 - - face-to-face highest, print lowest
-- - Q: does this ordering follow richness?
+- - Q: does this ordering follow richness? (yes but they don't try to explain it this way)
 - information richness theory
 - - based on speed of feedback, types of channels, personalness of source, richness of language
 - ambiguous task require rich media, unambiguous tasks require lean media
