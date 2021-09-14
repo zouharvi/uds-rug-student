@@ -19,10 +19,10 @@ Overall this results in 6 conditions.
 
 The experiment will be based on learning words from English to a foreign language, most probably Swahili.
 We need 3 contrastive groups:
-- G0: no color palette
-- G1: color palette chosen by the user
-- G2: color palette chosen randomly
-- G3: word colors chosen randomly
+- P0: no color palette
+- P1: color palette chosen by the user
+- P2: color palette chosen randomly
+- P3: word colors chosen randomly
 
 Vilém thinks the last group is needed to contrast the following phenomenon: 
 If a word is for a longer time in e.g. brigh red color, I can associate this with the answer (similar to my *star* example).
@@ -32,8 +32,8 @@ In order to rule out that this phenomenon is positively influencing the results 
 
 Another factor would be the palette working scheme.
 Is the palette with a fixed threshold or is it adapted to the current user progress?
-- Fixed: 0 incorrect - white, 1-2 incorrect - pink, 3+ incorrect - red
-- Adaptive: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (harderst) - red
+- A0: 0 incorrect - white, 1-2 incorrect - pink, 3+ incorrect - red
+- A1: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (harderst) - red
 
 ### Scale
 
