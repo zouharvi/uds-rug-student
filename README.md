@@ -1,14 +1,17 @@
 # Learning Foreign Language Vocabulary with Adaptive Color Palette (WIP)
 
 ## Introduction / motivation
-_Leander_
-This user model focuses on enhancing learning a foreign vocabulary. While other user models with similar purpose focus on differing the repetition time between words based on their difficulty for the user, this model uses color instead. 
-During the learning process each word is accompanied by a certain color. This color changed based on the difficulty of the word for the user. 
+
+This user-model focuses on enhancing learning a foreign vocabulary. It has been proven that changing the repetition times of a certain word depending on its difficulty to the user, decreases the time it takes for the user to learn the foreign vocabulary. On the other hand, many studies have been performed that research the influence of color on our everyday life. One major finding is the effect of color to learning and making fast associations (many signs include color, warning signs are usually red, etc.). 
+
+Based on these findings, this user-model tries to study whether employing color allows an user to learn a foreign vocabulary faster. More specifically, derived from aforementioned methods to change the repetition time of words depending on the difficulty of the word to the user, this user-model will change its background color based on the difficulty to the user. 
+
+In detail, this means that prior to the study process a color palette will be selected. This color palette associates a different color to different degrees of difficulty _(refer to the next sections for the method to select this color palette)_. Each time a word is displayed, the background will change to the color from the color palette that represents the difficulty the user-model estimates the user is currently having with the word in question.
 
 
-## User model / interface
+## User-model / interface
 
-Our model will base on the [spacing model used in the SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the color palette system in the model, we have to modify the background color as the users learning. The colors for each fact change according to how easy for the user to remember the fact. In the spacing model, the `rate of forgetting` shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The color palette from the easiest to the hardest scale should change in the proportion of the forgetting rate. 
+Our model is based on the [spacing model used in by SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the color palette system in the model, we have to modify the background color as the user is learning. The colors for each fact change according to how easy for the user to remember the fact. In the spacing model, the `rate of forgetting` shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The color palette from the easiest to the hardest scale should change in the proportion of the forgetting rate. 
 
 ## Experiments setup
 
