@@ -17,8 +17,8 @@ TODO: would it be possible to add a sketch of what the interface will look like 
 
 ## Experiments setup
 
-There are two factors: palette presence (4) and palette adaptivity (2) which is almost a 4x2 design though no adaptivity is needed for _no colour palette_ and _word colours chosen randomly_.
-Overall this results in 6 conditions.
+There are two factors: palette presence (3) and palette adaptivity (3) which is almost a 3x3 design though no adaptivity is needed for _no colour palette_.
+Overall this results in 7 conditions.
 
 ### Palette Presence
 
@@ -27,11 +27,6 @@ We need 3 contrastive groups:
 - P0: no colour palette
 - P1: colour palette chosen by the user
 - P2: colour palette chosen randomly
-- P3: word colours chosen randomly
-
-Vilém thinks the last group is needed to contrast the following phenomenon: 
-If a word is for a longer time in e.g. bright red colour, I can associate this with the answer (similar to my *star* example).
-In order to rule out that this phenomenon is positively influencing the results (and not the palette), we would need the fourth group of people.
 
 ### Adaptivity
 
@@ -39,11 +34,16 @@ Another factor would be the palette working scheme.
 Is the palette with a fixed threshold or is it adapted to the current user progress?
 - A0: 0 incorrect - white, 1-2 incorrect - pink, 3+ incorrect - red
 - A1: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (harderst) - red
+- A2: no relation to difficulty, random
+
+Vilém thinks the last level is needed to contrast the following phenomenon: 
+If a word is for a longer time in e.g. bright red colour, I can associate this with the answer (similar to my *star* example).
+In order to rule out that this phenomenon is positively influencing the results (and not the palette), we would need the fourth group of people.
 
 ### Scale
 
 The exact scale is yet to be determined (number words, sessions and people).
-Since we have 6 groups, we may need e.g. 12 people to get 2 people per condition, and possibly more. 
+Since we have 7 conditions, we may need e.g. 14 people to get 2 people per condition, and possibly more. 
 Depending on whether we accept adaptivity as another factor, that increases the number of conditions.
 Naturally, we will be using between-subject design because we can not change the configuration for someone mid-experiment.
 
