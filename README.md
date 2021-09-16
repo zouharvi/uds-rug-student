@@ -40,7 +40,7 @@ We need 3 contrastive groups:
 Another factor would be the palette working scheme.
 Is the palette with a fixed threshold or is it adapted to the current user progress?
 - A0: 0 incorrect - white, 1-2 incorrect - pink, 3+ incorrect - red
-- A1: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (harderst) - red
+- A1: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (hardest) - red
 - A2: no relation to difficulty, random
 
 Vilém thinks the last level is needed to contrast the following phenomenon: 
@@ -62,7 +62,13 @@ In order to determine the exact effect of the adaptive palette, the evaluation f
 
 ## Data analysis & hypothesis
 
-We hypothesize that colours have an impact on the learning process. For example, a colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context. We further hope to investigate the experimental results in determining if certain palettes are globally identified with a certain level of hardness. These findings may enable us in building a UI that makes fact learning more efficient.
+Observations regarding the performance (number of words correctly translated) of the participants is noted. A statistical analysis of the performance measure with respect to the experiment condition is conducted. Is there a correlation between the two variables?
+We hypothesize that colours have an impact on the learning process. With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour pallete condition. The non adaptive colour pallete shows a significantly lower performance among subjects. This would indicate that the perception( user defined) of a colour with a certain level of hardness allows the participant to scale their focus to match these and hence learn faster. The no-colour pallete condition is a control group. A similar performance in this group to the non adaptive colour pallete group indicates that the colours don't serve merely as context cues with one to one relationship among colours and words. 
+A colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context. We further hope to investigate the experimental results in determining if certain palettes are globally identified with a certain level of hardness. These findings may enable us in building a UI that makes fact learning more efficient.
+To summarise our main research questions:
+- Does the perception of colours with a level of hardness serve as cues for distributing focus across tasks in learning better?
+- Is there a prominent global colour pallete associated with the different levels of difficulty?
+
 
 TODO: what specifically are we measuring? how do we know our method is good or bad? -V
 TODO: specific research questions, ideally a list -V.
