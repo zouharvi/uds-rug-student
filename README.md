@@ -1,4 +1,4 @@
-# Learning Foreign Language Vocabulary with Adaptive Color Palette (WIP)
+# Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints (WIP)
 
 ## Introduction & motivation
 
