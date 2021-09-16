@@ -8,6 +8,13 @@ Based on these findings, this user model study aims to determine whether employi
 
 In detail, this means that prior to the study process a colour palette will be selected for every participant. This colour palette associates a different colour to different degrees of difficulty _(refer to the next sections for the method to select this colour palette)_. Each time a word is displayed, the background wil changes to the colour from the colour palette that represents the difficulty the user model estimates the user is currently having with the word in question.
 
+### Related Work
+
+Van den Broek (2019) show that providing hints suprisingly does not have a long-lasting effect on later recall in fact-learning when the hints were not present.
+A key difference is, however, that the hints used in their study were relevant to prompt (e.g. translating _vestis - clothes_: _Think of the word "vest"_).
+Additionally, the hints were shown after the user response for a second chance.
+In the case of our experiment, these "prompt context independent" hints are shown before the prompt is answered.
+In an extreme case, this may lead to even worse later recall results because the user could associate the answer with the specific color (see [evaluation](#evaluation)) and not with the actual prompt.
 
 ## User-model & interface
 
@@ -47,7 +54,20 @@ Since we have 7 conditions, we may need e.g. 14 people to get 2 people per condi
 Depending on whether we accept adaptivity as another factor, that increases the number of conditions.
 Naturally, we will be using between-subject design because we can not change the configuration for someone mid-experiment.
 
+### Evaluation
+
+In order to determine the exact effect of the adaptive palette, the evaluation for users is yet another factor.
+- E0: evaluation without any color cues
+- E1: evaluation with the same scheme as the original configuration (e.g. P1A2)
+
 ## Data analysis & hypothesis
+
 We hypothesize that colours have an impact on the learning process. For example, a colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context. We further hope to investigate the experimental results in determining if certain palettes are globally identified with a certain level of hardness. These findings may enable us in building a UI that makes fact learning more efficient.
 
+TODO: what specifically are we measuring? how do we know our method is good or bad? -V
 TODO: specific research questions, ideally a list -V.
+TODO: V. thinks that E1 will have better performance than E0
+
+## References
+
+Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.
