@@ -62,17 +62,28 @@ In order to determine the exact effect of the adaptive palette, the evaluation f
 
 ## Data analysis & hypothesis
 
-Observations regarding the performance (number of words correctly translated) of the participants is noted. A statistical analysis of the performance measure with respect to the experiment condition is conducted. Is there a correlation between the two variables?
-We hypothesize that colours have an impact on the learning process. With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour pallete condition. The non adaptive colour pallete shows a significantly lower performance among subjects. This would indicate that the perception( user defined) of a colour with a certain level of hardness allows the participant to scale their focus to match these and hence learn faster. The no-colour pallete condition is a control group. A similar performance in this group to the non adaptive colour pallete group indicates that the colours don't serve merely as context cues with one to one relationship among colours and words. 
-A colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context. We further hope to investigate the experimental results in determining if certain palettes are globally identified with a certain level of hardness. These findings may enable us in building a UI that makes fact learning more efficient.
-To summarise our main research questions:
+Observations regarding the performance (number of words correctly translated or number of words learned) of the participants is noted.
+These observations are statistically examined with respect to the experiment conditions.
+
+### Expectations
+
+With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour pallete condition.
+The non-adaptive colour pallete should show a significantly lower performance among subjects.
+This would indicate that the perception (user defined) of a colour with a certain level of hardness allows the participant to scale their focus to match these and hence learn faster.
+The no-colour pallete condition is a control group which serves as a performance baseline.
+A similar performance in this group to the non-adaptive colour pallete group indicates that the colours do not serve merely as context cues with one to one relationship among colours and words. 
+A colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context.
+We further hope to investigate the experimental results in determining if certain palettes are globally identified with a certain level of hardness.
+These findings may enable us in building a UI that makes fact learning more efficient.
+
+### Research questions
+
 - Does the perception of colours with a level of hardness serve as cues for distributing focus across tasks in learning better?
 - Is there a prominent global colour pallete associated with the different levels of difficulty?
 
-
-TODO: what specifically are we measuring? how do we know our method is good or bad? -V
-TODO: specific research questions, ideally a list -V.
-TODO: V. thinks that E1 will have better performance than E0
+- TODO: what specifically are we measuring? how do we know our method is good or bad? -V
+- TODO: specific research questions, ideally a list -V.
+- TODO: V. thinks that E1 will have better performance than E0
 
 ## References
 
