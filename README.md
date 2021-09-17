@@ -20,12 +20,11 @@ In an extreme case, this may lead to even worse later recall results because the
 
 Our model is based on the [spacing model used by SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the colour palette system in the model, we modify the background colour as the user is learning. The colours for each fact change according to how easy for the user to remember the fact. In the spacing model, the _rate of forgetting_ shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The colour palette from the easiest to the hardest scale should change in the proportion of the forgetting rate.
 
-Examples of the interface will be like below. All the figures are drawn with OpenSesame(Mathôt et al., 2012) sketchpad item.
+Examples of the interface will be like below. All the figures are drawn with OpenSesame (Mathôt et al., 2012) sketchpad item.
 
 esay | medium | hard   
 :---:|:---:|:---:
 ![easy](./pic/demo0.jpg) | ![medium](./pic/demo1.jpg) | ![hard](./pic/demo2.jpg)
-
 
 
 ## Experiments setup
@@ -45,9 +44,10 @@ We need 3 contrastive groups:
 
 Another factor would be the palette working scheme.
 Is the palette with a fixed threshold or is it adapted to the current user progress?
-- A0: 0 incorrect - white, 1-2 incorrect - pink, 3+ incorrect - red
-- A1: 20% easiest - white, 20%-50% easiest - pink, 50%-100% easiest (hardest) - red
-- A2: no relation to difficulty, random
+- A0: directly proportional to ACT-R difficulty results
+- A1: no relation to difficulty, random
+
+<!-- TODO: comment why we did not use static and explicitly dynamic -->
 
 Vilém thinks the last level is needed to contrast the following phenomenon: 
 If a word is for a longer time in e.g. bright red colour, I can associate this with the answer (similar to my *star* example).
@@ -73,25 +73,23 @@ These observations are statistically examined with respect to the experiment con
 
 ### Expectations
 
-With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour pallete condition.
-The non-adaptive colour pallete should show a significantly lower performance among subjects.
+With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour pallete condition with their own selection.
+The random colour pallete should show a significantly lower performance among subjects, similar to no palette (though higher in E1 because of additional hints).
 This would indicate that the perception (user defined) of a colour with a certain level of hardness allows the participant to scale their focus to match these and hence learn faster.
-The no-colour pallete condition is a control group which serves as a performance baseline.
 A similar performance in this group to the non-adaptive colour pallete group indicates that the colours do not serve merely as context cues with one to one relationship among colours and words. 
-A colour that we associate with hardness will tend to cue us on paying extra attention to the learning process. These cues will further help the learner pace their focus in relation to the context.
-We further hope to investigate the experimental results in determining if certain palettes are globally identified with a certain level of hardness.
-These findings may enable us in building a UI that makes fact learning more efficient.
+A colour that we associate with hardness will tend to cue us on paying extra attention to the learning process.
+These cues will further help the learner pace their focus in relation to the context.
+We believe that E1 will have better performance than E0 because of the similar reasons to those proposed by Van den broek (2019).
 
 ### Research questions
 
 - Does the perception of colours with a level of hardness serve as cues for distributing focus across tasks in learning better?
+- - We compare groups in the first factor (P0, P1, P2)
 - Is there a prominent global colour pallete associated with the different levels of difficulty?
-
-- TODO: what specifically are we measuring? how do we know our method is good or bad? -V
-- TODO: specific research questions, ideally a list -V.
-- TODO: V. thinks that E1 will have better performance than E0
+- - Which of the palettes is preffered (we expect imbalanced distribution)
+- - Across the first two factors (P-A), does any lead to the best results as evaluated by either E0 or E1
 
 ## References
 
-Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.  
-Mathôt, S., Schreij, D., & Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. Behavior Research Methods, 44(2), 314-324.
+- Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.  
+- Mathôt, S., Schreij, D., & Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. Behavior Research Methods, 44(2), 314-324.
