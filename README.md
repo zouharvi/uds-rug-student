@@ -32,7 +32,11 @@ esay | medium | hard
 There are two factors: palette presence (3) and palette adaptivity (3) which is almost a 3x3 design though no adaptivity is needed for _no colour palette_.
 Overall this results in 7 conditions.
 
-TODO: write about pre-experiment
+### Pre-Experiment
+
+In a pre-experiment, we will poll the participants what color palette they associate the most with easy-difficulty scale.
+If the results are heavily in favour of one specific palette (we expect green-red), we use this one.
+In case of more balanced results, we will offer this selection to the users in P1.
 
 ### Palette Presence
 
@@ -40,8 +44,9 @@ The experiment will be based on learning words from English to a foreign languag
 We need 3 contrastive groups:
 - P0: no colour palette
 - P1: colour palette chosen by the user
-<!-- - P2: colour palette chosen randomly -->
 - P2: word colors chosen randomly (previously A1)
+
+<!-- - P2: colour palette chosen randomly -->
 
 ### Adaptivity
 
