@@ -20,7 +20,10 @@ In an extreme case, this may lead to even worse later recall results because the
 
 Our model is based on the [spacing model used by SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the colour palette system in the model, we modify the background colour as the user is learning. The colours for each fact change according to how easy for the user to remember the fact. In the spacing model, the _rate of forgetting_ shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The colour palette from the easiest to the hardest scale should change in the proportion of the forgetting rate.
 
-TODO: would it be possible to add a sketch of what the interface will look like with the palettes? Like something simple in Inkscape (+ please push the source here) -V.
+Examples of the interface will be like below. All the figures are drawn with OpenSesame(Mathôt et al., 2012) sketchpad item.
+
+![easy](./pic/demo0.jpg) ![medium](./pic/demo1.jpg) ![hard](./pic/demo2.jpg)
+
 
 ## Experiments setup
 
@@ -87,4 +90,5 @@ These findings may enable us in building a UI that makes fact learning more effi
 
 ## References
 
-Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.
+Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.  
+Mathôt, S., Schreij, D., & Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. Behavior Research Methods, 44(2), 314-324.
