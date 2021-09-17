@@ -10,7 +10,7 @@ In detail, this means that prior to the study process a colour palette will be s
 
 ### Related Work
 
-Van den Broek (2019) <sup>[1](#fn1)</sup> show that providing hints suprisingly does not have a long-lasting effect on later recall in fact-learning when the hints were not present.
+Van den Broek (2019) show that providing hints suprisingly does not have a long-lasting effect on later recall in fact-learning when the hints were not present.
 A key difference is, however, that the hints used in their study were relevant to prompt (e.g. translating _vestis - clothes_: _Think of the word "vest"_).
 Additionally, the hints were shown after the user response for a second chance.
 In the case of our experiment, these "prompt context independent" hints are shown before the prompt is answered.
@@ -20,11 +20,7 @@ In an extreme case, this may lead to even worse later recall results because the
 
 Our model is based on the [spacing model used by SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the colour palette system in the model, we modify the background colour as the user is learning. The colours for each fact change according to how easy for the user to remember the fact. In the spacing model, the _rate of forgetting_ shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The colour palette from the easiest to the hardest scale should change in the proportion of the forgetting rate.
 
-<<<<<<< HEAD
 Examples of the interface will be like below. All the figures are drawn with OpenSesame (Mathôt et al., 2012) sketchpad item.
-=======
-Examples of the interface will be like below. All the figures are drawn with OpenSesame(Mathôt et al., 2012 <sup>[2](#fn2)</sup>) sketchpad item.
->>>>>>> ec8672d4e2b3f5ead975ccb070c584385d1c9a1f
 
 esay | medium | hard   
 :---:|:---:|:---:
