@@ -32,20 +32,20 @@ esay | medium | hard
 There are two factors: palette presence (3) and palette adaptivity (3) which is almost a 3x3 design though no adaptivity is needed for _no colour palette_.
 Overall this results in 7 conditions.
 
+TODO: write about pre-experiment
+
 ### Palette Presence
 
 The experiment will be based on learning words from English to a foreign language, most probably Swahili.
 We need 3 contrastive groups:
 - P0: no colour palette
 - P1: colour palette chosen by the user
-- P2: colour palette chosen randomly
+<!-- - P2: colour palette chosen randomly -->
+- P2: word colors chosen randomly (previously A1)
 
 ### Adaptivity
 
-Another factor would be the palette working scheme.
-Is the palette with a fixed threshold or is it adapted to the current user progress?
-- A0: directly proportional to ACT-R difficulty results
-- A1: no relation to difficulty, random
+The palette in P1 and P2 is adapted proportionally to ACT-R difficulty results.
 
 <!-- TODO: comment why we did not use static and explicitly dynamic -->
 
@@ -65,6 +65,8 @@ Naturally, we will be using between-subject design because we can not change the
 In order to determine the exact effect of the adaptive palette, the evaluation for users is yet another factor.
 - E0: evaluation without any color cues
 - E1: evaluation with the same scheme as the original configuration (e.g. P1A2)
+
+<!-- TODO: this part could be within subject -->
 
 ## Data analysis & hypothesis
 
