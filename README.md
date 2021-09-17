@@ -2,7 +2,7 @@
 
 ## Introduction & motivation
 
-This user model application focuses on enhancing learning a foreign vocabulary. It has been shown that changing the repetition times of a certain word depending on its difficulty to the user, decreases the time it takes for the user to learn the foreign vocabulary (TODO: cite -V.). On the other hand, many studies have been performed on the influence of colour on our everyday life. One major finding is the effect of colour on learning and making fast associations (many signs include colour, warning signs are usually red, etc.). 
+This user model application focuses on enhancing learning a foreign vocabulary. It has been shown that changing the repetition times of a certain word depending on its difficulty to the user, decreases the time it takes for the user to learn the foreign vocabulary (Sense et al., 2016 <sup>[3](#fn3)</sup>). On the other hand, many studies have been performed on the influence of colour on our everyday life. One major finding is the effect of colour on learning and making fast associations (many signs include colour, warning signs are usually red, etc.), Change et al., 2018 <sup>[4](#fn4)</sup>. 
 
 Based on these findings, this user model study aims to determine whether employing colour allows the user to learn a foreign vocabulary faster. More specifically, derived from the aforementioned methods to change the repetition time of words depending on the difficulty of the word to the user, this user model will change its background colour based on the difficulty to the user.
 
@@ -93,4 +93,5 @@ We believe that E1 will have better performance than E0 because of the similar r
 
 <a name="fn1">1</a>: Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.  
 <a name="fn2">2</a>: Mathôt, S., Schreij, D., & Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. Behavior Research Methods, 44(2), 314-324.
-https://newprairiepress.org/cgi/viewcontent.cgi?article=4001&context=aerc
+<a name="fn3">3</a>: Sense, F., Behrens, F., Meijer, R. R., & van Rijn, H. (2016). An individual's rate of forgetting is stable over time but differs across materials. Topics in cognitive science, 8(1), 305-321.
+<a name="fn4">4</a>: Chang, B., Xu, R., & Watt, T. (2018). The impact of colors on learning.
