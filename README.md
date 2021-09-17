@@ -93,3 +93,4 @@ We believe that E1 will have better performance than E0 because of the similar r
 
 <a name="fn1">1</a>: Van den Broek, G. S., Segers, E., Van Rijn, H., Takashima, A., & Verhoeven, L. (2019). Effects of elaborate feedback during practice tests: Costs and benefits of retrieval prompts. Journal of Experimental Psychology: Applied, 25(4), 588.  
 <a name="fn2">2</a>: Mathôt, S., Schreij, D., & Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. Behavior Research Methods, 44(2), 314-324.
+https://newprairiepress.org/cgi/viewcontent.cgi?article=4001&context=aerc
