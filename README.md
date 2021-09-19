@@ -1,4 +1,4 @@
-# Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints (WIP)
+# Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints
 
 ## Introduction & motivation
 
@@ -6,15 +6,15 @@ This user model application focuses on enhancing learning a foreign vocabulary. 
 
 Based on these findings, this user model study aims to determine whether employing colour allows the user to learn a foreign vocabulary faster. More specifically, derived from the aforementioned methods to change the repetition time of words depending on the difficulty of the word to the user, this user model will change its background colour based on the difficulty to the user.
 
-In detail, this means that prior to the study process a colour palette will be selected for every participant. This colour palette associates a different colour to different degrees of difficulty _(refer to the next sections for the method to select this colour palette)_. Each time a word is displayed, the background wil changes to the colour from the colour palette that represents the difficulty the user model estimates the user is currently having with the word in question.
+In detail, this means that prior to the study process a colour palette will be selected for every participant. This colour palette associates a different colour to different degrees of difficulty _(refer to the next sections for the method to select this colour palette)_. Each time a word is displayed, the background will changes to the colour from the colour palette that represents the difficulty the user model estimates the user is currently having with the word in question.
 
 ### Related Work
 
-Van den Broek (2019) <sup>[1](#fn1)</sup> show that providing hints suprisingly does not have a long-lasting effect on later recall in fact-learning when the hints were not present.
+Van den Broek (2019) <sup>[1](#fn1)</sup> show that providing hints surprisingly does not have a long-lasting effect on later recall in fact-learning when the hints were not present.
 A key difference is, however, that the hints used in their study were relevant to prompt (e.g. translating _vestis - clothes_: _Think of the word "vest"_).
 Additionally, the hints were shown after the user response for a second chance.
-In the case of our experiment, these "prompt context independent" hints are shown before the prompt is answered.
-In an extreme case, this may lead to even worse later recall results because the user could associate the answer with the specific color (see [evaluation](#evaluation)) and not with the actual prompt.
+In the case of our experiment, these "prompt context-independent" hints are shown before the prompt is answered.
+In an extreme case, this may lead to even worse later recall results because the user could associate the answer with the specific colour (see [evaluation](#evaluation)) and not with the actual prompt.
 
 ## User-model & interface
 
@@ -22,7 +22,7 @@ Our model is based on the [spacing model used by SlimStampen](https://github.com
 
 Examples of the interface will be like below. All the figures are drawn with OpenSesame (Mathôt et al., 2012 <sup>[2](#fn2)</sup>) sketchpad item.
 
-esay | medium | hard   
+easy | medium | hard   
 :---:|:---:|:---:
 ![easy](./pic/demo0.jpg) | ![medium](./pic/demo1.jpg) | ![hard](./pic/demo2.jpg)
 
@@ -34,7 +34,7 @@ Overall this results in 7 conditions.
 
 ### Pre-Experiment
 
-In a pre-experiment, we will poll the participants what color palette they associate the most with easy-difficulty scale.
+In a pre-experiment, we will poll the participants on what colour palette they associate the most with the easy-difficulty scale.
 If the results are heavily in favour of one specific palette (we expect green-red), we use this one.
 In case of more balanced results, we will offer this selection to the users in P1.
 
@@ -44,7 +44,7 @@ The experiment will be based on learning words from English to a foreign languag
 We need 3 contrastive groups:
 - P0: no colour palette
 - P1: colour palette chosen by the user
-- P2: word colors chosen randomly (previously A1)
+- P2: word colours chosen randomly (previously A1)
 
 <!-- - P2: colour palette chosen randomly -->
 
@@ -68,33 +68,39 @@ Naturally, we will be using between-subject design because we can not change the
 ### Evaluation
 
 In order to determine the exact effect of the adaptive palette, the evaluation for users is yet another factor.
-- E0: evaluation without any color cues
+- E0: evaluation without any colour cues
 - E1: evaluation with the same scheme as the original configuration (e.g. P1A2)
 
-<!-- TODO: this part could be within subject -->
+<!-- TODO: this part could be within-subject -->
 
 ## Data analysis & hypothesis
 
-Observations regarding the performance (number of words correctly translated or number of words learned) of the participants is noted.
+Observations regarding the performance (number of words correctly translated or number of words learned) of the participants are noted.
 These observations are statistically examined with respect to the experiment conditions.
 
 ### Expectations
 
-With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour pallete condition with their own selection.
-The random colour pallete should show a significantly lower performance among subjects, similar to no palette (though higher in E1 because of additional hints).
-This would indicate that the perception (user defined) of a colour with a certain level of hardness allows the participant to scale their focus to match these and hence learn faster.
-A similar performance in this group to the non-adaptive colour pallete group indicates that the colours do not serve merely as context cues with one to one relationship among colours and words. 
+With the assumption that our hypothesis holds, we expect to see a higher performance among participants in the adaptive colour palette condition with their own selection.
+The random colour palette should show a significantly lower performance among subjects, similar to no palette (though higher in E1 because of additional hints).
+This would indicate that the perception (user-defined) of a colour with a certain level of hardness allows the participant to scale their focus to match these and hence learn faster.
+A similar performance in this group to the non-adaptive colour palette group indicates that the colours do not serve merely as context cues with one to one relationships among colours and words. 
 A colour that we associate with hardness will tend to cue us on paying extra attention to the learning process.
 These cues will further help the learner pace their focus in relation to the context.
-We believe that E1 will have better performance than E0 because of the similar reasons to those proposed by Van den broek (2019).
+We believe that E1 will have better performance than E0 because of similar reasons to those proposed by Van den Broek (2019).
 
 ### Research questions
 
 - Does the perception of colours with a level of hardness serve as cues for distributing focus across tasks in learning better?
   - We compare groups in the first factor (P0, P1, P2)
-- Is there a prominent global colour pallete associated with the different levels of difficulty?
-  - Which of the palettes is preffered (we expect imbalanced distribution)
+- Can learning with non-contextual cues actually be hurtful?
+  - I.e. P1E1 > P0 > P1E0 and P2E1 > P0 > P2E0 ?
+- Is the performance gain because of the dynamic palette or because of random color associations?
+  - I.e. P1 <> P2 ?
+<!-- - 
+- Is there a prominent global colour palette associated with the different levels of difficulty?
+  - Which of the palettes is preferred (we expect imbalanced distribution)
   - Across the first two factors (P-A), does any lead to the best results as evaluated by either E0 or E1
+-->
 
 ## References
 
