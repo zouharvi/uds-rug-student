@@ -1,0 +1,3 @@
+- All difficulty estimates start with a neutral color
+- E1 should be rather an afterthought so it's good it's within-subject
+- Hopefully everyone will think that green-red is the most intuitive palette to not introduce more factors
