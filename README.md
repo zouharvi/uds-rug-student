@@ -24,7 +24,7 @@ Examples of the interface will be like below. All the figures are drawn with Ope
 
 easy | medium | hard   
 :---:|:---:|:---:
-![easy](./pic/demo0.jpg) | ![medium](./pic/demo1.jpg) | ![hard](./pic/demo2.jpg)
+![easy](./meta/img/demo0.jpg) | ![medium](./meta/img/demo1.jpg) | ![hard](./meta/img/demo2.jpg)
 
 
 ## Experiments setup
