@@ -10,6 +10,9 @@
 
 - "organizational success is based on the ability to process informatoin of appropriate richness to reduce uncertainty and clarify ambiguity"
 
+# Theories
+- ???
+
 # Paper
 
 ## Channels / media in general
@@ -23,9 +26,9 @@
 # Concepts
 
 ## high-/low-variety languages
-- ability to transmit higher-order concepts, such as art or emotions 
+- ability to transmit higher-order concepts, such as art or emotions
 - complex social phenomena require a high-variety language
-- unambiguous and well understood topics use low-variety languages (such as mathematics)
+- unambiguous and well understood topics use low-variety languages (such as mathematics) to not introduce extra noise
 
 ## information richness
 - plain data - low richness
@@ -42,10 +45,9 @@
 
 ## vertical/horizontal information processing
 - vertical - from the external world to the organization?
-- - reduce equivocality, interpretation
+- - reduce equivocality (multiple interpretations, be consistent), interpretation
 - horizontal - in-between departments?
 - - coordination
-- ???
 
 ## information tasks
 1. reduce equivocality
@@ -54,13 +56,11 @@
 ## vertical (hiearchical) information model
 - lower organization levels are more objective oriented and do not have high need to reduce equivocality
 - high-level decisions with richness requirements are made fort top-level tasks
-- - these can trickle down for less complex tasks
+- - these can trickle down for less complex tasks 
 
 ## horizontal information model
-- information processing between departments on the same level, inter-dependence
-
-## interdependence
-- ???
+- information processing between departments on the same level, inter-dependence (dependent on each other)
+- information needs to flow horizontally
 
 # Examples
 
@@ -71,15 +71,17 @@
 - - together with medical supplies
 - issue: armory got destroyed by the tornado, highly equivocal situation
 - solution: ad hoc regroup at a new place and organize help from there, very rich media
+- high uncertainty, low equivocality (good organization & understanding)
 
 ## Business College
 - issue with comparing information from different sources (recommendation reports)
 - lengthy discussion had better results
 - different frames of reference, rich media required to establish a common perspective
+- originally low uncertainty, high equivocality
 
-## Retail Chain
+## Fashion Retail Chain
 - first executive was trying to keep in touch with the industry, the stores and the plants
 - the new executive relied more on formal reports and detailed analysis
 - the latter was removed after disapproval from the board of directors
-
--
+- rich media needed
+- (low uncertainty, high equivocality but high to interpret this way)
