@@ -1,5 +1,9 @@
 # Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints
 
+See for more detail:
+- [Experiment design](experiment_design.md)
+- [Data](data.md)
+
 ## Introduction & motivation
 
 This user model application focuses on enhancing learning a foreign vocabulary. It has been shown that changing the repetition times of a certain word depending on its difficulty to the user, decreases the time it takes for the user to learn the foreign vocabulary (Sense et al., 2016 <sup>[3](#fn3)</sup>). On the other hand, many studies have been performed on the influence of colour on our everyday life. One major finding is the effect of colour on learning and making fast associations (many signs include colour, warning signs are usually red, etc.), Chang et al., 2018 <sup>[4](#fn4)</sup>. 
@@ -26,7 +30,6 @@ easy | medium | hard
 :---:|:---:|:---:
 ![easy](./meta/img/demo0.jpg) | ![medium](./meta/img/demo1.jpg) | ![hard](./meta/img/demo2.jpg)
 
-
 ## Experiments setup
 
 There are two factors: palette presence (3) and palette adaptivity (3) which is almost a 3x3 design though no adaptivity is needed for _no colour palette_.
@@ -43,35 +46,22 @@ In case of more balanced results, we will offer this selection to the users in C
 The experiment will be based on learning words from English to a foreign language, most probably Swahili.
 We need 3 contrastive groups:
 - C0: no colour palette
-- C1: colour palette chosen by the user
-- C2: word colours chosen randomly (previously A1)
+- C1: colour based on a difficulty via ACT-R
+- C2: word colours chosen randomly
 
-<!-- - C2: colour palette chosen randomly -->
-
-### Adaptivity
-
-The palette in C1 and C2 is adapted proportionally to ACT-R difficulty results.
-
-<!-- TODO: comment why we did not use static and explicitly dynamic -->
+<!--
 
 Vilém thinks the last level is needed to contrast the following phenomenon: 
 If a word is for a longer time in e.g. bright red colour, I can associate this with the answer (similar to my *star* example).
 In order to rule out that this phenomenon is positively influencing the results (and not the palette), we would need the fourth group of people.
 
-### Scale
-
-The exact scale is yet to be determined (number words, sessions and people).
-Since we have 7 conditions, we may need e.g. 14 people to get 2 people per condition, and possibly more. 
-Depending on whether we accept adaptivity as another factor, that increases the number of conditions.
-Naturally, we will be using between-subject design because we can not change the configuration for someone mid-experiment.
+-->
 
 ### Evaluation
 
 In order to determine the exact effect of the adaptive palette, the evaluation for users is yet another factor.
-- E0: evaluation without any colour cues
-- E1: evaluation with the same scheme as the original configuration (e.g. C1A2)
-
-<!-- TODO: this part could be within-subject -->
+- PT0: evaluation without any colour cues
+- PT1: evaluation with the same scheme as the original configuration (e.g. C1A2)
 
 ## Data analysis & hypothesis
 

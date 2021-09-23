@@ -19,7 +19,10 @@ Each participant will be selected into a group. We define three groups:
 Each participant will receive a briefing document prior to the experiment where they are told what the main task is (learning Swahili vocabulary).
 Importantly, they will not be disclosed in which group they are.
 
+There will be TODO words in total (see [Data](data.md)).
+
 ## Outline
+
 The whole experiment can be split into the following phases which follow in sequential order:
 
 1. PD: Discovery
