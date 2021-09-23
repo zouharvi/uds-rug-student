@@ -1,7 +1,7 @@
 # Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints
 
 See for more detail:
-- [Experiment design](experiment_design.md)
+- [Experiment setup](experiment_setup.md)
 - [Data](data.md)
 
 ## Introduction & motivation
@@ -62,6 +62,13 @@ In order to rule out that this phenomenon is positively influencing the results 
 In order to determine the exact effect of the adaptive palette, the evaluation for users is yet another factor.
 - PT0: evaluation without any colour cues
 - PT1: evaluation with the same scheme as the original configuration (e.g. C1A2)
+
+### Scale
+
+The exact scale is yet to be determined (number words, sessions and people).
+Since we have 7 conditions, we may need e.g. 14 people to get 2 people per condition, and possibly more. 
+Depending on whether we accept adaptivity as another factor, that increases the number of conditions.
+Naturally, we will be using between-subject design because we can not change the configuration for someone mid-experiment.
 
 ## Data analysis & hypothesis
 
