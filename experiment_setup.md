@@ -1,80 +1,91 @@
 # Experiment setup
-> This document outlines the experimental procedure of this project.
-
-## Materials
-* Computer + experiment software
-* Display
-* Keyboard
+This document outlines the main experimental procedure.
+The requirements for this experiment are an internet-connected computer and the experiment software.
+The overall estimated duration of the experiment is TODO minutes.
 
 ## Participants
-We are looking for participants, possibly students, that are open to learn a new language: Swahili.
-To this end, the participants may not be familiar with the Swahili language as to have a similar common knowledge of the language prior to the experiment.
+
+The participants are required to not have any prior knowledge of Swahili or related languages, to not suffer from any learning disabilities nor colour-blindness.
+We expect the volunteers to be international students.
+They will be assigned to one of the three groups uniformly.
 
 ## Method
-Each participant will be selected to a group. We define three groups:
-1. The control group; No colour palette
-2. Condition 1 group; Colour palette based on difficulty of the word
-3. Condition 2 group; Different colour per word
 
-Each participant will receive a briefing prior to the experiment. All briefings will start with the standard briefing.
+Each participant will be selected into a group. We define three groups:
+- C0: No colour palette
+- C1: Colour palette based on the difficulty of the word
+- C2: Different colours per word
 
-In this briefing the participants are informed that in this experiment the participant will be learning the Swahili language, from the English language.
-I.e. each participant will be presented with an English word and is tasked to provide the Swahili translation of this word _???_.
+Each participant will receive a briefing document prior to the experiment where they are told what the main task is (learning Swahili vocabulary).
+Importantly, they will not be disclosed in which group they are.
 
-Based on their group, each participant may then follow a different procedure.
+## Outline
+The whole experiment can be split into the following phases which follow in sequential order:
+
+1. PD: Discovery
+2. PL: Learning
+3. PT: Testing
+
+TODO: PD, PL, PL, PL, PT0, PT1? How many learning phases?
+
+The participants will fill in a questionnaire at the beginning of the experiment and at the end.
+The reason for not joining them is because of the expected mental fatigue after the experiment is concluded.
 
 ### Discovery phase
-In the discovery phase each participant will get to know the words in the vocabulary. Concretely, each Swahili word will in turn be presented together with it's English counterpart.
-The participant is then tasked to retype the _Swahili???_ word to confirm he or she has read the word.
 
-Then based on the group the participant is placed in, the participant will be presented with the words in different ways:
-1. Both words are presented in the center of the screen in black text on a white background, with an input field located below.  
-2. The same layout is used as for group 1, however the fields of interested are now placed in a white square, while all remaining background is coloured by the colour chosen to be the medium difficulty colour based on the difficulty colour palette.
-3. Group 3 on its turn uses the same layout as group 2, however now the background will change to the colour assigned to each word respectively.
+In this phase, each participant will get to know the words in the vocabulary.
+Concretely, each Swahili word will in turn be presented together with its English counterpart.
+The participant is then tasked to retype the English word to stimulate participation.
 
 ### Learning phase
-Once the participant has seen each word once, the learning phase starts.
-The learning phase will stop whenever 15 minutes have passed and the participant has completed the last word he or she is dealing with. 
-The participants will not be actively presented with the time they have left, as to avoid stress thereof _(maybe we even want to go further to remove all notices of time from the room and participant)_.
 
-During the learning phase the participant will learn the new vocabulary. All English words from the vocabulary are in turn presented to the participant, their occurence and repetition determined by the model by Sense et al. (2016).
-During each turn the participant is tasked to produce the Swahili translation, for which he or she has **60???** seconds.
+The participants will not be actively presented with the time they have left, to avoid a potential increase in stress.
+
+During the learning phase, the participant will learn the new vocabulary.
+All Swahili words from the vocabulary are in turn presented to the participant, their occurrence and repetition determined by the model by Sense et al. (2016).
+During each turn, the participant is tasked to produce the English translation without any time limit.
 
 There are two situations:
-1. The participant produces the correct translation _(obvious spelling errors are also considered as correct translation)???_. 
-In this case a text with 'Correct!' is displayed for _1 second???_, before the next English word is displayed.
-2. The participant failes to produce the correct translation. This can be either due to giving the wrong input, or through timeout.
-In this case the word 'Incorrect' is displayed for _1 second???_, before the correct translation is displayed. 
->??? now we need to decide wether the correct translation is displayed for _n_ seconds before displaying the next word, or whether we want to show the correct translation untill the user has typed in the correct translation (will take more time probably, but speed up learning?).
+- The participant produces the correct translation.
+  In this case, a positive message (e.g. _Correct!_) is displayed until the participant presses Enter to display the next word.
+- The participant fails to produce the correct translation.
+  In this case, a negative message (e.g. _Incorrect_) is displayed together with the correct translation.
+- TODO: how about small spelling mistakes? TODO: do we force the participants to type the correct words?
 
-How the words are displayed once again depends on the group the participant is played in:
-1. Same layout as during the discovery phase, however obviously now the Swahili word is hidden.
-2. Same layout as during the discovery phase, with the Swahili word hidden. However, whenever a new word is displayed, the background changes to a new colour from the difficulty colour palette corresponding to the difficulty of the word to the participant as estimated by the system.
-3. Same layout as during the discovery phase, with the Swahili word hidden.
+The learning phase will stop whenever TODO minutes have passed regardless of how many words were processed by the participant.
+This is followed by a mandatory break and repeated TODO times.
 
 ### Evaluation phase
->??? Here we have to determine whether we want to do the same as in Van den Broek et al. (2019) and do evaluation like one week after discovery and learning.
-The evaluation phase is held some time after the learning phase, as to assure that the participants actually learned the words, rather than remembering it in their short-term memory.
 
-The start of the evaluation phase will be equal for each participant, regardless of the group they were in during the discovery and learning phase:
+The evaluation phase is held after TODO minutes after the last learning phase, to assure that the participants actually learned the words, rather than remembering them in their short-term memory.
+TODO: Here we have to determine whether we want to do the same as in Van den Broek et al. (2019) and do evaluation like one week after discovery and learning. V: we definitely don't have the time budget for that. We'll have at most a few minutes.
 
-All English words from the vocabulary are presented one time on turn to the participant. Once again the participant has _60 seconds???_ to give the correct answer.
-This means that the participant may encounter words that have only been seen during the discovery phase. The system will keep track of this variable, for correction during later data analysis.
-Whenever input is submitted, the next word is displayed without feedback to the user whether the past input was correct or not, though whether the input was correct is being logged by the system.
+This phase is further split into two subphases:
 
->??? Here we have to determine whether we want to keep the ordering of the words equal for each participant, or whether we want to shuffle the words, this especially will be important when we do the double evaluation phases.
+#### PT0
 
-Whenever the participant has answered two-thirds of the vocabulary, _(maybe with a short break in between???)_ the layout used during the learning phase will be employed again.
-Group 1 will see no change, group 2 and 3 will have each word presented with a coloured background respective to their group. 
-For group 2 this means that the background colour for each word will be equal to the colour associated with the last difficulty measure of the system for that respective word.
+All Swahili words from the vocabulary are presented one time in turn to the participant who has unlimited time to provide the correct answer.
+Whenever the input is submitted, the next word is displayed without feedback to the user whether the past input was correct or not.
+Some of the participants may encounter words that have only been seen during the discovery phase.
+However, the learning phase duration will be finetuned to minimize the number of such participants.
 
-For clarification, feedback about the correctness of the input is still omitted. Once again the accuracy of the user is being logged.
+Importantly, all the words are presented without the colours.
 
-> ??? We could even do one type of evaluation per third of the vocab, to do some nice cross comparison between the groups.
+#### PT1
 
-After the participants are finished, they may see their scores if they are interested. 
-After that they will have to fill in a short survey about the experiment, after which they are thanked and free to go.
+In the second part of testing, all the Swahili words are presented again, but for groups C1 and C2, the colours are activated again.
+For C2 the associated colours will be used while for C1, the last difficulty estimate from the learning phase will be used.
+TODO: do we shuffle again or keep ordering from PT0?
+The feedback is still omitted though it may be present at the end of the experiment for a small morale boost.
 
-## Data analysis
-> ??? TODO
+## Design
 
+The design base is black text on a white background in the centre of the screen with an input field below the English word. 
+
+Based on the group the participant is placed in, the words will be presented either as:
+- P0: white background, 
+- P1: the word background is highlighted by the colour corresponding to the difficulty
+- P2: the word is presented with its associated colour
+
+The discovery and learning phase will contain these colourings though, for testing, it will depend on the specific subphase.
+It will be disabled in PT0 and enabled in PT1.

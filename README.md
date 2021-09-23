@@ -36,21 +36,21 @@ Overall this results in 7 conditions.
 
 In a pre-experiment, we will poll the participants on what colour palette they associate the most with the easy-difficulty scale.
 If the results are heavily in favour of one specific palette (we expect green-red), we use this one.
-In case of more balanced results, we will offer this selection to the users in P1.
+In case of more balanced results, we will offer this selection to the users in C1.
 
 ### Palette Presence
 
 The experiment will be based on learning words from English to a foreign language, most probably Swahili.
 We need 3 contrastive groups:
-- P0: no colour palette
-- P1: colour palette chosen by the user
-- P2: word colours chosen randomly (previously A1)
+- C0: no colour palette
+- C1: colour palette chosen by the user
+- C2: word colours chosen randomly (previously A1)
 
-<!-- - P2: colour palette chosen randomly -->
+<!-- - C2: colour palette chosen randomly -->
 
 ### Adaptivity
 
-The palette in P1 and P2 is adapted proportionally to ACT-R difficulty results.
+The palette in C1 and C2 is adapted proportionally to ACT-R difficulty results.
 
 <!-- TODO: comment why we did not use static and explicitly dynamic -->
 
@@ -69,7 +69,7 @@ Naturally, we will be using between-subject design because we can not change the
 
 In order to determine the exact effect of the adaptive palette, the evaluation for users is yet another factor.
 - E0: evaluation without any colour cues
-- E1: evaluation with the same scheme as the original configuration (e.g. P1A2)
+- E1: evaluation with the same scheme as the original configuration (e.g. C1A2)
 
 <!-- TODO: this part could be within-subject -->
 
@@ -91,11 +91,11 @@ We believe that E1 will have better performance than E0 because of similar reaso
 ### Research questions
 
 - Does the perception of colours with a level of hardness serve as cues for distributing focus across tasks in learning better?
-  - We compare groups in the first factor (P0, P1, P2)
+  - We compare groups in the first factor (C0, C1, C2)
 - Can learning with non-contextual cues actually be hurtful?
-  - I.e. P1E1 > P0 > P1E0 and P2E1 > P0 > P2E0 ?
+  - I.e. C1E1 > C0 > C1E0 and C2E1 > C0 > C2E0 ?
 - Is the performance gain because of the dynamic palette or because of random color associations?
-  - I.e. P1 <> P2 ?
+  - I.e. C1 <> C2 ?
 <!-- - 
 - Is there a prominent global colour palette associated with the different levels of difficulty?
   - Which of the palettes is preferred (we expect imbalanced distribution)
