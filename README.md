@@ -47,6 +47,10 @@ In a pre-experiment, we will poll the participants on what colour palette they a
 If the results are heavily in favour of one specific palette (we expect green-red), we use this one.
 In case of more balanced results, we will offer this selection to the users in C1.
 
+Three palettes:
+
+![palettes](./meta/img/palette.png)
+
 ### Palette Presence
 
 The experiment will be based on learning words from English to a foreign language, most probably Swahili.
