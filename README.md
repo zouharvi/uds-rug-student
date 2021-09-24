@@ -32,9 +32,9 @@ Examples of screens during the discovery phase (possibly also learning, once the
 
 group | easy | medium | hard   
 :-:|:---:|:---:|:---:
-P0 | ![easy](./meta/img/sketch_p0.png) | ![medium](./meta/img/sketch_p0.png) | ![hard](./meta/img/sketch_p0.png)
-P1 | ![easy](./meta/img/sketch_p1_easy.png) | ![medium](./meta/img/sketch_p1_medium.png) | ![hard](./meta/img/sketch_p1_hard.png)
-P2 | ![easy](./meta/img/sketch_p2.png) | ![medium](./meta/img/sketch_p2.png) | ![hard](./meta/img/sketch_p2.png)
+C0 | ![easy](./meta/img/sketch_p0.png) | ![medium](./meta/img/sketch_p0.png) | ![hard](./meta/img/sketch_p0.png)
+C1 | ![easy](./meta/img/sketch_p1_easy.png) | ![medium](./meta/img/sketch_p1_medium.png) | ![hard](./meta/img/sketch_p1_hard.png)
+C2 | ![easy](./meta/img/sketch_p2.png) | ![medium](./meta/img/sketch_p2.png) | ![hard](./meta/img/sketch_p2.png)
 
 ## Experiments setup
 
