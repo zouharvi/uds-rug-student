@@ -25,11 +25,16 @@ In an extreme case, this may lead to even worse later recall results because the
 
 Our model is based on the [spacing model used by SlimStampen](https://github.com/VanRijnLab/user-models-2122). To include the colour palette system in the model, we modify the background colour as the user is learning. The colours for each fact change according to how easy for the user to remember the fact. In the spacing model, the _rate of forgetting_ shows an estimated rate for a fact at a specified time, which could measure how difficult to remember the fact for the user. The colour palette from the easiest to the hardest scale should change in the proportion of the forgetting rate.
 
-Examples of the interface will be like below. All the figures are drawn with OpenSesame (Mathôt et al., 2012 <sup>[2](#fn2)</sup>) sketchpad item.
 
-easy | medium | hard   
-:---:|:---:|:---:
-![easy](./meta/img/demo0.jpg) | ![medium](./meta/img/demo1.jpg) | ![hard](./meta/img/demo2.jpg)
+<!--All the figures are drawn with OpenSesame (Mathôt et al., 2012 <sup>[2](#fn2)</sup>) sketchpad item. -->
+
+Examples of screens during the discovery phase (possibly also learning, once the user fills in the word).
+
+group | easy | medium | hard   
+:-:|:---:|:---:|:---:
+P0 | ![easy](./meta/img/sketch_p0.png) | ![medium](./meta/img/sketch_p0.png) | ![hard](./meta/img/sketch_p0.png)
+P1 | ![easy](./meta/img/sketch_p1_easy.png) | ![medium](./meta/img/sketch_p1_medium.png) | ![hard](./meta/img/sketch_p1_hard.png)
+P2 | ![easy](./meta/img/sketch_p2.png) | ![medium](./meta/img/sketch_p2.png) | ![hard](./meta/img/sketch_p2.png)
 
 ## Experiments setup
 
