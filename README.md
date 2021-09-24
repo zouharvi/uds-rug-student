@@ -1,8 +1,9 @@
 # Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints
 
 See for more detail:
-- [Experiment setup](experiment_setup.md)
-- [Data](data.md)
+- [Experiment setup](meta/experiment_setup.md)
+- [Data](meta/data.md)
+- [User briefing](meta/briefing.md)
 
 ## Introduction & motivation
 
