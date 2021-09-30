@@ -13,6 +13,8 @@ args.add_argument("-a", "--alpha", default=0.3, type=float,
                   help="Uninformed prior (constant difficulty)")
 args.add_argument("-m", "--method", default="min-max",
                   help="Options: min-max, z-like")
+args.add_argument("-s", "--shift", default=0.0, type=float,
+                  help="How much to shift afterwards")
 args = args.parse_args()
 
 # load data
@@ -40,7 +42,7 @@ else:
     raise Exception("Unknown scaling method")
 
 
-def estimator(x): return (1 - args.beta) * args.alpha + args.beta * x
+def estimator(x): return (1 - args.beta) * args.alpha + args.beta * x + args.shift
 
 
 data_new = [
@@ -74,7 +76,7 @@ plt.ylabel("Number of examples")
 plt.title(
     f"Reestimating prior difficulties using\n"
     f"{args.method} scaling,"
-    f"and combination ({1-args.beta:.2f}) $\\cdot$ {args.alpha:.2f} + {args.beta:.2f} $\\cdot$ x",
+    f"and combination {1-args.beta:.2f} $\\cdot$ {args.alpha:.2f} + {args.beta:.2f} $\\cdot$ x + ({args.shift:.2f})",
 )
 plt.legend()
 plt.show()
