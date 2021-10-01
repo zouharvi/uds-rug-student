@@ -1,0 +1,72 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=2cm,right=5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{datetime}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage[onehalfspacing]{setspace}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\newcommand{\stdn}{} \newcommand{\studentname}[1]{\renewcommand{\stdn}{#1}}
+\newcommand{\mtrk}{} \newcommand{\matriculationno}[1]{\renewcommand{\mtrk}{#1}}
+\newcommand{\isnr}{} \newcommand{\issuenumber}[1]{\renewcommand{\isnr}{#1}}
+\newcommand{\makeheader}{\textbf{Ethics for Nerds} Exam \hfill \textbf{Student name:} \stdn \\ \today, \currenttime \hfill \textbf{Matriculation no.:} \mtrk \par \textbf{\Large Issue \isnr}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+
+\begin{document}
+\sffamily
+
+%PLEASE DON'T CHANGE ANYTHING ABOVE THIS POINT
+
+\studentname{Vilém Zouhar} %FILL THIS IN WITH YOUR NAME
+\matriculationno{} %FILL THIS IN WITH YOUR MATRICULATION NO.
+\issuenumber{3} %FILL THIS IN WITH THE NUMBER OF THE ISSUE
+\makeheader %do not delete this line
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% ANSWER THE ISSUE HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+(Overleaf uses GMT0 while we are in GMT+2)
+
+\begin{enumerate}[a)]
+    \item
+    \, \vspace{-0.65cm}
+    
+    \begin{tabular}{lp{12cm}}
+    P1: & Losing one's data is better than losing one's life.\\
+    P2: & If \emph{losing one's data is better than losing one's life} then \emph{severe injury or even death is worse than privacy violations}. \\
+    P3: & If \emph{severe injury or even death is worse than privacy violations} then \emph{privacy threats are always better than security threats}. \\
+    P4: & If \emph{privacy threats are always better than security threats} then \emph{our government should always give priority to protecting our security over protecting our privacy.} \\
+    P5: & If \emph{our government should always give priority to protecting our security over protecting our privacy} then \emph{the government is allowed to track and surveil its citizens}.\\
+    \hline
+    C: & The government is allowed to track and surveil its citizens.
+    \end{tabular}
+    
+    The argument has a clear cascade structure of implications and therefore is valid.
+    
+    \item
+    The attack could try to disprove the truthfulness of premise P5.
+
+    One way for the government to give priority to protecting our security over protecting our privacy is to track and surveil its citizens.
+    Another way for the government to give priority to protecting our security over protecting our privacy is foreign nation intervention.
+    There are multiple ways in which the government can give priority to protecting our security over protecting our privacy.
+    If there are multiple ways for the government to give priority to protecting our security over protecting our privacy then not every such way is automatically allowed by the government.
+    Therefore it does not follow automatically from the given premises that the government is allowed to track and surveil its citizens.\footnote{It may still be true but as a result of a different argument.}
+    
+    \item
+    The principle of charity is concerned with our interpretation of an argument.
+    It asks us to find the best and strongest interpretation of an argument (or text), assume that it was written by someone rational, capable and intelligent and to find charitable premises and conclusions in the reconstruction.
+    
+    It is important because without it we could petty attack even small gaps in reasoning and any slightly underdefined term.
+    If we did not adopt the principle of charity then we could only accept much more formal arguments which would make any discourse tremendously more difficult.
+    
+    On the other hand, there should be limits to how much we are charitable.
+    We should not be obliged to change drastically the argument's main ideas and make a bad argument (unsound) into a good one (sound one).
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

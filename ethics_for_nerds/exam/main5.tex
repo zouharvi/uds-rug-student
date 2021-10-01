@@ -1,0 +1,117 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=2cm,right=5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{datetime}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage[onehalfspacing]{setspace}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\newcommand{\stdn}{} \newcommand{\studentname}[1]{\renewcommand{\stdn}{#1}}
+\newcommand{\mtrk}{} \newcommand{\matriculationno}[1]{\renewcommand{\mtrk}{#1}}
+\newcommand{\isnr}{} \newcommand{\issuenumber}[1]{\renewcommand{\isnr}{#1}}
+\newcommand{\makeheader}{\textbf{Ethics for Nerds} Exam \hfill \textbf{Student name:} \stdn \\ \today, \currenttime \hfill \textbf{Matriculation no.:} \mtrk \par \textbf{\Large Issue \isnr}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+
+\begin{document}
+\sffamily
+
+%PLEASE DON'T CHANGE ANYTHING ABOVE THIS POINT
+
+\studentname{Vilém Zouhar} %FILL THIS IN WITH YOUR NAME
+\matriculationno{} %FILL THIS IN WITH YOUR MATRICULATION NO.
+\issuenumber{5} %FILL THIS IN WITH THE NUMBER OF THE ISSUE
+\makeheader %do not delete this line
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% ANSWER THE ISSUE HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+(Overleaf uses GMT0 while we are in GMT+2)
+
+\begin{enumerate}[a)]
+    \item
+    Pagination: Each page has a predefined number of content pieces shown (e.g. 20 posts) and to see more posts, the user has to actively take an action different from scrolling, creating an opportunity for the user to quit. Infinite scrolling: No clear distinction between parts of the provided content is made and it is harder for the user to quit scrolling.
+    
+    \item
+    $80\cdot 5\% = 4$, $\phi$ - introduce pagination
+    
+    \begin{enumerate}[i)]
+        \item
+        \, \vspace{-0.65cm}
+        
+        The following table lists imposed pleasures and pains of everyone who may be affected, no relevant others are present.\footnote{
+        Since we are doing maximization, the table could also be structured in a way that would reflect the situation more closely: The right column would be simply $0$ - no change/status quo and the left column would contain only the new changes. Then in order to make a decision, we would simply check if the accumulated pleasure in the left column outweighs the accumulated pain. This would not be possible with different conditions, such as thresholding.
+        }
+        
+        \begin{tabular}{l|p{5cm}p{5cm}}
+        Affected & $\phi$ & $\neg \phi$ \\
+        \hline
+        4 developers & Pleasure from an adequate job; minor pain from new job finding & Pleasure from good and stable job \\
+        76 other devs. & Pleasure from good and stable job & Pleasure from good and stable job \\
+        managers & High pleasure from luxorious life; medium pain from lower bonuses than before & Very high pleasure from very luxorious life \\
+        500mil users & Short-term negative sentiment, long-term more positive pleasure (more overall app enjoyment, better life quality) & Pleasure from app with some long-term negative effects on life.\\
+        \end{tabular}
+        
+        The contrasts for $\phi$-ing are the minor pain from new job finding for the 4 developers, medium pain from lower bonuses than before for the managers (assume low number of them), short-term negative sentiment for the 500mil users and long-term higher enjoyment and life quality for the 500mil users.
+        Since we are doing maximization we can consider the accumulated pain (slight and medium pains for a small group of people, slight short-term pain for 500mil users) vs. accumulated gain (higher enjoyment and life quality for 500mil users).
+        The fact that the user group is so numerous and higher life quality of high value, $\phi$-ing would lead to the world with maximum pleasure minus pain.
+        
+        \item
+        The following table lists burdens on everyone who may be affected, no relevant others are present.
+        
+        \begin{tabular}{l|p{5cm}p{5cm}}
+        Affected & burden of $\phi$ & burden of $\neg \phi$ \\
+        \hline
+        4 developers & slight & none \\
+        76 other devs. & none & none \\
+        managers & medium & none \\
+        500mil users & slight (short-term) & small \\
+        \end{tabular}
+        
+        % Here we assume that the users themselves are aware of the effects of the pagination and know that long-term they would be better of with it.
+        % They will still experience slight short-term frustration.
+        In this case, the managers could reasonably reject $\phi$ because of their highest burden.
+        This result is based mostly on the fact that in Scalon's contractualism, the burden of a group does not add up together.
+        
+        \item
+
+        \emph{,,Act in such a way that you always treat humanity, whether in your own person or in the person of any other, never simply as a means, but always at the same time as an end.''}
+        
+        From the perspective of Kant's moral philosophy with the formula of humanity, $\phi$-ing would be right because it would treat most of the relevant agents (500mil users) as ends as well.
+        To incorporate the 4 developers and the managers into consideration (in this case not $\phi$-ing would treat them as an end itself) we could introduce a lottery and $\phi$ with the probability of $1-\frac{4+|\text{managers}|}{500\text{mil}}$.
+    \end{enumerate}
+    
+    \item
+    \begin{enumerate}[1]
+        \item
+        In this case, it would inhibit autonomy because the highest-order desire is probably concerned with the quality of life which is overridden with the imposed addictive user interface and the current wish to keep scrolling.
+        
+        However, if the highest-order desire would be to spend a lot of time on the app then it would not inhibit autonomy.
+        
+        \item
+        From this view, the autonomy is not being inhibited because the users still have a choice to stop using the app at any point and are probably even somewhat informed about the addictivity of infinite scrolling.
+        
+        If the users don't have any knowledge about this design and the consequences (are reason-unresponsive) then it would be inhibitive.
+    \end{enumerate}
+    
+    \item
+    I believe the choice should be given to the users for the following reasons.
+    It is not disclosed in the text whether the users really know about the effect the app is having on their lifes.
+    Based on the real world, many people are aware of the many design practices that make users interact with the app more.
+    Knowing about these decisions, however, does not exclude one from their effects.
+    The users could be given the option to choose between the layouts and a piece of information regarding the possible effects.
+    This would respect the users' autonomy and would be more in line with ACM Code of Ethics and Professional Conduct, especially principles regarding honesty and disclosure.
+    
+    Technically this is definitely not a hard thing to implement and would introduce very little burden for the development team.
+    Some apps already implement this option.
+    After some time, part of the userbase would use the new layout and the other the old one.
+    Based on the split proportions maybe less than 4 developers would have to be let go and the bonuses would not have to be cut so drastically.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

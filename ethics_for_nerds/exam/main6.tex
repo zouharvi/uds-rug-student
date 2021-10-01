@@ -1,0 +1,62 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=2cm,right=5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{datetime}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage[onehalfspacing]{setspace}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\newcommand{\stdn}{} \newcommand{\studentname}[1]{\renewcommand{\stdn}{#1}}
+\newcommand{\mtrk}{} \newcommand{\matriculationno}[1]{\renewcommand{\mtrk}{#1}}
+\newcommand{\isnr}{} \newcommand{\issuenumber}[1]{\renewcommand{\isnr}{#1}}
+\newcommand{\makeheader}{\textbf{Ethics for Nerds} Exam \hfill \textbf{Student name:} \stdn \\ \today, \currenttime \hfill \textbf{Matriculation no.:} \mtrk \par \textbf{\Large Issue \isnr}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+
+\begin{document}
+\sffamily
+
+%PLEASE DON'T CHANGE ANYTHING ABOVE THIS POINT
+
+\studentname{Vilém Zouhar} %FILL THIS IN WITH YOUR NAME
+\matriculationno{} %FILL THIS IN WITH YOUR MATRICULATION NO.
+\issuenumber{6} %FILL THIS IN WITH THE NUMBER OF THE ISSUE
+\makeheader %do not delete this line
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% ANSWER THE ISSUE HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+(Overleaf uses GMT0 while we are in GMT+2)
+
+\begin{enumerate}[a)]
+    \item
+    It is based on the intuition that especially in cases where we have to make estimates of probability and the possible negative utility is high, then we should avoid it more.
+    Even a slight miscalculation in the likelihood (of which we are uncertain) could lead to disastrous results and therefore it's best to avoid it.
+    Choosing the safer option with less expected gain but also less risk is intuitively appealing.
+    
+    \item
+    In EUPU we compute the expected utility of a decision and compare it to other decisions (e.g. performing an action vs. not performing an action).
+    From this perspective, it is perfectly rational to not insure oneself (excluding psychological comfort) because the likelihood of a burglary is very low and the expected utility (measured purely in money in this case) is negative.
+    
+    The precautionary principle would however advise against the low probability of being robbed and not being insured.
+    
+    \item
+    We could upscale the negative effects from a certain threshold.
+    Assume $U$ is the utility function of a world $w$, then EUPU$^+$: $\sum p(w) \cdot U^+(w)$ where $U^+(w) = U(w) \text{ iff } U(w) \ge t$ and $U^+(w) = f(U(w)) \text{ otherwise}$.
+    We could choose $f(x)$ to be e.g. $20\cdot x$ or $-x^2$.
+    The increased negativity by $f$ would compensate for the lower probability of such events.
+    We set $t$ to be a threshold from which we consider the effects to be too negative.
+    The reason why we wouldn't want to set it to $\infty$ is that we would still like to compare two negative scenarios.
+    Obviously if one would actually wish to use this there would be issues with the function not being smooth at the point of the threshold though this could be solved by a careful selection of $t$ and $f$.
+    
+    Another alternative would be to increase the probability of $p$ for negative effects.
+    The issue here would be that it would not be a well defined expected value ("probabilities" would not sum up to $1$).
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=2cm,right=5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{datetime}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage[onehalfspacing]{setspace}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\newcommand{\stdn}{} \newcommand{\studentname}[1]{\renewcommand{\stdn}{#1}}
+\newcommand{\mtrk}{} \newcommand{\matriculationno}[1]{\renewcommand{\mtrk}{#1}}
+\newcommand{\isnr}{} \newcommand{\issuenumber}[1]{\renewcommand{\isnr}{#1}}
+\newcommand{\makeheader}{\textbf{Ethics for Nerds} Exam \hfill \textbf{Student name:} \stdn \\ \today, \currenttime \hfill \textbf{Matriculation no.:} \mtrk \par \textbf{\Large Issue \isnr}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+
+\begin{document}
+\sffamily
+
+%PLEASE DON'T CHANGE ANYTHING ABOVE THIS POINT
+
+\studentname{Vilém Zouhar} %FILL THIS IN WITH YOUR NAME
+\matriculationno{} %FILL THIS IN WITH YOUR MATRICULATION NO.
+\issuenumber{1} %FILL THIS IN WITH THE NUMBER OF THE ISSUE
+\makeheader %do not delete this line
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% ANSWER THE ISSUE HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+(Overleaf uses GMT0 while we are in GMT+2)
+
+\begin{enumerate}[(a)]
+	\item
+	Actions are right according to Kant's moral theory iff they are motivated by moral duty.
+	An action is right according to classical utilitarianism if it leads to (objectively) to the world with the highest pleasure minus pain (hedonistic axiology). \\
+	In the fat man trolley problem scenario, classical utilitarianism would judge pushing the man as morally right (since all other things being equal, the pleasure experienced by 5 people minus the pain of 1 death is higher than 1 life of pleasure minus 5 death. In Kant's moral theory, it would not be considered morally right to kill anyone under any circumstances and therefore the fat man would not be pushed to stop the trolley.
+	
+	\item
+	A: What do you think about genetically modified crops?\\
+	B: I believe that they are harmless to human health and can be one of the solutions to world hunger.\\
+	A: Why would that be?\\
+	B: There has been strong evidence against any potential human harm and their growth requires less natural resources which is better for the environment.\\
+	A: But I saw you put a plastic bottle in the black container and not the yellow one so I am sure that you just like to talk about the lower environmental impacts of GMO crops to me and know as well that they are actually more harmful.\\ \\
+	The attack was ad hominem - tu quoque.\footnote{Checking the slides I discovered that unfortunately the example given there is very closely related in topic to the one I provided.}
+	
+	\item
+	This is impossible because an argument is sound iff (by definition) it is valid and all the premises are true.
+	
+	\item
+	\, \vspace{-0.7cm}
+	
+	\begin{tabular}{lp{12cm}}
+	P1: & Eating animals puts additional burden on the environmental resources.\\
+	P2: & Not eating animals is not a significant burden for most of the people.\\
+	P3: & If \emph{eating animals puts additional burden on the environmental resources} and \emph{not eating animals is not a significant burden for most of the people} then \emph{we should stop eating animals}.\\
+	\textbf{P4:} & \textbf{Cows are cute and fluffy.} \\
+    \hline
+    C: & We should stop eating animals.
+	\end{tabular}
+	
+	\vspace{0.4cm}
+	
+	P1: $e$ \qquad
+	P2: $b$ \qquad
+	P3: $(e \wedge b) \rightarrow n$ \qquad
+	P4: $f$ \qquad
+	C: $n$.
+	
+    The form is clearly valid and if P4 was omitted then it would not affect the argument.
+    Believing the premises may be slightly controversial though I hope within acceptable bounds.
+    
+    \item
+    A prime example is the pleasure machine.
+    Assuming objective utilitarianism that differs only in the axiology (hedonism and preference theory) then with hedonism it would be morally right to lock people in pleasure machines even against their will.
+    Obviously, this would be preference frustration for probably everyone and therefore when accepting preference theory as the axiology, it would not be morally right.
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
