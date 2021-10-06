@@ -302,13 +302,13 @@ define inline_script slimstampen_setup
 	        encounters = []
 	
 	        responses_for_fact = [r for r in self.responses if r.fact.fact_id == fact.fact_id and r.start_time < time]
-	        alpha = self.DEFAULT_ALPHA
-	   
+	        #alpha = self.DEFAULT_ALPHA
+	        alpha = fact.priora
 	        # Calculate the activation by running through the sequence of previous responses
 	        for response in responses_for_fact:
 	            activation = self.calculate_activation_from_encounters(encounters, response.start_time)
 	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), self.DEFAULT_ALPHA))
-	            alpha = response.fact.priora
+	            #alpha = response.fact.priora
 	            alpha = self.estimate_alpha(encounters, activation, response, alpha)
 	
 	            # Update decay estimates of previous encounters
