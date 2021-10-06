@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.10
-Platform: nt
+OpenSesame: 3.3.5
+Platform: posix
 ---
 set width 1024
 set uniform_coordinates yes
@@ -13,10 +13,10 @@ set sound_sample_size -16
 set sound_freq 48000
 set sound_channels 2
 set sound_buf_size 1024
-set sampler_backend psycho
+set sampler_backend legacy
 set round_decimals 2
-set mouse_backend psycho
-set keyboard_backend psycho
+set mouse_backend legacy
+set keyboard_backend legacy
 set height 768
 set fullscreen no
 set form_clicks no
@@ -26,14 +26,14 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/Users/anjal/Downloads/user-models-2122-master"
-set disable_garbage_collection yes
+set experiment_path "/home/cynthia/user-models/meta"
+set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
 set compensation 0
-set color_backend psycho
-set clock_backend psycho
-set canvas_backend psycho
+set color_backend legacy
+set clock_backend legacy
+set canvas_backend legacy
 set background "#ffffff"
 
 define sequence experiment
@@ -63,7 +63,7 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 100000
+	var.session_duration = 80000
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	__end__
@@ -79,6 +79,7 @@ define inline_script present_trial
 	prompt = next_fact.question
 	answer = next_fact.answer
 	rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	#rof = m.get_previous_fact_alpha(next_fact)
 	print(rof)
 	col = map_colour(rof)
 	# Show prompt
@@ -190,14 +191,14 @@ define inline_script slimstampen_setup
 	m = SpacingModel()
 	
 	# Add some study facts to the model (you could also read them from a CSV file)
-	facts = [Fact(1, "hello", "bonjour"),
-			Fact(2, "dog", "chien"),
-			Fact(3, "cat", "chat"),
-			Fact(4, "computer", "ordinateur"),
-			Fact(5, "house", "maison"),
-			Fact(6, "car", "voiture"),
-			Fact(7, "fish", "poisson"),
-			Fact(8, "bottle", "bouteille")]
+	facts = [Fact(1, "hello", "bonjour",0.2),
+			Fact(2, "dog", "chien",0.25),
+			Fact(3, "cat", "chat",0.25),
+			Fact(4, "computer", "ordinateur",0.4),
+			Fact(5, "house", "maison",0.35),
+			Fact(6, "car", "voiture",0.34),
+			Fact(7, "fish", "poisson",0.28),
+			Fact(8, "bottle", "bouteille",0.33)]
 	
 	for fact in facts:
 		m.add_fact(fact)
@@ -208,8 +209,9 @@ define inline_script slimstampen_setup
 	import pandas as pd
 	from collections import namedtuple
 	
-	Fact = namedtuple("Fact", "fact_id, question, answer")
-	Response = namedtuple("Response", "fact, start_time, rt, correct")
+	Fact = namedtuple("Fact", "fact_id, question, answer,priora")
+	Response = namedtuple("Response", "fact, start_time,rt,correct")
+	#Lateresponse = namedtuple("Lateresponse","rt, correct")
 	Encounter = namedtuple("Encounter", "activation, time, reaction_time, decay")
 	
 	
@@ -225,7 +227,20 @@ define inline_script slimstampen_setup
 	    def __init__(self):
 	        self.facts = []
 	        self.responses = []
-	
+	        #self.lateresponse = []
+	        
+	    def get_previous_fact_alpha(self,fact):
+	        prev = None
+	        for resp in reversed(self.responses):
+	            if resp.fact.fact_id == fact.fact_id:
+	                prev = resp
+	                print(prev.start_time)
+	                break
+	        if prev == None:
+	            return self.DEFAULT_ALPHA
+	        return self.get_rate_of_forgetting(prev.start_time + 1, fact)
+	        
+	        
 	    def add_fact(self, fact):
 	        # type: (Fact) -> None
 	        """
@@ -287,12 +302,13 @@ define inline_script slimstampen_setup
 	        encounters = []
 	
 	        responses_for_fact = [r for r in self.responses if r.fact.fact_id == fact.fact_id and r.start_time < time]
-	        alpha = self.DEFAULT_ALPHA
-	
+	        #alpha = self.DEFAULT_ALPHA
+	        alpha = fact.priora
 	        # Calculate the activation by running through the sequence of previous responses
 	        for response in responses_for_fact:
 	            activation = self.calculate_activation_from_encounters(encounters, response.start_time)
 	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), self.DEFAULT_ALPHA))
+	            #alpha = response.fact.priora
 	            alpha = self.estimate_alpha(encounters, activation, response, alpha)
 	
 	            # Update decay estimates of previous encounters
@@ -337,8 +353,10 @@ define inline_script slimstampen_setup
 	        """
 	        Estimate the rate of forgetting parameter (alpha) for an item.
 	        """
-	        if len(encounters) < 3:
-	            return(self.DEFAULT_ALPHA)
+	        if len(encounters) < 2:
+	            #return(self.DEFAULT_ALPHA)
+	            #return previous_alpha
+	            return response.fact.priora
 	
 	        a_fit = previous_alpha
 	        reading_time = self.get_reading_time(response.fact.question)
@@ -458,8 +476,8 @@ define inline_script slimstampen_setup
 	
 	        # Add column for rate of forgetting estimate after each observation
 	        dat["alpha"] = dat.apply(calc_rof, axis = 1)
-	        dat.drop(columns = "fact", inplace = True)
-	
+	        dat.drop("fact", inplace = True)
+	        
 	        # Add trial number column
 	        dat.index.name = "trial"
 	        dat.index = dat.index + 1
