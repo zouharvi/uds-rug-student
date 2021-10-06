@@ -55,20 +55,20 @@ for (sw, en), diff in data:
     print(sw, en, diff, sep=",")
 
 # show histograms
-bins = np.linspace(0, 1, 21)
+bins = np.linspace(0, 1, 41)
 plt.hist(
     [x[1] for x in data_new],
-    width=0.02,
+    width=0.01,
     color="tab:blue",
     label="New data",
-    bins=[b + 0.01 for b in bins],
+    bins=[b + 0.005 for b in bins],
 )
 plt.hist(
     [x[1] - 0.01 for x in data],
-    width=0.02,
+    width=0.01,
     color="tab:red",
     label="Original data",
-    bins=[b - 0.01 for b in bins],
+    bins=[b - 0.005 for b in bins],
 )
 plt.xticks()
 plt.xlabel("Difficulty estimate")
