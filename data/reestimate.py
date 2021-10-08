@@ -60,7 +60,7 @@ random.shuffle(data_new)
 if args.anjali:
     # Fact(2,"pearl","lulu",0.51),
     for i, ((sw, en), diff) in enumerate(data_new):
-        print(f'Fact({i+1}, "{en}", "{sw}", {diff:.3f})')
+        print(f'Fact({i+1}, "{en}", "{sw}", {diff:.3f}),')
 else:
     for (sw, en), diff in data_new:
         print(sw, en, diff, sep=",")
