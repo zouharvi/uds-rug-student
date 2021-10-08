@@ -15,6 +15,8 @@ args.add_argument("-m", "--method", default="min-max",
                   help="Options: min-max, z-like")
 args.add_argument("-s", "--shift", default=0.0, type=float,
                   help="How much to shift afterwards")
+args.add_argument("--anjali", action="store_true",
+                  help="Store in Anjali format: Fact(...)")
 args = args.parse_args()
 
 # load data
@@ -42,20 +44,26 @@ else:
     raise Exception("Unknown scaling method")
 
 
-def estimator(x): return (1 - args.beta) * args.alpha + args.beta * x + args.shift
+def estimator(x): return (1 - args.beta) * \
+    args.alpha + args.beta * x - args.shift
 
 
 data_new = [
-    (x[0], max_diff-estimator(rescaler(x[1])))
+    (x[0], max_diff - estimator(rescaler(x[1])))
     for x in data
 ]
 
 import random
 random.shuffle(data_new)
 
-# print data to stdout
-for (sw, en), diff in data_new:
-    print(sw, en, diff, sep=",")
+# print data
+if args.anjali:
+    # Fact(2,"pearl","lulu",0.51),
+    for i, ((sw, en), diff) in enumerate(data_new):
+        print(f'Fact({i+1}, "{en}", "{sw}", {diff:.3f})')
+else:
+    for (sw, en), diff in data_new:
+        print(sw, en, diff, sep=",")
 
 # show histograms
 bins = np.linspace(0, 1, 41)
