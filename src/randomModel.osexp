@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.10
-Platform: nt
+OpenSesame: 3.3.5
+Platform: posix
 ---
 set width 1024
 set uniform_coordinates yes
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/Uni/UM/user-models-main/random-model"
+set experiment_path "/home/cynthia/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -67,8 +67,7 @@ define inline_script learning_session_setup
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	__end__
-	___prepare__
-	__end__
+	set _prepare ""
 
 define inline_script new_inline_script
 	set description "Executes Python code"
@@ -366,7 +365,8 @@ define inline_script slimstampen_setup
 	                print(prev.start_time)
 	                break
 	        if prev == None:
-	            return self.DEFAULT_ALPHA
+	            #return self.DEFAULT_ALPHA
+	            return fact.priora
 	        return self.get_rate_of_forgetting(prev.start_time + 1, fact)
 	        
 	        
@@ -431,11 +431,12 @@ define inline_script slimstampen_setup
 	        encounters = []
 	
 	        responses_for_fact = [r for r in self.responses if r.fact.fact_id == fact.fact_id and r.start_time < time]
-	        alpha = self.DEFAULT_ALPHA
+	        #alpha = self.DEFAULT_ALPHA
+	        alpha = fact.priora
 	        # Calculate the activation by running through the sequence of previous responses
 	        for response in responses_for_fact:
 	            activation = self.calculate_activation_from_encounters(encounters, response.start_time)
-	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), self.DEFAULT_ALPHA))
+	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), fact.priora))
 	            #alpha = response.fact.priora
 	            alpha = self.estimate_alpha(encounters, activation, response, alpha)
 	
@@ -454,12 +455,13 @@ define inline_script slimstampen_setup
 	        encounters = []
 	
 	        responses_for_fact = [r for r in self.responses if r.fact.fact_id == fact.fact_id and r.start_time < time]
-	        alpha = self.DEFAULT_ALPHA
+	        #alpha = self.DEFAULT_ALPHA
+	        alpha = fact.priora
 	
 	        # Calculate the activation by running through the sequence of previous responses
 	        for response in responses_for_fact:
 	            activation = self.calculate_activation_from_encounters(encounters, response.start_time)
-	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), self.DEFAULT_ALPHA))
+	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), fact.priora))
 	            alpha = self.estimate_alpha(encounters, activation, response, alpha)
 	
 	            # Update decay estimates of previous encounters
@@ -482,8 +484,8 @@ define inline_script slimstampen_setup
 	        Estimate the rate of forgetting parameter (alpha) for an item.
 	        """
 	        if len(encounters) < 2:
-	            return(self.DEFAULT_ALPHA)
-	            #return previous_alpha
+	            #return(self.DEFAULT_ALPHA)
+	            return response.fact.priora
 	
 	        a_fit = previous_alpha
 	        reading_time = self.get_reading_time(response.fact.question)
@@ -623,6 +625,7 @@ define sequence trial_sequence
 	run present_trial always
 
 define loop while_there_is_time_left
+	set source_file ""
 	set source table
 	set repeat 1000
 	set order random
