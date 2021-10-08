@@ -117,3 +117,6 @@ We believe that E1 will have better performance than E0 because of similar reaso
 <a name="fn2">2</a>: Mathôt, S., Schreij, D., & Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. Behavior Research Methods, 44(2), 314-324.  
 <a name="fn3">3</a>: Sense, F., Behrens, F., Meijer, R. R., & van Rijn, H. (2016). An individual's rate of forgetting is stable over time but differs across materials. Topics in cognitive science, 8(1), 305-321.  
 <a name="fn4">4</a>: Chang, B., Xu, R., & Watt, T. (2018). The impact of colors on learning.  
+
+## Misc. TODO
+- ramp-up problem Konstan et al 1998 (prior 0.3)

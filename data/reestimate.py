@@ -46,12 +46,15 @@ def estimator(x): return (1 - args.beta) * args.alpha + args.beta * x + args.shi
 
 
 data_new = [
-    (x[0], estimator(rescaler(x[1])))
+    (x[0], max_diff-estimator(rescaler(x[1])))
     for x in data
 ]
 
+import random
+random.shuffle(data_new)
+
 # print data to stdout
-for (sw, en), diff in data:
+for (sw, en), diff in data_new:
     print(sw, en, diff, sep=",")
 
 # show histograms
