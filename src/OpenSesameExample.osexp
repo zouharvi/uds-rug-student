@@ -68,17 +68,19 @@ define inline_script learning_session_setup
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	if var.scale == "green-red":
-	    scale=scale1
+	    scale=all_scales[0]
 	elif var.scale == "blue-red":
-	    scale=scale2
+	    scale=all_scales[3]
 	elif var.scale == "yellow-red":
-	    scale=scale3
+	    scale=all_scales[4]
 	print(scale)
 	__end__
 	___prepare__
-	scale1=["green","yellow","red"]
-	scale2=["blue","white","red"]
-	scale3=["yellow","white","red"]
+	from colors import create_colors
+	all_scales = create_colors.create_palettes()
+	# scale1=["green","yellow","red"]
+	# scale2=["blue","white","red"]
+	# scale3=["yellow","white","red"]
 	__end__
 
 define inline_script new_inline_script
@@ -222,13 +224,20 @@ define inline_script present_trial
 	__end__
 	___prepare__
 	def map_colour(rof):
+	    max_rof = 0.5
+	    min_rof = 0.1
+	    col_count = len(scale)
+	    clamped_rof = max(min(max_rof, rof), min_rof)
+        col_index = int((((clamped_rof - min_rof) * col_count) / (max_rof - min_rof)))
+        color = scale[col_index]
+        return f"rgb({color[0]},{color[1]},{color[2]})"
 	    #if rof == 0.3:
-	    col=scale[1]
-	    if rof < 0.3:
-	        col=scale[0]
-	    elif rof > 0.3:
-	        col=scale[2]
-	    return col
+	    #col=scale[1]
+	    #if rof < 0.3:
+	        #col=scale[0]
+	    #elif rof > 0.3:
+	        #col=scale[2]
+	    #return col
 	__end__
 
 define inline_script save_data
