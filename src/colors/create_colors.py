@@ -9,9 +9,10 @@ def create_palettes(show_img=False, save_img=False):
     COLOR_BINS = [
         ['00FF00', 'FFFF00', 'FF0000'],
         ['00FF00', 'FFFFFF', 'FF0000'],
-        ['0000FF', 'FFFFFF', 'FF0000'],
         ['0000FF', 'FFFF00', 'FF0000'],
+        ['0000FF', 'FFFFFF', 'FF0000'],
         ['FFFF00', 'FFA500', 'FF0000'],
+        ['FFFF00', 'FFFFFF', 'FF0000']
     ]
     BIN_COUNT = 9
     IMG_WIDTH = 400

@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/Uni/UM/user-models/src"
+set experiment_path "C:/Users/leand/Documents/_Studie/MSc/Jaar 2/1. UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -71,14 +71,21 @@ define inline_script learning_session_setup
 	var.inter_trial_interval = 200
 	if var.scale == "green-red":
 		scale=all_scales[0]
+	elif var.scale == "green-red alternate":
+		scale=all_scales[1]
 	elif var.scale == "blue-red":
+		scale=all_scales[2]
+	elif var.scale == "blue-red alternate":
 		scale=all_scales[3]
 	elif var.scale == "yellow-red":
 		scale=all_scales[4]
+	elif var.scale == "yellow-red alternate":
+		scale=all_scales[5]
 	__end__
 	___prepare__
-	import create_colors
-	all_scales = create_colors.create_palettes()
+	import json
+	with open(pool[u'colors/palettes.json'], 'r') as j:
+	    all_scales = json.load(j)
 	# scale1=["green","yellow","red"]
 	# scale2=["blue","white","red"]
 	# scale3=["yellow","white","red"]
@@ -89,7 +96,7 @@ define inline_script new_inline_script
 	___run__
 	# Create a form
 	form = Form(
-	    cols=[1,2], rows=[1,1,1,1,1],
+	    cols=[1,2], rows=[1,1,1,1,1,1,1,1],
 	    margins=(50,100,50,100), spacing=25
 	)
 	# Create four widgets
@@ -101,25 +108,37 @@ define inline_script new_inline_script
 	# buttonG = Button(text=u'green-red')
 	# buttonY = Button(text=u'yellow-purple')
 	# buttonR = Button(text=u'red-blue')
-	check_br = Checkbox(text=u'blue-red', group=u'group', var=u'scale')
 	check_gr = Checkbox(text=u'green-red', group=u'group', var=u'scale')
+	check_gwr = Checkbox(text=u'green-red alternate', group=u'group', var=u'scale')
+	check_br = Checkbox(text=u'blue-red', group=u'group', var=u'scale')
+	check_bwr = Checkbox(text=u'blue-red alternate', group=u'group', var=u'scale')
 	check_yr = Checkbox(text=u'yellow-red', group=u'group', var=u'scale')
-	image_br = ImageWidget(path=pool[u'img/blue_red.png'], adjust=True, frame=False)
-	image_gr = ImageWidget(path=pool[u'img/green_red.png'], adjust=True, frame=False)
-	image_yr = ImageWidget(path=pool[u'img/yellow_red.png'], adjust=True, frame=False)
+	check_ywr = Checkbox(text=u'yellow-red alternate', group=u'group', var=u'scale')
+	image_gr = ImageWidget(path=pool[u'colors/palette_0.png'], adjust=True, frame=False)
+	image_gwr = ImageWidget(path=pool[u'colors/palette_1.png'], adjust=True, frame=False)
+	image_br = ImageWidget(path=pool[u'colors/palette_2.png'], adjust=True, frame=False)
+	image_bwr = ImageWidget(path=pool[u'colors/palette_3.png'], adjust=True, frame=False)
+	image_yr = ImageWidget(path=pool[u'colors/palette_4.png'], adjust=True, frame=False)
+	image_ywr = ImageWidget(path=pool[u'colors/palette_5.png'], adjust=True, frame=False)
 	nextButton = Button(text='Next')
 	# Add the widgets to the form. The position in the form is indicated as a
 	# (column, row) tuple.
 	# form.set_widget(labelTitle, (0,0), colspan=2)
 	form.set_widget(labelQuestion, (0,0), colspan=2)
 	# form.set_widget(buttonG, (0,2))
-	form.set_widget(check_br, (0,1))
-	form.set_widget(check_gr, (0,2))
-	form.set_widget(check_yr, (0,3))
-	form.set_widget(image_br, (1,1))
-	form.set_widget(image_gr, (1,2))
-	form.set_widget(image_yr, (1,3))
-	form.set_widget(nextButton, (1,4))
+	form.set_widget(check_gr, (0,1))
+	form.set_widget(check_gwr, (0,2))
+	form.set_widget(check_br, (0,3))
+	form.set_widget(check_bwr, (0,4))
+	form.set_widget(check_yr, (0,5))
+	form.set_widget(check_ywr, (0,6))
+	form.set_widget(image_gr, (1,1))
+	form.set_widget(image_gwr, (1,2))
+	form.set_widget(image_br, (1,3))
+	form.set_widget(image_bwr, (1,4))
+	form.set_widget(image_yr, (1,5))
+	form.set_widget(image_ywr, (1,6))
+	form.set_widget(nextButton, (1,7))
 	# form.set_widget(image_button2, (1,2))
 	# form.set_widget(image_button3, (2,2))
 	# Execute the form! In this case, the form will return the text of the button that
@@ -797,7 +816,8 @@ define inline_script slimstampen_setup
 define sketchpad start_test
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0.0 y=0.0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Learning has ended. It is now time for the evaluation." x=0.0 y=-32.0 z_index=0
 
 define sequence test_sequence
 	set flush_keyboard yes
