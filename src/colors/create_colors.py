@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import math
+import json
 from PIL import Image, ImageDraw
 
 
@@ -69,6 +70,8 @@ def create_palettes(show_img=False, save_img=False):
     if save_img:
         with open("palettes.out", "w") as f:
             f.write(str(data_buckets))
+        with open("palettes.json", "w") as j:
+            json.dump(data_buckets, j)
     return data_buckets
 
 
