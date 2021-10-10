@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.5
-Platform: posix
+OpenSesame: 3.3.10
+Platform: nt
 ---
 set width 1024
 set uniform_coordinates yes
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "/home/cynthia/user-models/src"
+set experiment_path "C:/Uni/UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -282,7 +282,7 @@ define inline_script present_trial
 	# Show prompt
 	my_canvas = Canvas()
 	my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
-	my_canvas.rect(-150,-50,300,150,fill=True, color='white')
+	my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 	my_canvas.text(prompt, font_size = 30)
 	if new:
 		my_canvas.text(answer, y = 50, font_size = 20)
@@ -322,7 +322,7 @@ define inline_script present_trial
 		# Update what's on screen'
 		my_canvas.clear()
 		my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
-		my_canvas.rect(-150,-50,300,150,fill=True, color='white')
+		my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 		my_canvas.text(prompt, font_size = 30)
 		if new:
 			my_canvas.text(answer, y = 50, font_size = 20)
@@ -342,7 +342,7 @@ define inline_script present_trial
 	feedback_color = "black"
 	my_canvas.text(keyboard_response, y = 100, color = feedback_color)
 	if not correct:
-		my_canvas.text(answer, y = 150)
+		my_canvas.text(answer, y = 125)
 	my_canvas.prepare()
 	my_canvas.show()
 	clock.sleep(var.feedback_duration)
@@ -419,7 +419,7 @@ define inline_script slimstampen_setup
 	Fact(27,"ladha","flavor",0.29590909090909,"yellow"),
 	Fact(28,"bandari","harbor",0.268636363636363,"pink"),
 	Fact(29,"roho","soul",0.19590909090909,"cyan"),
-	Fact(30,"wingu","cloud",0.114090909090909),
+	Fact(30,"wingu","cloud",0.114090909090909, "orange"),
 	Fact(31,"nira","yoke",0.259545454545454,"red"),
 	Fact(32,"adui","enemy",0.24590909090909,"blue"),
 	Fact(33,"wakili","agent",0.259545454545454,"green"),
@@ -774,7 +774,7 @@ define inline_script slimstampen_setup
 define sketchpad start_test
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start" x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Take a break.In 10 minutes return back and press any key." x=0 y=0 z_index=0
 
 define sequence test_seq
 	set flush_keyboard yes
