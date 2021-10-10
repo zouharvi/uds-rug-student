@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/Uni/UM/user-models-main/user-models-main/meta"
+set experiment_path "C:/Uni/UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -45,6 +45,8 @@ define sequence experiment
 	run learning_session_setup always
 	run while_there_is_time_left always
 	run save_data always
+	run start_test always
+	run test_sequence always
 
 define sketchpad instructions
 	set duration keypress
@@ -64,19 +66,18 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 80000
+	var.session_duration = 50000
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	if var.scale == "green-red":
-	    scale=all_scales[0]
+		scale=all_scales[0]
 	elif var.scale == "blue-red":
-	    scale=all_scales[3]
+		scale=all_scales[3]
 	elif var.scale == "yellow-red":
-	    scale=all_scales[4]
-	print(scale)
+		scale=all_scales[4]
 	__end__
 	___prepare__
-	from colors import create_colors
+	import create_colors
 	all_scales = create_colors.create_palettes()
 	# scale1=["green","yellow","red"]
 	# scale2=["blue","white","red"]
@@ -128,6 +129,161 @@ define inline_script new_inline_script
 	__end__
 	set _prepare ""
 
+define inline_script new_inline_script_1
+	set description "Executes Python code"
+	set _run ""
+	set _prepare ""
+
+define inline_script present_test_facts
+	set description "Executes Python code"
+	___run__
+	trial_start_time = clock.time()
+	results = []
+	# Get seen fact from the model
+	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
+	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
+	### block 1: blank background
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    #rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    #print(rof)
+	    #col = map_colour(rof)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    # Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()  
+	        # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time 
+	        if key == "return":
+	            break        
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf") 
+	        elif key == "space":
+	            keyboard_response += " "
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()
+	# Check if the response is correct
+	    correct = keyboard_response == answer
+	# Log response
+	    response = Response(next_fact, trial_start_time, rt, correct)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	
+	 
+	 
+	### block 2: colorful  background
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    print(rof)
+	    col = map_colour(rof)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	    my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	# Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()    
+	    # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time   
+	        if key == "return":
+	            break     
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf")   
+	        elif key == "space":
+	            keyboard_response += " "    
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)   
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	        my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()   
+	        # Check if the response is correct
+	    correct = keyboard_response == answer
+	    print(correct)
+	    # Log response
+	    response = Response(next_fact, trial_start_time, rt, correct)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	   
+	### write test results into opensesame log   
+	dat_rsp = pd.DataFrame(results)
+	dat_facts = pd.DataFrame([r.fact for r in results])
+	dat = pd.concat([dat_rsp, dat_facts], axis = 1)
+	dat.drop("fact",axis=1, inplace = True)
+	dat.index.name = "trial"
+	dat.index = dat.index + 1
+	log.write(dat.to_csv())
+	__end__
+	___prepare__
+	def map_colour(rof):
+	    #if rof == 0.3:
+	    col=scale[1]
+	    if rof < 0.3:
+	        col=scale[0]
+	    elif rof > 0.3:
+	        col=scale[2]
+	    return col
+	__end__
+
 define inline_script present_trial
 	set description "Executes Python code"
 	___run__
@@ -144,7 +300,7 @@ define inline_script present_trial
 	# Show prompt
 	my_canvas = Canvas()
 	my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
-	my_canvas.rect(-150,-50,300,150,fill=True, color='white')
+	my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 	my_canvas.text(prompt, font_size = 30)
 	if new:
 		my_canvas.text(answer, y = 50, font_size = 20)
@@ -184,7 +340,7 @@ define inline_script present_trial
 		# Update what's on screen'
 		my_canvas.clear()
 		my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
-		my_canvas.rect(-150,-50,300,150,fill=True, color='white')
+		my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 		my_canvas.text(prompt, font_size = 30)
 		if new:
 			my_canvas.text(answer, y = 50, font_size = 20)
@@ -201,10 +357,10 @@ define inline_script present_trial
 	m.register_response(response) 
 	
 	# Show feedback
-	feedback_color = "green" if correct else "red"
+	feedback_color = "black"
 	my_canvas.text(keyboard_response, y = 100, color = feedback_color)
 	if not correct:
-		my_canvas.text(answer, y = 150)
+		my_canvas.text(answer, y = 125)
 	my_canvas.prepare()
 	my_canvas.show()
 	clock.sleep(var.feedback_duration)
@@ -228,16 +384,9 @@ define inline_script present_trial
 	    min_rof = 0.1
 	    col_count = len(scale)
 	    clamped_rof = max(min(max_rof, rof), min_rof)
-        col_index = int((((clamped_rof - min_rof) * col_count) / (max_rof - min_rof)))
-        color = scale[col_index]
-        return f"rgb({color[0]},{color[1]},{color[2]})"
-	    #if rof == 0.3:
-	    #col=scale[1]
-	    #if rof < 0.3:
-	        #col=scale[0]
-	    #elif rof > 0.3:
-	        #col=scale[2]
-	    #return col
+	    col_index = int((((clamped_rof - min_rof) * col_count) / (max_rof - min_rof)))
+	    color = scale[col_index]
+	    return f"rgb({color[0]},{color[1]},{color[2]})"
 	__end__
 
 define inline_script save_data
@@ -255,106 +404,106 @@ define inline_script slimstampen_setup
 	m = SpacingModel()
 	
 	# Add some study facts to the model (you could also read them from a CSV file)
-	facts = [Fact(1,"dog","mbwa",0.55),
-			Fact(2,"pearl","lulu",0.51),
-			Fact(3,"cloud","wingu",0.42),
-			Fact(4,"economy","iktisadi",0.38),
-			Fact(5,"knee","goti",0.36),
-			Fact(6,"egg","yai",0.36),
-			Fact(7,"beer","pombe",0.32),
-			Fact(8,"mattress","godoro",0.31),
-			Fact(9,"broom","fagio",0.28),
-			Fact(10,"doctor","tabibu",0.27),
-			Fact(11,"maggot","buu",0.26),
-			Fact(12,"bucket","ndoo",0.26),
-			Fact(13,"tomato","nyanya",0.26),
-			Fact(14,"poison","sumu",0.26),
-			Fact(15,"soul","roho",0.24),
-			Fact(16,"food","chakula",0.23),
-			Fact(17,"crab","kaa",0.22),
-			Fact(18,"corpse","maiti",0.22),
-			Fact(19,"horse","farasi",0.21),
-			Fact(20,"scarf","leso",0.21),
-			Fact(21,"silk","hariri",0.2),
-			Fact(22,"queen","malkia",0.2),
-			Fact(23,"ornament","rembo",0.2),
-			Fact(24,"carpet","zulia",0.2),
-			Fact(25,"barrel","pipa",0.19),
-			Fact(26,"rumor","fununu",0.18),
-			Fact(27,"curtain","pazia",0.18),
-			Fact(28,"snow","theluji",0.18),
-			Fact(29,"monkey","tumbili",0.18),
-			Fact(30,"steam","vuke",0.18),
-			Fact(31,"leisure","wasaa",0.18),
-			Fact(32,"grave","kaburi",0.17),
-			Fact(33,"friend","rafiki",0.17),
-			Fact(34,"prayer","sala",0.17),
-			Fact(35,"shorts","kaputula",0.15),
-			Fact(36,"boat","mashua",0.15),
-			Fact(37,"donkey","punda",0.15),
-			Fact(38,"sleep","usingizi",0.15),
-			Fact(39,"lake","ziwa",0.15),
-			Fact(40,"science","elimu",0.14),
-			Fact(41,"olives","zeituni",0.14),
-			Fact(42,"honor","adhama",0.13),
-			Fact(43,"enemy","adui",0.13),
-			Fact(44,"garden","bustani",0.13),
-			Fact(45,"treasure","dafina",0.13),
-			Fact(46,"mango","embe",0.13),
-			Fact(47,"prophet","nabii",0.13),
-			Fact(48,"lung","pafu",0.13),
-			Fact(49,"cotton","pamba",0.13),
-			Fact(50,"manure","samadi",0.13),
-			Fact(51,"sailor","baharia",0.11),
-			Fact(52,"society","chama",0.11),
-			Fact(53,"leaf","jani",0.11),
-			Fact(54,"frog","chura",0.1),
-			Fact(55,"almond","lozi",0.1),
-			Fact(56,"yoke","nira",0.1),
-			Fact(57,"agent","wakili",0.1),
-			Fact(58,"orphan","yatima",0.1),
-			Fact(59,"envelope","bahasha",0.09),
-			Fact(60,"oyster","chaza",0.09),
-			Fact(61,"mystery","fumbo",0.09),
-			Fact(62,"yeast","hamira",0.09),
-			Fact(63,"dust","vumbi",0.09),
-			Fact(64,"glue","ambo",0.08),
-			Fact(65,"harbor","bandari",0.08),
-			Fact(66,"cinnamon","dalasini",0.08),
-			Fact(67,"spite","inda",0.08),
-			Fact(68,"wound","jeraha",0.08),
-			Fact(69,"gate","lango",0.08),
-			Fact(70,"anchor","nanga",0.08),
-			Fact(71,"forehead","paji",0.08),
-			Fact(72,"grapes","zabibu",0.08),
-			Fact(73,"custom","desturi",0.07),
-			Fact(74,"wheel","duara",0.07),
-			Fact(75,"trench","handaki",0.07),
-			Fact(76,"kiln","joko",0.07),
-			Fact(77,"bone","mfupa",0.07),
-			Fact(78,"plate","sahani",0.07),
-			Fact(79,"shroud","sanda",0.07),
-			Fact(80,"poem","utenzi",0.07),
-			Fact(81,"trouble","adha",0.06),
-			Fact(82,"cheese","jibini",0.06),
-			Fact(83,"parrot","kasuku",0.06),
-			Fact(84,"bribe","rushwa",0.06),
-			Fact(85,"merchant","tajiri",0.06),
-			Fact(86,"divorce","talaka",0.06),
-			Fact(87,"oath","yamini",0.06),
-			Fact(88,"invoice","ankra",0.04),
-			Fact(89,"quarry","chimbo",0.04),
-			Fact(90,"flood","gharika",0.04),
-			Fact(91,"stump","gutu",0.04),
-			Fact(92,"story","hadithi",0.04),
-			Fact(93,"rope","kamba",0.04),
-			Fact(94,"blame","lawama",0.04),
-			Fact(95,"corn","nafaka",0.04),
-			Fact(96,"bull","fahali",0.03),
-			Fact(97,"tailor","mshoni",0.03),
-			Fact(98,"leech","ruba",0.03),
-			Fact(99,"flavor","ladha",0.02),
-			Fact(100,"forgery","ubini",0),]
+	facts = [Fact(1,"sala","prayer",0.227727272727272),
+	Fact(2,"ubini","forgery",0.305),
+	Fact(3,"theluji","snow",0.223181818181818),
+	Fact(4,"iktisadi","economy",0.132272727272727),
+	Fact(5,"yamini","oath",0.277727272727272),
+	Fact(6,"mshoni","tailor",0.291363636363636),
+	Fact(7,"tumbili","monkey",0.223181818181818),
+	Fact(8,"fumbo","mystery",0.264090909090909),
+	Fact(9,"ziwa","lake",0.236818181818181),
+	Fact(10,"mbwa","dog",0.055),
+	Fact(11,"nyanya","tomato",0.186818181818181),
+	Fact(12,"rafiki","friend",0.227727272727272),
+	Fact(13,"pafu","lung",0.24590909090909),
+	Fact(14,"paji","forehead",0.268636363636363),
+	Fact(15,"mfupa","bone",0.273181818181818),
+	Fact(16,"jani","leaf",0.255),
+	Fact(17,"jibini","cheese",0.277727272727272),
+	Fact(18,"hadithi","story",0.286818181818181),
+	Fact(19,"sumu","poison",0.186818181818181),
+	Fact(20,"nanga","anchor",0.268636363636363),
+	Fact(21,"yai","egg",0.141363636363636),
+	Fact(22,"rushwa","bribe",0.277727272727272),
+	Fact(23,"lawama","blame",0.286818181818181),
+	Fact(24,"rembo","ornament",0.214090909090909),
+	Fact(25,"pipa","barrel",0.218636363636363),
+	Fact(26,"farasi","horse",0.209545454545454),
+	Fact(27,"ladha","flavor",0.29590909090909),
+	Fact(28,"bandari","harbor",0.268636363636363),
+	Fact(29,"roho","soul",0.19590909090909),
+	Fact(30,"wingu","cloud",0.114090909090909),
+	Fact(31,"nira","yoke",0.259545454545454),
+	Fact(32,"adui","enemy",0.24590909090909),
+	Fact(33,"wakili","agent",0.259545454545454),
+	Fact(34,"sahani","plate",0.273181818181818),
+	Fact(35,"talaka","divorce",0.277727272727272),
+	Fact(36,"dalasini","cinnamon",0.268636363636363),
+	Fact(37,"kaa","crab",0.205),
+	Fact(38,"ambo","glue",0.268636363636363),
+	Fact(39,"lozi","almond",0.259545454545454),
+	Fact(40,"kasuku","parrot",0.277727272727272),
+	Fact(41,"kamba","rope",0.286818181818181),
+	Fact(42,"dafina","treasure",0.24590909090909),
+	Fact(43,"duara","wheel",0.273181818181818),
+	Fact(44,"punda","donkey",0.236818181818181),
+	Fact(45,"goti","knee",0.141363636363636),
+	Fact(46,"hariri","silk",0.214090909090909),
+	Fact(47,"maiti","corpse",0.205),
+	Fact(48,"zabibu","grapes",0.268636363636363),
+	Fact(49,"ndoo","bucket",0.186818181818181),
+	Fact(50,"bustani","garden",0.24590909090909),
+	Fact(51,"pamba","cotton",0.24590909090909),
+	Fact(52,"samadi","manure",0.24590909090909),
+	Fact(53,"gutu","stump",0.286818181818181),
+	Fact(54,"utenzi","poem",0.273181818181818),
+	Fact(55,"yatima","orphan",0.259545454545454),
+	Fact(56,"usingizi","sleep",0.236818181818181),
+	Fact(57,"bahasha","envelope",0.264090909090909),
+	Fact(58,"hamira","yeast",0.264090909090909),
+	Fact(59,"adha","trouble",0.277727272727272),
+	Fact(60,"buu","maggot",0.186818181818181),
+	Fact(61,"adhama","honor",0.24590909090909),
+	Fact(62,"desturi","custom",0.273181818181818),
+	Fact(63,"leso","scarf",0.209545454545454),
+	Fact(64,"jeraha","wound",0.268636363636363),
+	Fact(65,"godoro","mattress",0.164090909090909),
+	Fact(66,"wasaa","leisure",0.223181818181818),
+	Fact(67,"chura","frog",0.259545454545454),
+	Fact(68,"zeituni","olives",0.241363636363636),
+	Fact(69,"mashua","boat",0.236818181818181),
+	Fact(70,"chakula","food",0.200454545454545),
+	Fact(71,"sanda","shroud",0.273181818181818),
+	Fact(72,"malkia","queen",0.214090909090909),
+	Fact(73,"kaputula","shorts",0.236818181818181),
+	Fact(74,"chimbo","quarry",0.286818181818181),
+	Fact(75,"chaza","oyster",0.264090909090909),
+	Fact(76,"joko","kiln",0.273181818181818),
+	Fact(77,"nabii","prophet",0.24590909090909),
+	Fact(78,"elimu","science",0.241363636363636),
+	Fact(79,"nafaka","corn",0.286818181818181),
+	Fact(80,"handaki","trench",0.273181818181818),
+	Fact(81,"tabibu","doctor",0.182272727272727),
+	Fact(82,"chama","society",0.255),
+	Fact(83,"vumbi","dust",0.264090909090909),
+	Fact(84,"pombe","beer",0.159545454545454),
+	Fact(85,"lango","gate",0.268636363636363),
+	Fact(86,"pazia","curtain",0.223181818181818),
+	Fact(87,"zulia","carpet",0.214090909090909),
+	Fact(88,"baharia","sailor",0.255),
+	Fact(89,"fagio","broom",0.177727272727272),
+	Fact(90,"tajiri","merchant",0.277727272727272),
+	Fact(91,"inda","spite",0.268636363636363),
+	Fact(92,"ruba","leech",0.291363636363636),
+	Fact(93,"kaburi","grave",0.227727272727272),
+	Fact(94,"fununu","rumor",0.223181818181818),
+	Fact(95,"vuke","steam",0.223181818181818),
+	Fact(96,"gharika","flood",0.286818181818181),
+	Fact(97,"lulu","pearl",0.0731818181818182),
+	Fact(98,"fahali","bull",0.291363636363636),
+	Fact(99,"embe","mango",0.24590909090909),
+	Fact(100,"ankra","invoice",0.286818181818181)]
 	
 	for fact in facts:
 		m.add_fact(fact)
@@ -376,7 +525,6 @@ define inline_script slimstampen_setup
 	    # Model constants
 	    LOOKAHEAD_TIME = 15000
 	    FORGET_THRESHOLD = -0.8
-	    DEFAULT_ALPHA = 0.3
 	    C = 0.25
 	    F = 1.0
 	
@@ -393,7 +541,7 @@ define inline_script slimstampen_setup
 	                print(prev.start_time)
 	                break
 	        if prev == None:
-	            return self.DEFAULT_ALPHA
+	            return fact.priora
 	        return self.get_rate_of_forgetting(prev.start_time + 1, fact)
 	        
 	        
@@ -463,7 +611,7 @@ define inline_script slimstampen_setup
 	        # Calculate the activation by running through the sequence of previous responses
 	        for response in responses_for_fact:
 	            activation = self.calculate_activation_from_encounters(encounters, response.start_time)
-	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), self.DEFAULT_ALPHA))
+	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), fact.priora))
 	            #alpha = response.fact.priora
 	            alpha = self.estimate_alpha(encounters, activation, response, alpha)
 	
@@ -482,12 +630,12 @@ define inline_script slimstampen_setup
 	        encounters = []
 	
 	        responses_for_fact = [r for r in self.responses if r.fact.fact_id == fact.fact_id and r.start_time < time]
-	        alpha = self.DEFAULT_ALPHA
+	        alpha = fact.priora
 	
 	        # Calculate the activation by running through the sequence of previous responses
 	        for response in responses_for_fact:
 	            activation = self.calculate_activation_from_encounters(encounters, response.start_time)
-	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), self.DEFAULT_ALPHA))
+	            encounters.append(Encounter(activation, response.start_time, self.normalise_reaction_time(response), fact.priora))
 	            alpha = self.estimate_alpha(encounters, activation, response, alpha)
 	
 	            # Update decay estimates of previous encounters
@@ -632,7 +780,7 @@ define inline_script slimstampen_setup
 	
 	        # Add column for rate of forgetting estimate after each observation
 	        dat["alpha"] = dat.apply(calc_rof, axis = 1)
-	        dat.drop("fact", inplace = True)
+	        dat.drop("fact",axis=1, inplace = True)
 	        
 	        # Add trial number column
 	        dat.index.name = "trial"
@@ -646,12 +794,23 @@ define inline_script slimstampen_setup
 	        return(dat.to_csv())
 	__end__
 
+define sketchpad start_test
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0 y=0 z_index=0
+
+define sequence test_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run present_test_facts always
+
 define sequence trial_sequence
 	set flush_keyboard yes
 	set description "Runs a number of items in sequence"
 	run present_trial always
 
 define loop while_there_is_time_left
+	set source_file ""
 	set source table
 	set repeat 1000
 	set order random
