@@ -16,7 +16,7 @@ args.add_argument("-m", "--method", default="min-max",
 args.add_argument("-s", "--shift", default=0.0, type=float,
                   help="How much to shift afterwards")
 args.add_argument("--anjali", action="store_true",
-                  help="Store in Anjali format: Fact(...)")
+                  help="Store in Anjali format: Fact(...)")                  
 args = args.parse_args()
 
 # load data

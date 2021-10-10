@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.10
-Platform: nt
+OpenSesame: 3.3.5
+Platform: posix
 ---
 set width 1024
 set uniform_coordinates yes
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/Uni/UM/user-models-main/user-models-main/meta"
+set experiment_path "/home/cynthia/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -45,6 +45,8 @@ define sequence experiment
 	run learning_session_setup always
 	run while_there_is_time_left always
 	run save_data always
+	run start_test always
+	run test_sequence always
 
 define sketchpad instructions
 	set duration keypress
@@ -64,7 +66,7 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 80000
+	var.session_duration = 50000
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	if var.scale == "green-red":
@@ -125,6 +127,161 @@ define inline_script new_inline_script
 	button_clicked = form._exec()
 	__end__
 	set _prepare ""
+
+define inline_script new_inline_script_1
+	set description "Executes Python code"
+	set _run ""
+	set _prepare ""
+
+define inline_script present_test_facts
+	set description "Executes Python code"
+	___run__
+	trial_start_time = clock.time()
+	results = []
+	# Get seen fact from the model
+	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
+	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
+	### block 1: blank background
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    #rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    #print(rof)
+	    #col = map_colour(rof)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    # Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()  
+	        # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time 
+	        if key == "return":
+	            break        
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf") 
+	        elif key == "space":
+	            keyboard_response += " "
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()
+	# Check if the response is correct
+	    correct = keyboard_response == answer
+	# Log response
+	    response = Response(next_fact, trial_start_time, rt, correct)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	
+	 
+	 
+	### block 2: colorful  background
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    print(rof)
+	    col = map_colour(rof)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	    my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	# Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()    
+	    # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time   
+	        if key == "return":
+	            break     
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf")   
+	        elif key == "space":
+	            keyboard_response += " "    
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)   
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	        my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()   
+	        # Check if the response is correct
+	    correct = keyboard_response == answer
+	    print(correct)
+	    # Log response
+	    response = Response(next_fact, trial_start_time, rt, correct)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	   
+	### write test results into opensesame log   
+	dat_rsp = pd.DataFrame(results)
+	dat_facts = pd.DataFrame([r.fact for r in results])
+	dat = pd.concat([dat_rsp, dat_facts], axis = 1)
+	dat.drop("fact",axis=1, inplace = True)
+	dat.index.name = "trial"
+	dat.index = dat.index + 1
+	log.write(dat.to_csv())
+	__end__
+	___prepare__
+	def map_colour(rof):
+	    #if rof == 0.3:
+	    col=scale[1]
+	    if rof < 0.3:
+	        col=scale[0]
+	    elif rof > 0.3:
+	        col=scale[2]
+	    return col
+	__end__
 
 define inline_script present_trial
 	set description "Executes Python code"
@@ -622,7 +779,7 @@ define inline_script slimstampen_setup
 	
 	        # Add column for rate of forgetting estimate after each observation
 	        dat["alpha"] = dat.apply(calc_rof, axis = 1)
-	        dat.drop("fact", inplace = True)
+	        dat.drop("fact",axis=1, inplace = True)
 	        
 	        # Add trial number column
 	        dat.index.name = "trial"
@@ -635,6 +792,16 @@ define inline_script slimstampen_setup
 	        
 	        return(dat.to_csv())
 	__end__
+
+define sketchpad start_test
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0.0 y=0.0 z_index=0
+
+define sequence test_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run present_test_facts always
 
 define sequence trial_sequence
 	set flush_keyboard yes
