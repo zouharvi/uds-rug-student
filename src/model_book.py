@@ -5,10 +5,10 @@ from transformers import BertTokenizer, BertModel
 
 
 class CustomBert(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, model_name):
         super().__init__()
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-        self.model = BertModel.from_pretrained('bert-base-uncased').to(DEVICE)
+        self.tokenizer = BertTokenizer.from_pretrained(model_name)
+        self.model = BertModel.from_pretrained(model_name).to(DEVICE)
         self.class_nn = torch.nn.Sequential(
             torch.nn.Linear(768, 6),
             # torch.nn.Sigmoid(),
