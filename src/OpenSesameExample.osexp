@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.10
-Platform: nt
+OpenSesame: 3.3.5
+Platform: posix
 ---
 set width 1024
 set uniform_coordinates yes
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/Users/leand/Documents/_Studie/MSc/Jaar 2/1. UM/user-models/src"
+set experiment_path "/home/cynthia/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -166,7 +166,7 @@ define inline_script present_test_facts
 	    trial_start_time = clock.time()
 	    prompt = next_fact.question
 	    answer = next_fact.answer
-	    #rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
 	    #print(rof)
 	    #col = map_colour(rof)
 	# Show prompt
@@ -208,7 +208,7 @@ define inline_script present_test_facts
 	# Check if the response is correct
 	    correct = keyboard_response == answer
 	# Log response
-	    response = Response(next_fact, trial_start_time, rt, correct)
+	    response = Response(next_fact, trial_start_time, rt, correct,rof,'NA')
 	    results.append(response)
 	    clock.sleep(var.feedback_duration)
 	# Clear the screen between trials
@@ -272,7 +272,7 @@ define inline_script present_test_facts
 	    correct = keyboard_response == answer
 	    print(correct)
 	    # Log response
-	    response = Response(next_fact, trial_start_time, rt, correct)
+	    response = Response(next_fact, trial_start_time, rt, correct,rof,col)
 	    results.append(response)
 	    clock.sleep(var.feedback_duration)
 	# Clear the screen between trials
@@ -372,7 +372,7 @@ define inline_script present_trial
 	correct = keyboard_response == answer
 	
 	# Log response
-	response = Response(next_fact, trial_start_time, rt, correct)
+	response = Response(next_fact, trial_start_time, rt, correct,rof,col)
 	m.register_response(response) 
 	
 	# Show feedback
@@ -534,7 +534,7 @@ define inline_script slimstampen_setup
 	from collections import namedtuple
 	
 	Fact = namedtuple("Fact", "fact_id, question, answer,priora")
-	Response = namedtuple("Response", "fact, start_time,rt,correct")
+	Response = namedtuple("Response", "fact, start_time,rt,correct,alpha,bgcol")
 	#Lateresponse = namedtuple("Lateresponse","rt, correct")
 	Encounter = namedtuple("Encounter", "activation, time, reaction_time, decay")
 	
@@ -798,7 +798,7 @@ define inline_script slimstampen_setup
 	        dat = pd.concat([dat_resp, dat_facts], axis = 1)
 	
 	        # Add column for rate of forgetting estimate after each observation
-	        dat["alpha"] = dat.apply(calc_rof, axis = 1)
+	        #dat["alpha"] = dat.apply(calc_rof, axis = 1)
 	        dat.drop("fact",axis=1, inplace = True)
 	        
 	        # Add trial number column
@@ -816,8 +816,8 @@ define inline_script slimstampen_setup
 define sketchpad start_test
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0.0 y=0.0 z_index=0
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Learning has ended. It is now time for the evaluation." x=0.0 y=-32.0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Learning has ended. It is now time for the evaluation." x=0 y=-32 z_index=0
 
 define sequence test_sequence
 	set flush_keyboard yes
@@ -830,7 +830,6 @@ define sequence trial_sequence
 	run present_trial always
 
 define loop while_there_is_time_left
-	set source_file ""
 	set source table
 	set repeat 1000
 	set order random
