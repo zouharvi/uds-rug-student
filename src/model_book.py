@@ -1,6 +1,7 @@
+import numpy as np
 import torch
 import random
-from utils import DEVICE, binarize_label
+from misc.utils import DEVICE, binarize_labels
 from transformers import BertTokenizer, BertModel
 
 
@@ -18,10 +19,11 @@ class CustomBert(torch.nn.Module):
         self.class_nn = torch.nn.Sequential(
             torch.nn.Linear(768, 6),
             # torch.nn.Sigmoid(),
-            torch.nn.Softmax(),
+            torch.nn.Softmax(dim=1),
         ).to(DEVICE)
 
     def preprocess(self, sentences):
+        binarizer, sent_labels_bin = binarize_labels(sentences)
         return [
             (
                 # TODO: we are truncating quite a lot of content away!
@@ -29,11 +31,9 @@ class CustomBert(torch.nn.Module):
                     sent_txt, return_tensors="pt",
                     truncation=True
                 ).to(DEVICE),
-                torch.LongTensor(
-                    binarize_label(sent_label)
-                ).to(DEVICE).reshape(1,-1)
+                torch.LongTensor(sent_label_bin).to(DEVICE).reshape(1, -1)
             )
-            for sent_txt, sent_label in sentences
+            for (sent_txt, _sent_label), sent_label_bin in zip(sentences, sent_labels_bin)
         ]
 
     def forward(self, sent_txt):
@@ -41,10 +41,10 @@ class CustomBert(torch.nn.Module):
         sent_embd = self.model(
             input_ids=sent_txt['input_ids'],
             attention_mask=sent_txt['attention_mask'],
-        ).last_hidden_state[:,0]
+        ).last_hidden_state[:, 0]
         return self.class_nn(sent_embd)
 
-    def train_epochs(self, sentences, batch_size=5, epochs=5):
+    def train_data(self, data_train, data_dev=None, batch_size=5, epochs=5):
         self.train()
         self.zero_grad()
         optimizer = torch.optim.AdamW(
@@ -55,29 +55,27 @@ class CustomBert(torch.nn.Module):
         loss_fun = torch.nn.CrossEntropyLoss()
 
         for epoch in range(epochs):
-            random.shuffle(sentences)
-            for i in range(len(sentences)//batch_size):
+            print(f"Epoch {epoch}")
+            random.shuffle(data_train)
+            for i in range(len(data_train) // batch_size):
                 optimizer.zero_grad()
-                batch = sentences[i*batch_size:(i+1)*batch_size]
+                batch = data_train[i * batch_size:(i + 1) * batch_size]
                 loss = 0
                 for sent_txt, sent_label in batch:
                     output = self(sent_txt)
                     loss += loss_fun(output, sent_label.argmax(axis=1))
-                # print last loss
                 # print(loss.item())
                 loss.backward()
                 optimizer.step()
 
             self.eval()
-            hits = 0
-            for sent_txt, sent_label in sentences:
-                with torch.no_grad():
-                    output = self(sent_txt)
-                    # print(output, sent_label)
-                    # print(output.shape, sent_label.shape)
-                    # print(sent_label.argmax(axis=0).shape, sent_label.argmax(axis=1).shape)
-                    # print(output[0].argmax().item(), sent_label[0].argmax().item())
-                    if output[0].argmax().item() == sent_label[0].argmax().item():
-                        hits += 1
+            print(f"Dev   ACC: {self.eval_data(data_dev):.2%}")
+            print(f"Train ACC: {self.eval_data(data_train):.2%}")
 
-            print(f"Train ACC: {hits/len(sentences):.2%}")
+    def eval_data(self, data):
+        hits = []
+        for sent_txt, sent_label in data:
+            with torch.no_grad():
+                output = self(sent_txt)
+                hits.append(output[0].argmax().item() == sent_label[0].argmax().item())
+        return np.average(hits)
