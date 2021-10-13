@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.5
-Platform: posix
+OpenSesame: 3.3.10
+Platform: nt
 ---
 set width 1024
 set uniform_coordinates yes
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "/home/cynthia/user-models/src"
+set experiment_path "C:/Uni/UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -51,7 +51,7 @@ define sequence experiment
 define sketchpad instructions
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Instructions go here. Press any key to begin." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Welcome. Press any key to begin." x=0 y=0 z_index=0
 
 define inline_script learning_session_setup
 	set description "Executes Python code"
@@ -66,7 +66,7 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 50000
+	var.session_duration = 900000
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	if var.scale == "green-red":
@@ -91,12 +91,24 @@ define inline_script learning_session_setup
 	# scale3=["yellow","white","red"]
 	__end__
 
+define form_base new_form_base
+	set timeout infinite
+	set spacing 10
+	set rows "1;1;1;1;1"
+	set only_render no
+	set margins "50;50;50;50"
+	set description "A generic form plug-in"
+	set cols "1;1;1;1;1"
+	set _theme gray
+	widget 2 2 1 1 button text="Start Game" var=game
+
+
 define inline_script new_inline_script
 	set description "Executes Python code"
 	___run__
 	# Create a form
 	form = Form(
-	    cols=[1,2], rows=[1,1,1,1,1,1,1,1],
+	    cols=[1,2], rows=[1,1,1,1,1,1],
 	    margins=(50,100,50,100), spacing=25
 	)
 	# Create four widgets
@@ -112,14 +124,14 @@ define inline_script new_inline_script
 	check_gwr = Checkbox(text=u'green-red alternate', group=u'group', var=u'scale')
 	check_br = Checkbox(text=u'blue-red', group=u'group', var=u'scale')
 	check_bwr = Checkbox(text=u'blue-red alternate', group=u'group', var=u'scale')
-	check_yr = Checkbox(text=u'yellow-red', group=u'group', var=u'scale')
-	check_ywr = Checkbox(text=u'yellow-red alternate', group=u'group', var=u'scale')
+	# check_yr = Checkbox(text=u'yellow-red', group=u'group', var=u'scale')
+	# check_ywr = Checkbox(text=u'yellow-red alternate', group=u'group', var=u'scale')
 	image_gr = ImageWidget(path=pool[u'colors/palette_0.png'], adjust=True, frame=False)
 	image_gwr = ImageWidget(path=pool[u'colors/palette_1.png'], adjust=True, frame=False)
 	image_br = ImageWidget(path=pool[u'colors/palette_2.png'], adjust=True, frame=False)
 	image_bwr = ImageWidget(path=pool[u'colors/palette_3.png'], adjust=True, frame=False)
-	image_yr = ImageWidget(path=pool[u'colors/palette_4.png'], adjust=True, frame=False)
-	image_ywr = ImageWidget(path=pool[u'colors/palette_5.png'], adjust=True, frame=False)
+	# image_yr = ImageWidget(path=pool[u'colors/palette_4.png'], adjust=True, frame=False)
+	# image_ywr = ImageWidget(path=pool[u'colors/palette_5.png'], adjust=True, frame=False)
 	nextButton = Button(text='Next')
 	# Add the widgets to the form. The position in the form is indicated as a
 	# (column, row) tuple.
@@ -130,15 +142,15 @@ define inline_script new_inline_script
 	form.set_widget(check_gwr, (0,2))
 	form.set_widget(check_br, (0,3))
 	form.set_widget(check_bwr, (0,4))
-	form.set_widget(check_yr, (0,5))
-	form.set_widget(check_ywr, (0,6))
+	# form.set_widget(check_yr, (0,5))
+	# form.set_widget(check_ywr, (0,6))
 	form.set_widget(image_gr, (1,1))
 	form.set_widget(image_gwr, (1,2))
 	form.set_widget(image_br, (1,3))
 	form.set_widget(image_bwr, (1,4))
-	form.set_widget(image_yr, (1,5))
-	form.set_widget(image_ywr, (1,6))
-	form.set_widget(nextButton, (1,7))
+	# form.set_widget(image_yr, (1,5))
+	# form.set_widget(image_ywr, (1,6))
+	form.set_widget(nextButton, (1,5))
 	# form.set_widget(image_button2, (1,2))
 	# form.set_widget(image_button3, (2,2))
 	# Execute the form! In this case, the form will return the text of the button that
@@ -153,14 +165,31 @@ define inline_script new_inline_script_1
 	set _run ""
 	set _prepare ""
 
+define inline_script new_inline_script_2
+	set description "Executes Python code"
+	set _run ""
+	set _prepare ""
+
+define inline_script new_inline_script_3
+	set description "Executes Python code"
+	___run__
+	# Inline_script
+	import webbrowser
+	if self.get('game') == 'yes':
+	    webbrowser.open('https://www.freetetris.org/resources/game/game-B61419F8500677D6/if_game_html5.php?p=d&cbidg=B61419F8500677D6')
+	__end__
+	set _prepare ""
+
 define inline_script present_test_facts
 	set description "Executes Python code"
 	___run__
+	import random
 	trial_start_time = clock.time()
 	results = []
 	# Get seen fact from the model
 	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
 	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
+	random.shuffle(seen)
 	### block 1: blank background
 	for (next_fact, _) in seen:
 	    trial_start_time = clock.time()
@@ -222,6 +251,7 @@ define inline_script present_test_facts
 	 
 	 
 	### block 2: colorful  background
+	random.shuffle(seen)
 	for (next_fact, _) in seen:
 	    trial_start_time = clock.time()
 	    prompt = next_fact.question
@@ -814,10 +844,10 @@ define inline_script slimstampen_setup
 	__end__
 
 define sketchpad start_test
-	set duration keypress
+	set duration 300000
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to start." x=0 y=0 z_index=0
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Learning has ended. It is now time for the evaluation." x=0 y=-32 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="" x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Phase one has ended. Please inform the researchers without pressing any key" x=0 y=-32 z_index=0
 
 define sequence test_sequence
 	set flush_keyboard yes
