@@ -1,7 +1,7 @@
 ---
 API: 2.1
-OpenSesame: 3.3.5
-Platform: posix
+OpenSesame: 3.3.10
+Platform: nt
 ---
 set width 1024
 set uniform_coordinates yes
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "/home/cynthia/user-models/src"
+set experiment_path "C:/Uni/UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -50,7 +50,7 @@ define sequence experiment
 define sketchpad instructions
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Instructions go here. Press any key to begin." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Welcome. Press any key to begin." x=0 y=0 z_index=0
 
 define keyboard_response keyboard_response
 	set timeout infinite
@@ -72,7 +72,7 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 50000
+	var.session_duration = 900000
 	var.feedback_duration = 800
 	var.inter_trial_interval = 200
 	__end__
@@ -126,12 +126,13 @@ define inline_script new_inline_script
 define inline_script present_test_facts
 	set description "Executes Python code"
 	___run__
-	
+	import random
 	trial_start_time = clock.time()
 	results = []
 	# Get seen facts from the model
 	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
 	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
+	random.shuffle(seen)
 	### block 1: blank background
 	for (next_fact, _) in seen:
 	    trial_start_time = clock.time()
@@ -193,6 +194,7 @@ define inline_script present_test_facts
 	 
 	 
 	### block 2: colorful  background
+	random.shuffle(seen)
 	for (next_fact, _) in seen:
 	    trial_start_time = clock.time()
 	    prompt = next_fact.question
@@ -777,9 +779,9 @@ define inline_script slimstampen_setup
 	__end__
 
 define sketchpad start_test
-	set duration keypress
+	set duration 300000
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Take a break.In 10 minutes return back and press any key." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Phase one has ended. Please inform the researchers without pressig any key." x=0 y=0 z_index=0
 
 define sequence test_seq
 	set flush_keyboard yes
@@ -792,6 +794,7 @@ define sequence trial_sequence
 	run present_trial always
 
 define loop while_there_is_time_left
+	set source_file ""
 	set source table
 	set repeat 1000
 	set order random
