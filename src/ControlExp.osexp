@@ -195,7 +195,74 @@ define inline_script present_test_facts
 	    clock.sleep(var.inter_trial_interval)   
 	    # Increment trial number
 	    var.trial_num += 1
-	   
+	
+    
+    ### block 2: also blank background
+	random.shuffle(seen)
+	 
+	
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	    #my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	# Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()    
+	    # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time   
+	        if key == "return":
+	            break     
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf")   
+	        elif key == "space":
+	            keyboard_response += " "    
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)   
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	        #my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()   
+	        # Check if the response is correct
+	    correct = keyboard_response == answer
+	    print(correct)
+	    # Log response
+	    response = Response(next_fact, trial_start_time, rt, correct,rof)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	
+
+
 	### write test results into opensesame log   
 	dat_rsp = pd.DataFrame(results)
 	dat_facts = pd.DataFrame([r.fact for r in results])
