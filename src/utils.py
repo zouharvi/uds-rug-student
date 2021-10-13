@@ -22,7 +22,7 @@ ONTOLOGY = {
     "interesting": {
         "role_responsibility": {
             "government": [
-                "conflict_interest",
+                "conflict_interest_gov",
                 "social_norm",
                 "crisis_response",
                 "meaning_making",
@@ -34,11 +34,11 @@ ONTOLOGY = {
             ],
             "media": [
                 "dynamic_nature_pandemic",
-                "conflict_interest",
+                "conflict_interest_med",
                 "explanation",
                 "information_provision",
                 "critical_attitude",
-                "meaning_making",
+                # "meaning_making",
                 "independence",
             ],
             "citizen": [
@@ -81,7 +81,6 @@ ONTOLOGY = {
                 "deny_criticism",
                 "authoritarian_selfishness",
                 "no_communication",
-                "perceptual_efficacy",
                 "too_substantive",
                 "reduce_urgency"
             ]
@@ -90,13 +89,10 @@ ONTOLOGY = {
     "not_interesting": "not_interesting"
 }
 
-# replace None with parent keys
-# ONTOLOGY =  {k:(v if v is not None else v) for k,v in ONTOLOGY.items()}
-
-# TODO: class overlap
-
 def reverse_ontology(val, stack=[], ontology_rev={}):
     if type(val) is str:
+        if val in ontology_rev:
+            print(f"WARNING: {val} is in the ontology at least twice")
         ontology_rev[val] = stack
     elif type(val) is dict:
         for key, item in val.items():
@@ -111,14 +107,22 @@ def reverse_ontology(val, stack=[], ontology_rev={}):
 def ontology_level(ontology, level=None):
     return {k:v[:level][0] for k,v in ontology.items()}
 
-ontology_rev = reverse_ontology(ONTOLOGY)
-ontology_rev = ontology_level(ontology_rev, level=1)
+def print_ontology(ontology):
+    for k,v in ontology.items():
+        print(k,v)
 
-for k,v in ontology_rev.items():
-    print(k,v)
+def read_data(path, reviews=False, ontology_level=1):
+    with open(path, "r") as f:
+        data = list(csv.reader(f))
 
-
-        
-print
-
-# TODO: warning when class not represented
+    if not reviews:
+        ontology_rev = reverse_ontology(ONTOLOGY)
+        ontology_rev = ontology_level(ontology_rev, level=ontology_level)
+        data = [
+            (sent_txt, ontology_rev[sent_label])
+            for sent_txt, sent_label in data
+        ]
+        used_labels = {sent_label for _sent_txt, sent_label in data}
+        all_labels = set(ontology_rev.values())
+        print(all_labels-used_labels, "is not represented")
+    return data
