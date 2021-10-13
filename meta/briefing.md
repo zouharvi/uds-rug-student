@@ -14,6 +14,7 @@ Overall the experiment is designed to require 30 minutes of your uninterrupted a
 Please read these instructions carefully before commencing with the experiment.
 
 Thank you for your participation!
+If you have any questions do not hesitate to ask us.
 
 ## 1. Experiment
 
