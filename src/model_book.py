@@ -7,6 +7,12 @@ from transformers import BertTokenizer, BertModel
 class CustomBert(torch.nn.Module):
     def __init__(self, model_name):
         super().__init__()
+
+        if model_name == "bert":
+            model_name = 'bert-base-uncased'
+        elif model_name == "bertje":
+            model_name = 'GroNLP/bert-base-dutch-cased'
+
         self.tokenizer = BertTokenizer.from_pretrained(model_name)
         self.model = BertModel.from_pretrained(model_name).to(DEVICE)
         self.class_nn = torch.nn.Sequential(

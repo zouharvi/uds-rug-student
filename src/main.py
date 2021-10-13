@@ -7,7 +7,7 @@ from model_book import CustomBert
 def parse_arg():
     arg = argparse.ArgumentParser()
     arg.add_argument("-d", "--data", default="../data/reviews_test.csv")
-    arg.add_argument("-m", "--model-name", default='bert-base-uncased')
+    arg.add_argument("-m", "--model-name", default='bert')
     return arg.parse_args()
 
 def read_data(path):
