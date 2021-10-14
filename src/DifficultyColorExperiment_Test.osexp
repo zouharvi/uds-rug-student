@@ -40,11 +40,15 @@ define sequence experiment
 	set flush_keyboard yes
 	set description "Runs a number of items in sequence"
 	run slimstampen_setup always
+	run new_inline_script always
 	run instructions always
 	run learning_session_setup always
 	run while_there_is_time_left always
 	run save_data always
 	run make_sudoku always
+	run start_test always
+	run test_sequence always
+	run finished_test always
 
 define sketchpad finished_test
 	set duration keypress
@@ -55,13 +59,6 @@ define sketchpad instructions
 	set duration keypress
 	set description "Displays stimuli"
 	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Welcome. Press any key to begin." x=0 y=0 z_index=0
-
-define keyboard_response keyboard_response
-	set timeout infinite
-	set flush yes
-	set event_type keypress
-	set duration keypress
-	set description "Collects keyboard responses"
 
 define inline_script learning_session_setup
 	set description "Executes Python code"
@@ -79,20 +76,53 @@ define inline_script learning_session_setup
 	var.session_duration = 10000 #900000
 	var.feedback_duration = 2000
 	var.inter_trial_interval = 200
+	if var.scale == "green-red":
+		scale=all_scales[0]
+	elif var.scale == "green-red alternate":
+		scale=all_scales[1]
+	elif var.scale == "blue-red":
+		scale=all_scales[2]
+	elif var.scale == "blue-red alternate":
+		scale=all_scales[3]
+	elif var.scale == "yellow-red":
+		scale=all_scales[4]
+	elif var.scale == "yellow-red alternate":
+		scale=all_scales[5]
+		
+	log.write(var.scale)
 	__end__
-	set _prepare ""
+	___prepare__
+	import json
+	with open(pool[u'colors/palettes.json'], 'r') as j:
+	    all_scales = json.load(j)
+	# scale1=["green","yellow","red"]
+	# scale2=["blue","white","red"]
+	# scale3=["yellow","white","red"]
+	__end__
 
 define sketchpad make_sudoku
-	set duration 300000
-	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The learning phase has ended. Please start with the sudokus and continue when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
+	set duration 2000
+	set description "Make sudoku"
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Phase One has ended. Please start with the sudokus and continue when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
+
+define form_base new_form_base
+	set timeout infinite
+	set spacing 10
+	set rows "1;1;1;1;1"
+	set only_render no
+	set margins "50;50;50;50"
+	set description "A generic form plug-in"
+	set cols "1;1;1;1;1"
+	set _theme gray
+	widget 2 2 1 1 button text="Start Game" var=game
+
 
 define inline_script new_inline_script
 	set description "Executes Python code"
 	___run__
 	# Create a form
 	form = Form(
-	    cols=[1,2], rows=[1,1,1,1,1],
+	    cols=[1,2], rows=[1,1,1,1,1,1],
 	    margins=(50,100,50,100), spacing=25
 	)
 	# Create four widgets
@@ -104,25 +134,37 @@ define inline_script new_inline_script
 	# buttonG = Button(text=u'green-red')
 	# buttonY = Button(text=u'yellow-purple')
 	# buttonR = Button(text=u'red-blue')
-	check_br = Checkbox(text=u'blue-red', group=u'group', var=u'scale')
 	check_gr = Checkbox(text=u'green-red', group=u'group', var=u'scale')
-	check_yr = Checkbox(text=u'yellow-red', group=u'group', var=u'scale')
-	image_br = ImageWidget(path=pool[u'img/blue_red.png'], adjust=True, frame=False)
-	image_gr = ImageWidget(path=pool[u'img/green_red.png'], adjust=True, frame=False)
-	image_yr = ImageWidget(path=pool[u'img/yellow_red.png'], adjust=True, frame=False)
+	check_gwr = Checkbox(text=u'green-red alternate', group=u'group', var=u'scale')
+	check_br = Checkbox(text=u'blue-red', group=u'group', var=u'scale')
+	check_bwr = Checkbox(text=u'blue-red alternate', group=u'group', var=u'scale')
+	# check_yr = Checkbox(text=u'yellow-red', group=u'group', var=u'scale')
+	# check_ywr = Checkbox(text=u'yellow-red alternate', group=u'group', var=u'scale')
+	image_gr = ImageWidget(path=pool[u'colors/palette_0.png'], adjust=True, frame=False)
+	image_gwr = ImageWidget(path=pool[u'colors/palette_1.png'], adjust=True, frame=False)
+	image_br = ImageWidget(path=pool[u'colors/palette_2.png'], adjust=True, frame=False)
+	image_bwr = ImageWidget(path=pool[u'colors/palette_3.png'], adjust=True, frame=False)
+	# image_yr = ImageWidget(path=pool[u'colors/palette_4.png'], adjust=True, frame=False)
+	# image_ywr = ImageWidget(path=pool[u'colors/palette_5.png'], adjust=True, frame=False)
 	nextButton = Button(text='Next')
 	# Add the widgets to the form. The position in the form is indicated as a
 	# (column, row) tuple.
 	# form.set_widget(labelTitle, (0,0), colspan=2)
 	form.set_widget(labelQuestion, (0,0), colspan=2)
 	# form.set_widget(buttonG, (0,2))
-	form.set_widget(check_br, (0,1))
-	form.set_widget(check_gr, (0,2))
-	form.set_widget(check_yr, (0,3))
-	form.set_widget(image_br, (1,1))
-	form.set_widget(image_gr, (1,2))
-	form.set_widget(image_yr, (1,3))
-	form.set_widget(nextButton, (1,4))
+	form.set_widget(check_gr, (0,1))
+	form.set_widget(check_gwr, (0,2))
+	form.set_widget(check_br, (0,3))
+	form.set_widget(check_bwr, (0,4))
+	# form.set_widget(check_yr, (0,5))
+	# form.set_widget(check_ywr, (0,6))
+	form.set_widget(image_gr, (1,1))
+	form.set_widget(image_gwr, (1,2))
+	form.set_widget(image_br, (1,3))
+	form.set_widget(image_bwr, (1,4))
+	# form.set_widget(image_yr, (1,5))
+	# form.set_widget(image_ywr, (1,6))
+	form.set_widget(nextButton, (1,5))
 	# form.set_widget(image_button2, (1,2))
 	# form.set_widget(image_button3, (2,2))
 	# Execute the form! In this case, the form will return the text of the button that
@@ -132,10 +174,25 @@ define inline_script new_inline_script
 	__end__
 	set _prepare ""
 
-define sketchpad new_sketchpad
-	set duration keypress
-	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The experiment is now done. Please fill in the final survey (the link can be found in the instructions).<br /><br />Thanks for your participation!<br /><br />Press a key to close this screen..." x=32 y=0 z_index=0
+define inline_script new_inline_script_1
+	set description "Executes Python code"
+	set _run ""
+	set _prepare ""
+
+define inline_script new_inline_script_2
+	set description "Executes Python code"
+	set _run ""
+	set _prepare ""
+
+define inline_script new_inline_script_3
+	set description "Executes Python code"
+	___run__
+	# Inline_script
+	import webbrowser
+	if self.get('game') == 'yes':
+	    webbrowser.open('https://www.freetetris.org/resources/game/game-B61419F8500677D6/if_game_html5.php?p=d&cbidg=B61419F8500677D6')
+	__end__
+	set _prepare ""
 
 define inline_script present_test_facts
 	set description "Executes Python code"
@@ -143,87 +200,151 @@ define inline_script present_test_facts
 	import random
 	trial_start_time = clock.time()
 	results = []
-	# Get seen facts from the model
+	# Get seen fact from the model
 	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
 	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
-	
-	def evaluate_facts():
-	    random.shuffle(seen)
-	    ### block 1: blank background
-	    for (next_fact, _) in seen:
-	        trial_start_time = clock.time()
-	        prompt = next_fact.question
-	        answer = next_fact.answer
-	        rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
-	    # Show prompt
-	        my_canvas = Canvas()
-	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	        #my_canvas.rect(-150,-50,300,150,fill=True, color='white')
-	        my_canvas.text(prompt, font_size = 30)
-	        my_canvas.prepare()
-	        my_canvas.show()
+	random.shuffle(seen)
+	### block 1: blank background
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    #print(rof)
+	    #col = map_colour(rof)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
 	    # Listen for keyboard input and show keypresses on screen as they occur
-	        my_keyboard = Keyboard()
-	        keyboard_response = ""
-	        erased_answer = False
-	        rt = float("inf")
-	    # Keep listening for key presses until the user presses Enter
-	        while True:
-	            key, time = my_keyboard.get_key()   
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()  
 	        # The first keypress determines the response time
-	            if keyboard_response == "" and not erased_answer:
-	                rt = clock.time() - trial_start_time    
-	            if key == "return":
-	                break       
-	            if key == "backspace":
-	                keyboard_response = keyboard_response[:-1]
-	                # If the answer is completely erased, the RT is no longer informative
-	                if keyboard_response == "":
-	                    erased_answer = True
-	                    rt = float("inf")   
-	            elif key == "space":
-	                keyboard_response += " "
-	            else:
-	                keyboard_response += my_keyboard.to_chr(key)
-	            # Update what's on screen'
-	            my_canvas.clear()
-	            my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	            my_canvas.text(prompt, font_size = 30)
-	    
-	            my_canvas.text(keyboard_response, y = 100)
-	            my_canvas.prepare()
-	            my_canvas.show()
-	    # Check if the response is correct
-	        correct = keyboard_response == answer
-	        # Log response
-	        response = Response(next_fact, trial_start_time, rt, correct,rof)
-	        results.append(response)
-	        clock.sleep(var.feedback_duration)
-	    # Clear the screen between trials
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time 
+	        if key == "return":
+	            break        
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf") 
+	        elif key == "space":
+	            keyboard_response += " "
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)
+	        # Update what's on screen'
 	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	        my_canvas.text(keyboard_response, y = 100)
 	        my_canvas.prepare()
 	        my_canvas.show()
-	        clock.sleep(var.inter_trial_interval)   
-	        # Increment trial number
-	        var.trial_num += 1
-	        
-	evaluate_facts()
-	evaluate_facts()
+	# Check if the response is correct
+	    correct = keyboard_response == answer
+	# Log response
+	    response = Response(next_fact, trial_start_time, rt, correct,rof,'NA')
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	
+	 
+	 
+	### block 2: colorful  background
+	random.shuffle(seen)
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    print(rof)
+	    col = map_colour(rof)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	    my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	# Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()    
+	    # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time   
+	        if key == "return":
+	            break     
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf")   
+	        elif key == "space":
+	            keyboard_response += " "    
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)   
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	        my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()   
+	        # Check if the response is correct
+	    correct = keyboard_response == answer
+	    print(correct)
+	    # Log response
+	    response = Response(next_fact, trial_start_time, rt, correct,rof,col)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
 	   
 	### write test results into opensesame log   
 	dat_rsp = pd.DataFrame(results)
 	dat_facts = pd.DataFrame([r.fact for r in results])
-	#dat_alpha = pd.DataFrame([alpha for r, a in results])
 	dat = pd.concat([dat_rsp, dat_facts], axis = 1)
-	
 	dat.drop("fact",axis=1, inplace = True)
 	dat.index.name = "trial"
 	dat.index = dat.index + 1
 	log.write(dat.to_csv())
 	__end__
 	___prepare__
-	def map_colour(next_fact):
-	    return next_fact.colour
+	def map_colour(rof):
+	    #if rof == 0.3:
+	    col=scale[1]
+	    if rof < 0.3:
+	        col=scale[0]
+	    elif rof > 0.3:
+	        col=scale[2]
+	    return col
 	__end__
 
 define inline_script present_trial
@@ -237,11 +358,12 @@ define inline_script present_trial
 	answer = next_fact.answer
 	rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
 	#rof = m.get_previous_fact_alpha(next_fact)
-	
+	print(rof)
+	col = map_colour(rof)
 	# Show prompt
 	my_canvas = Canvas()
-	my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	#my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 	my_canvas.text(prompt, font_size = 30)
 	if new:
 		my_canvas.text(answer, y = 50, font_size = 20)
@@ -280,8 +402,8 @@ define inline_script present_trial
 	
 		# Update what's on screen'
 		my_canvas.clear()
-		my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-		#my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+		my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+		my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 		my_canvas.text(prompt, font_size = 30)
 		if new:
 			my_canvas.text(answer, y = 50, font_size = 20)
@@ -294,8 +416,7 @@ define inline_script present_trial
 	correct = keyboard_response == answer
 	
 	# Log response
-	
-	response = Response(next_fact, trial_start_time, rt, correct,rof)
+	response = Response(next_fact, trial_start_time, rt, correct,rof,col)
 	m.register_response(response) 
 	
 	# Show feedback
@@ -321,20 +442,17 @@ define inline_script present_trial
 	var.trial_num += 1
 	__end__
 	___prepare__
-	def map_colour(next_fact):
-	    return next_fact.colour
+	def map_colour(rof):
+	    max_rof = 0.5
+	    min_rof = 0.1
+	    col_count = len(scale)
+	    clamped_rof = max(min(max_rof, rof), min_rof)
+	    col_index = int((((clamped_rof - min_rof) * col_count) / (max_rof - min_rof)))
+	    color = scale[col_index]
+	    return f"rgb({color[0]},{color[1]},{color[2]})"
 	__end__
 
 define inline_script save_data
-	set description "Executes Python code"
-	___run__
-	# Write the SlimStampen data to the OpenSesame log file
-	dat = m.export_data()
-	log.write(dat.to_csv())
-	__end__
-	set _prepare ""
-
-define inline_script save_test
 	set description "Executes Python code"
 	___run__
 	# Write the SlimStampen data to the OpenSesame log file
@@ -349,7 +467,6 @@ define inline_script slimstampen_setup
 	m = SpacingModel()
 	
 	# Add some study facts to the model (you could also read them from a CSV file)
-	
 	facts = [Fact(1,"sala","prayer",0.227727272727272),
 	Fact(2,"ubini","forgery",0.305),
 	Fact(3,"theluji","snow",0.223181818181818),
@@ -451,8 +568,6 @@ define inline_script slimstampen_setup
 	Fact(99,"embe","mango",0.24590909090909),
 	Fact(100,"ankra","invoice",0.286818181818181)]
 	
-	
-	
 	for fact in facts:
 		m.add_fact(fact)
 	__end__
@@ -462,8 +577,8 @@ define inline_script slimstampen_setup
 	import pandas as pd
 	from collections import namedtuple
 	
-	Fact = namedtuple("Fact", "fact_id, question,answer,priora")
-	Response = namedtuple("Response", "fact, start_time,rt,correct,alpha")
+	Fact = namedtuple("Fact", "fact_id, question, answer,priora")
+	Response = namedtuple("Response", "fact, start_time,rt,correct,alpha,bgcol")
 	#Lateresponse = namedtuple("Lateresponse","rt, correct")
 	Encounter = namedtuple("Encounter", "activation, time, reaction_time, decay")
 	
@@ -473,15 +588,26 @@ define inline_script slimstampen_setup
 	    # Model constants
 	    LOOKAHEAD_TIME = 15000
 	    FORGET_THRESHOLD = -0.8
-	    DEFAULT_ALPHA = 0.3
 	    C = 0.25
 	    F = 1.0
 	
 	    def __init__(self):
 	        self.facts = []
 	        self.responses = []
-	
-	
+	        #self.lateresponse = []
+	        
+	    def get_previous_fact_alpha(self,fact):
+	        prev = None
+	        for resp in reversed(self.responses):
+	            if resp.fact.fact_id == fact.fact_id:
+	                prev = resp
+	                print(prev.start_time)
+	                break
+	        if prev == None:
+	            return fact.priora
+	        return self.get_rate_of_forgetting(prev.start_time + 1, fact)
+	        
+	        
 	    def add_fact(self, fact):
 	        # type: (Fact) -> None
 	        """
@@ -567,7 +693,6 @@ define inline_script slimstampen_setup
 	        encounters = []
 	
 	        responses_for_fact = [r for r in self.responses if r.fact.fact_id == fact.fact_id and r.start_time < time]
-	        #alpha = self.DEFAULT_ALPHA
 	        alpha = fact.priora
 	
 	        # Calculate the activation by running through the sequence of previous responses
@@ -597,6 +722,7 @@ define inline_script slimstampen_setup
 	        """
 	        if len(encounters) < 2:
 	            #return(self.DEFAULT_ALPHA)
+	            #return previous_alpha
 	            return response.fact.priora
 	
 	        a_fit = previous_alpha
@@ -608,7 +734,7 @@ define inline_script slimstampen_setup
 	            # Estimated RT was too short (estimated activation too high), so actual decay was larger
 	            a0 = a_fit
 	            a1 = a_fit + 0.05
-	
+	        
 	        else:
 	            # Estimated RT was too long (estimated activation too low), so actual decay was smaller
 	            a0 = a_fit - 0.05
@@ -633,7 +759,7 @@ define inline_script slimstampen_setup
 	                a1 = ac
 	            else:
 	                a0 = ac
-	
+	        
 	        # The new alpha estimate is the average value in the remaining bracket
 	        return((a0 + a1) / 2)
 	
@@ -687,10 +813,10 @@ define inline_script slimstampen_setup
 	        if word_count > 1:
 	            character_count = len(text)
 	            return(max((-157.9 + character_count * 19.5), 300))
-	
+	        
 	        return(300)
 	
-	
+	    
 	    def normalise_reaction_time(self, response):
 	        # type: (Response) -> float
 	        """
@@ -718,7 +844,7 @@ define inline_script slimstampen_setup
 	        # Add column for rate of forgetting estimate after each observation
 	        #dat["alpha"] = dat.apply(calc_rof, axis = 1)
 	        dat.drop("fact",axis=1, inplace = True)
-	
+	        
 	        # Add trial number column
 	        dat.index.name = "trial"
 	        dat.index = dat.index + 1
@@ -727,8 +853,8 @@ define inline_script slimstampen_setup
 	        if path is not None:
 	            dat.to_csv(path, encoding="UTF-8")
 	            return(dat)
-	
-	        return(dat)
+	        
+	        return(dat.to_csv())
 	__end__
 
 define sketchpad start_test
@@ -736,7 +862,7 @@ define sketchpad start_test
 	set description "Displays stimuli"
 	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="You can now proceed to the evaluation phase. Press a key to continue..." x=32 y=0 z_index=0
 
-define sequence test_seq
+define sequence test_sequence
 	set flush_keyboard yes
 	set description "Runs a number of items in sequence"
 	run present_test_facts always
@@ -747,6 +873,7 @@ define sequence trial_sequence
 	run present_trial always
 
 define loop while_there_is_time_left
+	set source_file ""
 	set source table
 	set repeat 1000
 	set order random

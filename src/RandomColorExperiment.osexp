@@ -45,6 +45,9 @@ define sequence experiment
 	run while_there_is_time_left always
 	run save_data always
 	run make_sudoku always
+	run start_test always
+	run test_seq always
+	run finished_test always
 
 define sketchpad finished_test
 	set duration keypress
@@ -76,16 +79,16 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 10000 #900000
+	var.session_duration = 10000 # 900000
 	var.feedback_duration = 2000
 	var.inter_trial_interval = 200
 	__end__
 	set _prepare ""
 
 define sketchpad make_sudoku
-	set duration 300000
+	set duration 2000
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The learning phase has ended. Please start with the sudokus and continue when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Phase One has ended. Please start with the sudokus and continue when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
 
 define inline_script new_inline_script
 	set description "Executes Python code"
@@ -132,11 +135,6 @@ define inline_script new_inline_script
 	__end__
 	set _prepare ""
 
-define sketchpad new_sketchpad
-	set duration keypress
-	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The experiment is now done. Please fill in the final survey (the link can be found in the instructions).<br /><br />Thanks for your participation!<br /><br />Press a key to close this screen..." x=32 y=0 z_index=0
-
 define inline_script present_test_facts
 	set description "Executes Python code"
 	___run__
@@ -146,69 +144,128 @@ define inline_script present_test_facts
 	# Get seen facts from the model
 	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
 	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
-	
-	def evaluate_facts():
-	    random.shuffle(seen)
-	    ### block 1: blank background
-	    for (next_fact, _) in seen:
-	        trial_start_time = clock.time()
-	        prompt = next_fact.question
-	        answer = next_fact.answer
-	        rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
-	    # Show prompt
-	        my_canvas = Canvas()
-	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	        #my_canvas.rect(-150,-50,300,150,fill=True, color='white')
-	        my_canvas.text(prompt, font_size = 30)
-	        my_canvas.prepare()
-	        my_canvas.show()
-	    # Listen for keyboard input and show keypresses on screen as they occur
-	        my_keyboard = Keyboard()
-	        keyboard_response = ""
-	        erased_answer = False
-	        rt = float("inf")
-	    # Keep listening for key presses until the user presses Enter
-	        while True:
-	            key, time = my_keyboard.get_key()   
-	        # The first keypress determines the response time
-	            if keyboard_response == "" and not erased_answer:
-	                rt = clock.time() - trial_start_time    
-	            if key == "return":
-	                break       
-	            if key == "backspace":
-	                keyboard_response = keyboard_response[:-1]
-	                # If the answer is completely erased, the RT is no longer informative
-	                if keyboard_response == "":
-	                    erased_answer = True
-	                    rt = float("inf")   
-	            elif key == "space":
-	                keyboard_response += " "
-	            else:
-	                keyboard_response += my_keyboard.to_chr(key)
-	            # Update what's on screen'
-	            my_canvas.clear()
-	            my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	            my_canvas.text(prompt, font_size = 30)
-	    
-	            my_canvas.text(keyboard_response, y = 100)
-	            my_canvas.prepare()
-	            my_canvas.show()
-	    # Check if the response is correct
-	        correct = keyboard_response == answer
-	        # Log response
-	        response = Response(next_fact, trial_start_time, rt, correct,rof)
-	        results.append(response)
-	        clock.sleep(var.feedback_duration)
-	    # Clear the screen between trials
+	random.shuffle(seen)
+	### block 1: blank background
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	    #my_canvas.rect(-150,-50,300,150,fill=True, color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	# Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()   
+	    # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time    
+	        if key == "return":
+	            break       
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf")   
+	        elif key == "space":
+	            keyboard_response += " "
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)
+	        # Update what's on screen'
 	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	
+	        my_canvas.text(keyboard_response, y = 100)
 	        my_canvas.prepare()
 	        my_canvas.show()
-	        clock.sleep(var.inter_trial_interval)   
-	        # Increment trial number
-	        var.trial_num += 1
-	        
-	evaluate_facts()
-	evaluate_facts()
+	# Check if the response is correct
+	    correct = keyboard_response == answer
+	    # Log response
+	    response = Response(next_fact, trial_start_time, rt, correct,rof)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
+	
+	 
+	 
+	### block 2: colorful  background
+	random.shuffle(seen)
+	for (next_fact, _) in seen:
+	    trial_start_time = clock.time()
+	    prompt = next_fact.question
+	    answer = next_fact.answer
+	    rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
+	    col = map_colour(next_fact)
+	# Show prompt
+	    my_canvas = Canvas()
+	    my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	    my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	    my_canvas.text(prompt, font_size = 30)
+	    my_canvas.prepare()
+	    my_canvas.show()
+	# Listen for keyboard input and show keypresses on screen as they occur
+	    my_keyboard = Keyboard()
+	    keyboard_response = ""
+	    erased_answer = False
+	    rt = float("inf")
+	# Keep listening for key presses until the user presses Enter
+	    while True:
+	        key, time = my_keyboard.get_key()    
+	    # The first keypress determines the response time
+	        if keyboard_response == "" and not erased_answer:
+	            rt = clock.time() - trial_start_time   
+	        if key == "return":
+	            break     
+	        if key == "backspace":
+	            keyboard_response = keyboard_response[:-1]
+	            # If the answer is completely erased, the RT is no longer informative
+	            if keyboard_response == "":
+	                erased_answer = True
+	                rt = float("inf")   
+	        elif key == "space":
+	            keyboard_response += " "    
+	        else:
+	            keyboard_response += my_keyboard.to_chr(key)   
+	        # Update what's on screen'
+	        my_canvas.clear()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	        my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	
+	        my_canvas.text(keyboard_response, y = 100)
+	        my_canvas.prepare()
+	        my_canvas.show()   
+	        # Check if the response is correct
+	    correct = keyboard_response == answer
+	    print(correct)
+	    # Log response
+	    response = Response(next_fact, trial_start_time, rt, correct,rof)
+	    results.append(response)
+	    clock.sleep(var.feedback_duration)
+	# Clear the screen between trials
+	    my_canvas.clear()
+	    my_canvas.prepare()
+	    my_canvas.show()
+	    clock.sleep(var.inter_trial_interval)   
+	    # Increment trial number
+	    var.trial_num += 1
 	   
 	### write test results into opensesame log   
 	dat_rsp = pd.DataFrame(results)
@@ -237,11 +294,11 @@ define inline_script present_trial
 	answer = next_fact.answer
 	rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
 	#rof = m.get_previous_fact_alpha(next_fact)
-	
+	col = map_colour(next_fact)
 	# Show prompt
 	my_canvas = Canvas()
-	my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	#my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+	my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+	my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 	my_canvas.text(prompt, font_size = 30)
 	if new:
 		my_canvas.text(answer, y = 50, font_size = 20)
@@ -280,8 +337,8 @@ define inline_script present_trial
 	
 		# Update what's on screen'
 		my_canvas.clear()
-		my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-		#my_canvas.rect(-150,-50,300,200,fill=True, color='white')
+		my_canvas.rect(-512,-384,1024,768,fill=True,color=col)
+		my_canvas.rect(-150,-50,300,200,fill=True, color='white')
 		my_canvas.text(prompt, font_size = 30)
 		if new:
 			my_canvas.text(answer, y = 50, font_size = 20)
@@ -330,7 +387,7 @@ define inline_script save_data
 	___run__
 	# Write the SlimStampen data to the OpenSesame log file
 	dat = m.export_data()
-	log.write(dat.to_csv())
+	log.write(dat)
 	__end__
 	set _prepare ""
 
@@ -350,106 +407,106 @@ define inline_script slimstampen_setup
 	
 	# Add some study facts to the model (you could also read them from a CSV file)
 	
-	facts = [Fact(1,"sala","prayer",0.227727272727272),
-	Fact(2,"ubini","forgery",0.305),
-	Fact(3,"theluji","snow",0.223181818181818),
-	Fact(4,"iktisadi","economy",0.132272727272727),
-	Fact(5,"yamini","oath",0.277727272727272),
-	Fact(6,"mshoni","tailor",0.291363636363636),
-	Fact(7,"tumbili","monkey",0.223181818181818),
-	Fact(8,"fumbo","mystery",0.264090909090909),
-	Fact(9,"ziwa","lake",0.236818181818181),
-	Fact(10,"mbwa","dog",0.055),
-	Fact(11,"nyanya","tomato",0.186818181818181),
-	Fact(12,"rafiki","friend",0.227727272727272),
-	Fact(13,"pafu","lung",0.24590909090909),
-	Fact(14,"paji","forehead",0.268636363636363),
-	Fact(15,"mfupa","bone",0.273181818181818),
-	Fact(16,"jani","leaf",0.255),
-	Fact(17,"jibini","cheese",0.277727272727272),
-	Fact(18,"hadithi","story",0.286818181818181),
-	Fact(19,"sumu","poison",0.186818181818181),
-	Fact(20,"nanga","anchor",0.268636363636363),
-	Fact(21,"yai","egg",0.141363636363636),
-	Fact(22,"rushwa","bribe",0.277727272727272),
-	Fact(23,"lawama","blame",0.286818181818181),
-	Fact(24,"rembo","ornament",0.214090909090909),
-	Fact(25,"pipa","barrel",0.218636363636363),
-	Fact(26,"farasi","horse",0.209545454545454),
-	Fact(27,"ladha","flavor",0.29590909090909),
-	Fact(28,"bandari","harbor",0.268636363636363),
-	Fact(29,"roho","soul",0.19590909090909),
-	Fact(30,"wingu","cloud",0.114090909090909),
-	Fact(31,"nira","yoke",0.259545454545454),
-	Fact(32,"adui","enemy",0.24590909090909),
-	Fact(33,"wakili","agent",0.259545454545454),
-	Fact(34,"sahani","plate",0.273181818181818),
-	Fact(35,"talaka","divorce",0.277727272727272),
-	Fact(36,"dalasini","cinnamon",0.268636363636363),
-	Fact(37,"kaa","crab",0.205),
-	Fact(38,"ambo","glue",0.268636363636363),
-	Fact(39,"lozi","almond",0.259545454545454),
-	Fact(40,"kasuku","parrot",0.277727272727272),
-	Fact(41,"kamba","rope",0.286818181818181),
-	Fact(42,"dafina","treasure",0.24590909090909),
-	Fact(43,"duara","wheel",0.273181818181818),
-	Fact(44,"punda","donkey",0.236818181818181),
-	Fact(45,"goti","knee",0.141363636363636),
-	Fact(46,"hariri","silk",0.214090909090909),
-	Fact(47,"maiti","corpse",0.205),
-	Fact(48,"zabibu","grapes",0.268636363636363),
-	Fact(49,"ndoo","bucket",0.186818181818181),
-	Fact(50,"bustani","garden",0.24590909090909),
-	Fact(51,"pamba","cotton",0.24590909090909),
-	Fact(52,"samadi","manure",0.24590909090909),
-	Fact(53,"gutu","stump",0.286818181818181),
-	Fact(54,"utenzi","poem",0.273181818181818),
-	Fact(55,"yatima","orphan",0.259545454545454),
-	Fact(56,"usingizi","sleep",0.236818181818181),
-	Fact(57,"bahasha","envelope",0.264090909090909),
-	Fact(58,"hamira","yeast",0.264090909090909),
-	Fact(59,"adha","trouble",0.277727272727272),
-	Fact(60,"buu","maggot",0.186818181818181),
-	Fact(61,"adhama","honor",0.24590909090909),
-	Fact(62,"desturi","custom",0.273181818181818),
-	Fact(63,"leso","scarf",0.209545454545454),
-	Fact(64,"jeraha","wound",0.268636363636363),
-	Fact(65,"godoro","mattress",0.164090909090909),
-	Fact(66,"wasaa","leisure",0.223181818181818),
-	Fact(67,"chura","frog",0.259545454545454),
-	Fact(68,"zeituni","olives",0.241363636363636),
-	Fact(69,"mashua","boat",0.236818181818181),
-	Fact(70,"chakula","food",0.200454545454545),
-	Fact(71,"sanda","shroud",0.273181818181818),
-	Fact(72,"malkia","queen",0.214090909090909),
-	Fact(73,"kaputula","shorts",0.236818181818181),
-	Fact(74,"chimbo","quarry",0.286818181818181),
-	Fact(75,"chaza","oyster",0.264090909090909),
-	Fact(76,"joko","kiln",0.273181818181818),
-	Fact(77,"nabii","prophet",0.24590909090909),
-	Fact(78,"elimu","science",0.241363636363636),
-	Fact(79,"nafaka","corn",0.286818181818181),
-	Fact(80,"handaki","trench",0.273181818181818),
-	Fact(81,"tabibu","doctor",0.182272727272727),
-	Fact(82,"chama","society",0.255),
-	Fact(83,"vumbi","dust",0.264090909090909),
-	Fact(84,"pombe","beer",0.159545454545454),
-	Fact(85,"lango","gate",0.268636363636363),
-	Fact(86,"pazia","curtain",0.223181818181818),
-	Fact(87,"zulia","carpet",0.214090909090909),
-	Fact(88,"baharia","sailor",0.255),
-	Fact(89,"fagio","broom",0.177727272727272),
-	Fact(90,"tajiri","merchant",0.277727272727272),
-	Fact(91,"inda","spite",0.268636363636363),
-	Fact(92,"ruba","leech",0.291363636363636),
-	Fact(93,"kaburi","grave",0.227727272727272),
-	Fact(94,"fununu","rumor",0.223181818181818),
-	Fact(95,"vuke","steam",0.223181818181818),
-	Fact(96,"gharika","flood",0.286818181818181),
-	Fact(97,"lulu","pearl",0.0731818181818182),
-	Fact(98,"fahali","bull",0.291363636363636),
-	Fact(99,"embe","mango",0.24590909090909),
-	Fact(100,"ankra","invoice",0.286818181818181)]
+	facts = [Fact(1,"sala","prayer",0.227727272727272,"red"),
+	Fact(2,"ubini","forgery",0.305,"blue"),
+	Fact(3,"theluji","snow",0.223181818181818,"green"),
+	Fact(4,"iktisadi","economy",0.132272727272727,"purple"),
+	Fact(5,"yamini","oath",0.277727272727272,"grey"),
+	Fact(6,"mshoni","tailor",0.291363636363636,"violet"),
+	Fact(7,"tumbili","monkey",0.223181818181818,"yellow"),
+	Fact(8,"fumbo","mystery",0.264090909090909,"pink"),
+	Fact(9,"ziwa","lake",0.236818181818181,"cyan"),
+	Fact(10,"mbwa","dog",0.055,"orange"),
+	Fact(11,"nyanya","tomato",0.186818181818181,"red"),
+	Fact(12,"rafiki","friend",0.227727272727272,"blue"),
+	Fact(13,"pafu","lung",0.24590909090909,"green"),
+	Fact(14,"paji","forehead",0.268636363636363,"purple"),
+	Fact(15,"mfupa","bone",0.273181818181818,"grey"),
+	Fact(16,"jani","leaf",0.255,"violet"),
+	Fact(17,"jibini","cheese",0.277727272727272,"yellow"),
+	Fact(18,"hadithi","story",0.286818181818181,"pink"),
+	Fact(19,"sumu","poison",0.186818181818181,"cyan"),
+	Fact(20,"nanga","anchor",0.268636363636363,"orange"),
+	Fact(21,"yai","egg",0.141363636363636,"red"),
+	Fact(22,"rushwa","bribe",0.277727272727272,"blue"),
+	Fact(23,"lawama","blame",0.286818181818181,"green"),
+	Fact(24,"rembo","ornament",0.214090909090909,"purple"),
+	Fact(25,"pipa","barrel",0.218636363636363,"grey"),
+	Fact(26,"farasi","horse",0.209545454545454,"violet"),
+	Fact(27,"ladha","flavor",0.29590909090909,"yellow"),
+	Fact(28,"bandari","harbor",0.268636363636363,"pink"),
+	Fact(29,"roho","soul",0.19590909090909,"cyan"),
+	Fact(30,"wingu","cloud",0.114090909090909, "orange"),
+	Fact(31,"nira","yoke",0.259545454545454,"red"),
+	Fact(32,"adui","enemy",0.24590909090909,"blue"),
+	Fact(33,"wakili","agent",0.259545454545454,"green"),
+	Fact(34,"sahani","plate",0.273181818181818,"purple"),
+	Fact(35,"talaka","divorce",0.277727272727272,"grey"),
+	Fact(36,"dalasini","cinnamon",0.268636363636363,"violet"),
+	Fact(37,"kaa","crab",0.205,"yellow"),
+	Fact(38,"ambo","glue",0.268636363636363,"pink"),
+	Fact(39,"lozi","almond",0.259545454545454,"cyan"),
+	Fact(40,"kasuku","parrot",0.277727272727272,"orange"),
+	Fact(41,"kamba","rope",0.286818181818181,"red"),
+	Fact(42,"dafina","treasure",0.24590909090909,"blue"),
+	Fact(43,"duara","wheel",0.273181818181818,"green"),
+	Fact(44,"punda","donkey",0.236818181818181,"purple"),
+	Fact(45,"goti","knee",0.141363636363636,"grey"),
+	Fact(46,"hariri","silk",0.214090909090909,"violet"),
+	Fact(47,"maiti","corpse",0.205,"yellow"),
+	Fact(48,"zabibu","grapes",0.268636363636363,"pink"),
+	Fact(49,"ndoo","bucket",0.186818181818181,"cyan"),
+	Fact(50,"bustani","garden",0.24590909090909,"orange"),
+	Fact(51,"pamba","cotton",0.24590909090909,"red"),
+	Fact(52,"samadi","manure",0.24590909090909,"blue"),
+	Fact(53,"gutu","stump",0.286818181818181,"green"),
+	Fact(54,"utenzi","poem",0.273181818181818,"purple"),
+	Fact(55,"yatima","orphan",0.259545454545454,"grey"),
+	Fact(56,"usingizi","sleep",0.236818181818181,"violet"),
+	Fact(57,"bahasha","envelope",0.264090909090909,"yellow"),
+	Fact(58,"hamira","yeast",0.264090909090909,"pink"),
+	Fact(59,"adha","trouble",0.277727272727272,"cyan"),
+	Fact(60,"buu","maggot",0.186818181818181,"orange"),
+	Fact(61,"adhama","honor",0.24590909090909,"red"),
+	Fact(62,"desturi","custom",0.273181818181818,"blue"),
+	Fact(63,"leso","scarf",0.209545454545454,"green"),
+	Fact(64,"jeraha","wound",0.268636363636363,"purple"),
+	Fact(65,"godoro","mattress",0.164090909090909,"grey"),
+	Fact(66,"wasaa","leisure",0.223181818181818,"violet"),
+	Fact(67,"chura","frog",0.259545454545454,"yellow"),
+	Fact(68,"zeituni","olives",0.241363636363636,"pink"),
+	Fact(69,"mashua","boat",0.236818181818181,"cyan"),
+	Fact(70,"chakula","food",0.200454545454545,"orange"),
+	Fact(71,"sanda","shroud",0.273181818181818,"red"),
+	Fact(72,"malkia","queen",0.214090909090909,"blue"),
+	Fact(73,"kaputula","shorts",0.236818181818181,"green"),
+	Fact(74,"chimbo","quarry",0.286818181818181,"purple"),
+	Fact(75,"chaza","oyster",0.264090909090909,"grey"),
+	Fact(76,"joko","kiln",0.273181818181818,"violet"),
+	Fact(77,"nabii","prophet",0.24590909090909,"yellow"),
+	Fact(78,"elimu","science",0.241363636363636,"pink"),
+	Fact(79,"nafaka","corn",0.286818181818181,"cyan"),
+	Fact(80,"handaki","trench",0.273181818181818,"orange"),
+	Fact(81,"tabibu","doctor",0.182272727272727,"red"),
+	Fact(82,"chama","society",0.255,"blue"),
+	Fact(83,"vumbi","dust",0.264090909090909,"green"),
+	Fact(84,"pombe","beer",0.159545454545454,"purple"),
+	Fact(85,"lango","gate",0.268636363636363,"grey"),
+	Fact(86,"pazia","curtain",0.223181818181818,"violet"),
+	Fact(87,"zulia","carpet",0.214090909090909,"yellow"),
+	Fact(88,"baharia","sailor",0.255,"pink"),
+	Fact(89,"fagio","broom",0.177727272727272,"cyan"),
+	Fact(90,"tajiri","merchant",0.277727272727272,"orange"),
+	Fact(91,"inda","spite",0.268636363636363,"red"),
+	Fact(92,"ruba","leech",0.291363636363636,"blue"),
+	Fact(93,"kaburi","grave",0.227727272727272,"green"),
+	Fact(94,"fununu","rumor",0.223181818181818,"purple"),
+	Fact(95,"vuke","steam",0.223181818181818,"grey"),
+	Fact(96,"gharika","flood",0.286818181818181,"violet"),
+	Fact(97,"lulu","pearl",0.0731818181818182,"yellow"),
+	Fact(98,"fahali","bull",0.291363636363636,"pink"),
+	Fact(99,"embe","mango",0.24590909090909,"cyan"),
+	Fact(100,"ankra","invoice",0.286818181818181,"orange")]
 	
 	
 	
@@ -462,7 +519,7 @@ define inline_script slimstampen_setup
 	import pandas as pd
 	from collections import namedtuple
 	
-	Fact = namedtuple("Fact", "fact_id, question,answer,priora")
+	Fact = namedtuple("Fact", "fact_id, question,answer,priora,colour")
 	Response = namedtuple("Response", "fact, start_time,rt,correct,alpha")
 	#Lateresponse = namedtuple("Lateresponse","rt, correct")
 	Encounter = namedtuple("Encounter", "activation, time, reaction_time, decay")
@@ -480,8 +537,8 @@ define inline_script slimstampen_setup
 	    def __init__(self):
 	        self.facts = []
 	        self.responses = []
-	
-	
+	        
+	    
 	    def add_fact(self, fact):
 	        # type: (Fact) -> None
 	        """
@@ -608,7 +665,7 @@ define inline_script slimstampen_setup
 	            # Estimated RT was too short (estimated activation too high), so actual decay was larger
 	            a0 = a_fit
 	            a1 = a_fit + 0.05
-	
+	        
 	        else:
 	            # Estimated RT was too long (estimated activation too low), so actual decay was smaller
 	            a0 = a_fit - 0.05
@@ -633,7 +690,7 @@ define inline_script slimstampen_setup
 	                a1 = ac
 	            else:
 	                a0 = ac
-	
+	        
 	        # The new alpha estimate is the average value in the remaining bracket
 	        return((a0 + a1) / 2)
 	
@@ -687,10 +744,10 @@ define inline_script slimstampen_setup
 	        if word_count > 1:
 	            character_count = len(text)
 	            return(max((-157.9 + character_count * 19.5), 300))
-	
+	        
 	        return(300)
 	
-	
+	    
 	    def normalise_reaction_time(self, response):
 	        # type: (Response) -> float
 	        """
@@ -718,7 +775,7 @@ define inline_script slimstampen_setup
 	        # Add column for rate of forgetting estimate after each observation
 	        #dat["alpha"] = dat.apply(calc_rof, axis = 1)
 	        dat.drop("fact",axis=1, inplace = True)
-	
+	        
 	        # Add trial number column
 	        dat.index.name = "trial"
 	        dat.index = dat.index + 1
@@ -727,8 +784,8 @@ define inline_script slimstampen_setup
 	        if path is not None:
 	            dat.to_csv(path, encoding="UTF-8")
 	            return(dat)
-	
-	        return(dat)
+	        
+	        return(dat.to_csv())
 	__end__
 
 define sketchpad start_test
