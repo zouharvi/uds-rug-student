@@ -76,14 +76,14 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 10000 # 900000
+	var.session_duration = 900000
 	var.feedback_duration = 2000
 	var.inter_trial_interval = 200
 	__end__
 	set _prepare ""
 
 define sketchpad make_sudoku
-	set duration 2000
+	set duration 300000
 	set description "Displays stimuli"
 	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The learning phase has ended. Please start with the sudokus and notify the instructor when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
 
