@@ -4,28 +4,25 @@ In this experiment, you will be tasked with learning Swahili vocabulary.
 Specifically, words in Swahili will be shown to you and your goal is to provide English translations.
 
 The structure of the experiment is as follows:
-1. Fill in the introductory survey (2 min)
-2. Start experiment (15 min)
-3. Play a game (5 min)
-4. Test gained knowledge (5 min)
-5. Fill in evaluation survey (1 min)
+1. Start experiment (15 min)
+2. Solve sudoku (5 min)
+3. Test gained knowledge (5 min)
+4. Fill in evaluation survey (1 min)
 
-The time requirements of 2 and 3 are strict, though other tasks may take less or longer.
+The time requirements of 1 and 2 are strict, though other tasks may take less or longer.
 Overall the experiment is designed to require 30 minutes of your uninterrupted attention.
 Please read these instructions carefully before commencing with the experiment.
 
 Thank you for your participation!
+If you have any questions do not hesitate to ask us.
 
-## 1. Introductory survey
+## 1. Experiment
 
-See [here](todo).
-
-## 2. Experiment
-
-To start the experiment, TODO.
+One of the assistants in the lab will start the experient for you.
 The first time you will see a word, its translation will be provided to you, though you will still have to retype it in the answer box.
 Every answer has a time limit of 60 seconds, though the vast majority of responses is expected to happen much earlier.
 
+<!-- 
 _C1:_
 In the beginning, you will be prompted to select a palette that you think corresponds the most with easy-hard difficulty.
 You will see colours on the screen next to each word which represents the estimated difficulty.
@@ -33,24 +30,22 @@ You will see colours on the screen next to each word which represents the estima
 _C2:_
 You will see colours on the screen next to each word.
 For every word, a colour is randomly generated and associated.
+-->
 
-## 3. Game
+## 2. Sudoku
 
-After 15 minutes of learning, the screen will change into a countdown timer.
-In this period, your task is to play the game TODO.
-Please note down your score and engagement level as you will be prompted for this later.
+After 15 minutes of learning, you should switch to solving sudoku on paper.
+If you do not know how to solve sudoku or are unsure, please see the [instructions](https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/).
+Please note down your concentration level as you will be prompted for this later.
 
-## 4. Testing gained knowledge
+## 3. Testing gained knowledge
 
 After the timer has passed, the experiment screen will prompt you to start the testing.
 You will be presented with Swahili words which you've learned and you should provide the English translations.
 You will not receive any intermediate feedback.
 
-_C1 and C2:_
-You will be evaluated in two phases.
-In the first one, you will see all the learned words without any colour cues.
-In the second phase, you will see the same words, but with the same colour scheme as during learning.
+You will be evaluated in two phases and thus will see all the words you have learned twice.
 
-## 5. Evaluation survey
+## 4. Evaluation survey
 
-See [here](todo).
+See [here](https://docs.google.com/forms/d/e/1FAIpQLSdwzxLC2O-ieFYPUup3rmYarB_MtEiaFm834DSbqHZO2RXklQ/viewform?usp=sf_link).
