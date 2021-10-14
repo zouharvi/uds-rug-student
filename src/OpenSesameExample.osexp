@@ -67,7 +67,7 @@ define inline_script learning_session_setup
 	
 	# Settings
 	var.session_duration = 900000
-	var.feedback_duration = 2800
+	var.feedback_duration = 2000
 	var.inter_trial_interval = 200
 	if var.scale == "green-red":
 		scale=all_scales[0]
