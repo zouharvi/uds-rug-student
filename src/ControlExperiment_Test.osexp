@@ -13,10 +13,10 @@ set sound_sample_size -16
 set sound_freq 48000
 set sound_channels 2
 set sound_buf_size 1024
-set sampler_backend legacy
+set sampler_backend psycho
 set round_decimals 2
-set mouse_backend legacy
-set keyboard_backend legacy
+set mouse_backend psycho
+set keyboard_backend psycho
 set height 768
 set fullscreen no
 set form_clicks no
@@ -31,9 +31,9 @@ set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
 set compensation 0
-set color_backend legacy
-set clock_backend legacy
-set canvas_backend legacy
+set color_backend psycho
+set clock_backend psycho
+set canvas_backend psycho
 set background "#ffffff"
 
 define sequence experiment
@@ -56,7 +56,6 @@ define inline_script present_test_facts
 	def evaluate_facts():
 	    results = []
 	    df = learning_results.sample(frac=1)
-	    ### block 1: blank background
 	    for index, row in df.iterrows():
 	        trial_start_time = clock.time()
 	        prompt = row['question']

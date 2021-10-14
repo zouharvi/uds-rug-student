@@ -5,7 +5,7 @@ Platform: nt
 ---
 set width 1024
 set uniform_coordinates yes
-set title "SlimStampen example"
+set title "Random Color Experiment (LEARNING PHASE)"
 set subject_parity even
 set subject_nr 0
 set start experiment
@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "D:\\Studie\\Msc\\Jaar 2\\1. User Models\\user-models\\src"
+set experiment_path "C:/Users/leand/Documents/_Studie/MSc/Jaar 2/1. UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -45,9 +45,6 @@ define sequence experiment
 	run while_there_is_time_left always
 	run save_data always
 	run make_sudoku always
-	run start_test always
-	run test_seq always
-	run finished_test always
 
 define sketchpad finished_test
 	set duration keypress
@@ -88,7 +85,7 @@ define inline_script learning_session_setup
 define sketchpad make_sudoku
 	set duration 2000
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Phase One has ended. Please start with the sudokus and continue when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The learning phase has ended. Please start with the sudokus and notify the instructor when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
 
 define inline_script new_inline_script
 	set description "Executes Python code"
