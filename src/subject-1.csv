@@ -1,5 +1,0 @@
-trial,start_time,rt,correct,alpha,fact_id,question,answer,priora
-1,3450.0,746.0,True,0.227727272727272,1,sala,prayer,0.227727272727272
-2,7657.0,344.0,True,0.305,2,ubini,forgery,0.305
-3,11584.0,1159.0,True,0.305,2,ubini,forgery,0.305
-

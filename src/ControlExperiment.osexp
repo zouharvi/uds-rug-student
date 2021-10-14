@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "D:\\Studie\\Msc\\Jaar 2\\1. User Models\\user-models\\src"
+set experiment_path "C:/Users/leand/Documents/_Studie/MSc/Jaar 2/1. UM/user-models/src"
 set disable_garbage_collection no
 set description "The main experiment item"
 set coordinates uniform
@@ -46,22 +46,10 @@ define sequence experiment
 	run save_data always
 	run make_sudoku always
 
-define sketchpad finished_test
-	set duration keypress
-	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The experiment is now done. Please fill in the final survey (the link can be found in the instructions).<br /><br />Thanks for your participation!<br /><br />Press a key to close this screen..." x=32 y=0 z_index=0
-
 define sketchpad instructions
 	set duration keypress
 	set description "Displays stimuli"
 	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Welcome. Press any key to begin." x=0 y=0 z_index=0
-
-define keyboard_response keyboard_response
-	set timeout infinite
-	set flush yes
-	set event_type keypress
-	set duration keypress
-	set description "Collects keyboard responses"
 
 define inline_script learning_session_setup
 	set description "Executes Python code"
@@ -76,7 +64,7 @@ define inline_script learning_session_setup
 	var.trial_num = 1
 	
 	# Settings
-	var.session_duration = 10000 #900000
+	var.session_duration = 900000
 	var.feedback_duration = 2000
 	var.inter_trial_interval = 200
 	__end__
@@ -85,146 +73,7 @@ define inline_script learning_session_setup
 define sketchpad make_sudoku
 	set duration 300000
 	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The learning phase has ended. Please start with the sudokus and continue when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
-
-define inline_script new_inline_script
-	set description "Executes Python code"
-	___run__
-	# Create a form
-	form = Form(
-	    cols=[1,2], rows=[1,1,1,1,1],
-	    margins=(50,100,50,100), spacing=25
-	)
-	# Create four widgets
-	# labelTitle = Label(text=u'Which of the below scales do you percieve to indicate a easy-hard scale?')
-	labelQuestion = Label(
-	    text=u'Which of the below paletes do you percieve to indicate a easy-hard scale?',
-	    center=False
-	)
-	# buttonG = Button(text=u'green-red')
-	# buttonY = Button(text=u'yellow-purple')
-	# buttonR = Button(text=u'red-blue')
-	check_br = Checkbox(text=u'blue-red', group=u'group', var=u'scale')
-	check_gr = Checkbox(text=u'green-red', group=u'group', var=u'scale')
-	check_yr = Checkbox(text=u'yellow-red', group=u'group', var=u'scale')
-	image_br = ImageWidget(path=pool[u'img/blue_red.png'], adjust=True, frame=False)
-	image_gr = ImageWidget(path=pool[u'img/green_red.png'], adjust=True, frame=False)
-	image_yr = ImageWidget(path=pool[u'img/yellow_red.png'], adjust=True, frame=False)
-	nextButton = Button(text='Next')
-	# Add the widgets to the form. The position in the form is indicated as a
-	# (column, row) tuple.
-	# form.set_widget(labelTitle, (0,0), colspan=2)
-	form.set_widget(labelQuestion, (0,0), colspan=2)
-	# form.set_widget(buttonG, (0,2))
-	form.set_widget(check_br, (0,1))
-	form.set_widget(check_gr, (0,2))
-	form.set_widget(check_yr, (0,3))
-	form.set_widget(image_br, (1,1))
-	form.set_widget(image_gr, (1,2))
-	form.set_widget(image_yr, (1,3))
-	form.set_widget(nextButton, (1,4))
-	# form.set_widget(image_button2, (1,2))
-	# form.set_widget(image_button3, (2,2))
-	# Execute the form! In this case, the form will return the text of the button that
-	# was clicked. This is one way to get a return value out of the form. Another way
-	# is to use the 'var' keyword, supported some of the widgets.
-	button_clicked = form._exec()
-	__end__
-	set _prepare ""
-
-define sketchpad new_sketchpad
-	set duration keypress
-	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The experiment is now done. Please fill in the final survey (the link can be found in the instructions).<br /><br />Thanks for your participation!<br /><br />Press a key to close this screen..." x=32 y=0 z_index=0
-
-define inline_script present_test_facts
-	set description "Executes Python code"
-	___run__
-	import random
-	trial_start_time = clock.time()
-	results = []
-	# Get seen facts from the model
-	fact_activations = [(f, m.calculate_activation(trial_start_time + m.LOOKAHEAD_TIME, f)) for f in m.facts]
-	seen = [(f, a) for (f, a) in fact_activations if a > -float("inf")]
-	
-	def evaluate_facts():
-	    random.shuffle(seen)
-	    ### block 1: blank background
-	    for (next_fact, _) in seen:
-	        trial_start_time = clock.time()
-	        prompt = next_fact.question
-	        answer = next_fact.answer
-	        rof = m.get_rate_of_forgetting(trial_start_time+1,next_fact)
-	    # Show prompt
-	        my_canvas = Canvas()
-	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	        #my_canvas.rect(-150,-50,300,150,fill=True, color='white')
-	        my_canvas.text(prompt, font_size = 30)
-	        my_canvas.prepare()
-	        my_canvas.show()
-	    # Listen for keyboard input and show keypresses on screen as they occur
-	        my_keyboard = Keyboard()
-	        keyboard_response = ""
-	        erased_answer = False
-	        rt = float("inf")
-	    # Keep listening for key presses until the user presses Enter
-	        while True:
-	            key, time = my_keyboard.get_key()   
-	        # The first keypress determines the response time
-	            if keyboard_response == "" and not erased_answer:
-	                rt = clock.time() - trial_start_time    
-	            if key == "return":
-	                break       
-	            if key == "backspace":
-	                keyboard_response = keyboard_response[:-1]
-	                # If the answer is completely erased, the RT is no longer informative
-	                if keyboard_response == "":
-	                    erased_answer = True
-	                    rt = float("inf")   
-	            elif key == "space":
-	                keyboard_response += " "
-	            else:
-	                keyboard_response += my_keyboard.to_chr(key)
-	            # Update what's on screen'
-	            my_canvas.clear()
-	            my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
-	            my_canvas.text(prompt, font_size = 30)
-	    
-	            my_canvas.text(keyboard_response, y = 100)
-	            my_canvas.prepare()
-	            my_canvas.show()
-	    # Check if the response is correct
-	        correct = keyboard_response == answer
-	        # Log response
-	        response = Response(next_fact, trial_start_time, rt, correct,rof)
-	        results.append(response)
-	        clock.sleep(var.feedback_duration)
-	    # Clear the screen between trials
-	        my_canvas.clear()
-	        my_canvas.prepare()
-	        my_canvas.show()
-	        clock.sleep(var.inter_trial_interval)   
-	        # Increment trial number
-	        var.trial_num += 1
-	        
-	evaluate_facts()
-	evaluate_facts()
-	   
-	### write test results into opensesame log   
-	dat_rsp = pd.DataFrame(results)
-	dat_facts = pd.DataFrame([r.fact for r in results])
-	#dat_alpha = pd.DataFrame([alpha for r, a in results])
-	dat = pd.concat([dat_rsp, dat_facts], axis = 1)
-	
-	dat.drop("fact",axis=1, inplace = True)
-	dat.index.name = "trial"
-	dat.index = dat.index + 1
-	log.write(dat.to_csv())
-	__end__
-	___prepare__
-	def map_colour(next_fact):
-	    return next_fact.colour
-	__end__
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The learning phase has ended. Please start with the sudokus and notify the instructor when this screen disappears (after 5 minutes)." x=0 y=0 z_index=0
 
 define inline_script present_trial
 	set description "Executes Python code"
@@ -331,15 +180,6 @@ define inline_script save_data
 	# Write the SlimStampen data to the OpenSesame log file
 	dat = m.export_data()
 	log.write(dat.to_csv())
-	__end__
-	set _prepare ""
-
-define inline_script save_test
-	set description "Executes Python code"
-	___run__
-	# Write the SlimStampen data to the OpenSesame log file
-	dat = m.export_data()
-	log.write(dat)
 	__end__
 	set _prepare ""
 
@@ -730,16 +570,6 @@ define inline_script slimstampen_setup
 	
 	        return(dat)
 	__end__
-
-define sketchpad start_test
-	set duration keypress
-	set description "Displays stimuli"
-	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="You can now proceed to the evaluation phase. Press a key to continue..." x=32 y=0 z_index=0
-
-define sequence test_seq
-	set flush_keyboard yes
-	set description "Runs a number of items in sequence"
-	run present_test_facts always
 
 define sequence trial_sequence
 	set flush_keyboard yes
