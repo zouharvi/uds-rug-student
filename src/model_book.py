@@ -2,7 +2,13 @@ import numpy as np
 import torch
 import random
 from misc.utils import DEVICE, binarize_labels
+from sklearn.dummy import DummyClassifier
 
+def mccc_report(data):
+    model = DummyClassifier(strategy="most_frequent")
+    model.fit([x[0] for x in data], [x[1] for x in data])
+    acc = model.score([x[0] for x in data], [x[1] for x in data])
+    print(f"Dummy ACC {acc:.2%}")
 
 class CustomBert(torch.nn.Module):
     def __init__(self, model_name):

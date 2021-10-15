@@ -19,7 +19,7 @@ def binarize_labels(sents):
     return (binarizer, binarizer.fit_transform([x[1] for x in sents]))
 
 
-def read_data(path, level=1, do_filter=False):
+def read_data(path, language, level=1, do_filter=False):
     with open(path, "r") as f:
         data = list(csv.DictReader(f))
 
