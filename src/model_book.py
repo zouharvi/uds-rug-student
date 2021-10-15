@@ -1,6 +1,8 @@
 import numpy as np
 import torch
 import random
+
+from torch import optim
 from misc.utils import DEVICE, binarize_labels
 from sklearn.dummy import DummyClassifier
 
@@ -23,9 +25,9 @@ class CustomBert(torch.nn.Module):
         self.tokenizer = BertTokenizer.from_pretrained(model_name)
         self.model = BertModel.from_pretrained(model_name).to(DEVICE)
         self.class_nn = torch.nn.Sequential(
-            torch.nn.Linear(768, 6),
-            # torch.nn.Sigmoid(),
-            torch.nn.Softmax(dim=1),
+            torch.nn.Linear(768, 1),
+            torch.nn.Sigmoid(),
+            # torch.nn.Softmax(dim=1),
         ).to(DEVICE)
 
     def preprocess(self, sentences):
@@ -37,7 +39,7 @@ class CustomBert(torch.nn.Module):
                     sent_txt, return_tensors="pt",
                     truncation=True
                 ).to(DEVICE),
-                torch.LongTensor(sent_label_bin).to(DEVICE).reshape(1, -1)
+                torch.FloatTensor(sent_label_bin).to(DEVICE)
             )
             for (sent_txt, _sent_label), sent_label_bin in zip(sentences, sent_labels_bin)
         ]
@@ -50,17 +52,17 @@ class CustomBert(torch.nn.Module):
         ).last_hidden_state[:, 0]
         return self.class_nn(sent_embd)
 
-    def train_data(self, data_train, data_dev=None, batch_size=5, epochs=5):
-        self.train()
-        self.zero_grad()
+    def train_data(self, data_train, data_dev=None, batch_size=5, epochs=50):
+        # self.zero_grad()
         optimizer = torch.optim.AdamW(
             self.parameters(),
             lr=2e-5,
-            eps=1e-8
+            # eps=1e-8
         )
-        loss_fun = torch.nn.CrossEntropyLoss()
+        loss_fun = torch.nn.BCELoss()
 
         for epoch in range(epochs):
+            self.train()
             print(f"Epoch {epoch}")
             random.shuffle(data_train)
             for i in range(len(data_train) // batch_size):
@@ -69,19 +71,23 @@ class CustomBert(torch.nn.Module):
                 loss = 0
                 for sent_txt, sent_label in batch:
                     output = self(sent_txt)
-                    loss += loss_fun(output, sent_label.argmax(axis=1))
+                    # loss += loss_fun(output, sent_label.argmax(axis=1))
+                    # print(output[0], sent_label[0])
+                    loss += loss_fun(output[0], sent_label)
                 # print(loss.item())
                 loss.backward()
                 optimizer.step()
 
             self.eval()
-            print(f"Dev   ACC: {self.eval_data(data_dev):.2%}")
             print(f"Train ACC: {self.eval_data(data_train):.2%}")
+            print(f"Dev   ACC: {self.eval_data(data_dev):.2%}")
 
     def eval_data(self, data):
         hits = []
         for sent_txt, sent_label in data:
             with torch.no_grad():
                 output = self(sent_txt)
-                hits.append(output[0].argmax().item() == sent_label[0].argmax().item())
+                # hits.append(output[0].argmax().item() == sent_label[0].argmax().item())
+                # print(output[0,0].item(), sent_label[0,0].item())
+                hits.append((output[0,0].item() >= 0.5)*1 == sent_label[0].item())
         return np.average(hits)

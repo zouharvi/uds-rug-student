@@ -7,22 +7,26 @@ from misc.utils import *
 
 def parse_args():
     args = argparse.ArgumentParser()
-    args.add_argument("-d", "--data", default="data/wj_classlabeled.csv")
-    args.add_argument("-l", "--level", type=int, default=1)
+    args.add_argument("-d", "--data", default="data/wj_labeled.csv")
+    args.add_argument("-t", "--task", type=int, default=1)
     args.add_argument("-m", "--model-name", default='bert')
-    args.add_argument("-dc", "--dev-count", type=float, default=100)
-    args.add_argument("--do-filter", action="store_true")
+    args.add_argument("-dc", "--dev-count", type=int, default=100)
     args.add_argument("--language", "--lang", default='english')
     return args.parse_args()
 
 if __name__ == "__main__":
     args = parse_args()
-    data = read_data(args.data, language=args.language, level=args.level, do_filter=args.do_filter)
+    if args.task == 0:
+        data = read_data(args.data, language=args.language, level=0, do_filter=False)
+    elif args.task == 1:
+        data = read_data(args.data, language=args.language, level=1, do_filter=True)
+    else:
+        raise Exception("Invalid `task` parameter")
     mccc_report(data)
     assert args.dev_count < len(data)
     print(f"Using {len(data)-args.dev_count} for trainig and {args.dev_count} for dev validation, {len(data)} in total")
     data_freq_info(data)
 
-    # model = CustomBert(model_name=args.model_name)
-    # data = model.preprocess(data)
-    # model.train_data(data[:-args.dev_count], data[-args.dev_count:])
+    model = CustomBert(model_name=args.model_name)
+    data = model.preprocess(data)
+    model.train_data(data[:-args.dev_count], data[-args.dev_count:])
