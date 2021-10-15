@@ -23,13 +23,13 @@ def read_data(path, language, level=1, do_filter=False):
     with open(path, "r") as f:
         data = list(csv.DictReader(f))
 
-    assert level in {0, 1}
+    assert level in {0, 1, 2}
     
     data = [
         (
-            sent["english"],
+            sent[language],
             {
-                ONTOLOGY[label.strip()][-level-1]
+                ONTOLOGY[label.strip()][-min(level+1, len(ONTOLOGY[label.strip()]))]
                 for label in sent["label"].split(",") if not re.match("^\s*$", label)
             }
         )
@@ -58,3 +58,7 @@ def read_data(path, language, level=1, do_filter=False):
 def data_freq_info(data):
     data = Counter([x[1] for x in data])
     print(data)
+
+# def load_paraphrases(path):
+#     data_shaddow = []
+#     for sent in data:

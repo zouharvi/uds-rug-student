@@ -2,9 +2,9 @@ import numpy as np
 import torch
 import random
 
-from torch import optim
 from misc.utils import DEVICE, binarize_labels
 from sklearn.dummy import DummyClassifier
+from transformers import BertTokenizer, BertModel, RobertaTokenizer, RobertaModel
 
 def mccc_report(data):
     model = DummyClassifier(strategy="most_frequent")
@@ -13,21 +13,28 @@ def mccc_report(data):
     print(f"Dummy ACC {acc:.2%}")
 
 class CustomBert(torch.nn.Module):
-    def __init__(self, model_name):
+    def __init__(self, model_name, dropout):
         super().__init__()
-        from transformers import BertTokenizer, BertModel
 
         if model_name == "bert":
             model_name = 'bert-base-uncased'
+            self.tokenizer = BertTokenizer.from_pretrained(model_name)
+            self.model = BertModel.from_pretrained(model_name).to(DEVICE)
+        elif model_name == "roberta":
+            model_name = 'roberta-base'
+            self.tokenizer = RobertaTokenizer.from_pretrained(model_name)
+            self.model = RobertaModel.from_pretrained(model_name).to(DEVICE)
         elif model_name == "bertje":
             model_name = 'GroNLP/bert-base-dutch-cased'
+            self.tokenizer = BertTokenizer.from_pretrained(model_name)
+            self.model = BertModel.from_pretrained(model_name).to(DEVICE)
+        else:
+            raise Exception("Unknown model name")
 
-        self.tokenizer = BertTokenizer.from_pretrained(model_name)
-        self.model = BertModel.from_pretrained(model_name).to(DEVICE)
         self.class_nn = torch.nn.Sequential(
+            torch.nn.Dropout(p=dropout),
             torch.nn.Linear(768, 1),
             torch.nn.Sigmoid(),
-            # torch.nn.Softmax(dim=1),
         ).to(DEVICE)
 
     def preprocess(self, sentences):
