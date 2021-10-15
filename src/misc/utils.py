@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import csv
+import numpy as np
 import torch
 from sklearn.preprocessing import LabelBinarizer
 from misc.ontology import ONTOLOGY
@@ -59,6 +60,9 @@ def data_freq_info(data):
     data = Counter([x[1] for x in data])
     print(data)
 
-# def load_paraphrases(path):
-#     data_shaddow = []
-#     for sent in data:
+def iaa_report(data_t0, data_second_t0, data_t1, data_second_t1):
+    task_0 = [xl==yl for (x,xl), (y,yl) in zip(data_t0, data_second_t0)]
+    print([(x,xl) for x,xl in data_t1 if xl != "not_interesting"][:10])
+    task_1 = [xl==yl for (x,xl), (y,yl) in zip(data_t1, data_second_t1) if xl != "not_interesting" and yl != "not_interesting"]
+    print(f"Task 1 second annotator ACC: {np.average(task_0):.2%}")
+    print(f"Task 2 second annotator ACC: {np.average(task_1):.2%}")

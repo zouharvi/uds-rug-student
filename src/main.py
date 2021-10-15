@@ -8,6 +8,7 @@ from misc.utils import *
 def parse_args():
     args = argparse.ArgumentParser()
     args.add_argument("-d", "--data", default="data/joint_labeled.csv")
+    args.add_argument("-ds", "--data-second")
     args.add_argument("-t", "--task", type=int, default=1)
     args.add_argument("-m", "--model-name", default='bert')
     args.add_argument("-dc", "--dev-count", type=int, default=100)
@@ -18,6 +19,15 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
+    
+    if args.data_second:
+        data_t0 = read_data(args.data, language="english", level=0, do_filter=False)
+        data_second_t0 = read_data(args.data_second, language="english", level=0, do_filter=False)
+        data_t1 = read_data(args.data, language="english", level=1, do_filter=False)
+        data_second_t1 = read_data(args.data_second, language="english", level=1, do_filter=False)
+        iaa_report(data_t0, data_second_t0, data_t1, data_second_t1)
+        exit()
+    
     if args.task == 0:
         level = 0
         do_filter = False
@@ -30,6 +40,7 @@ if __name__ == "__main__":
         exit()
     else:
         raise Exception("Invalid `task` parameter")
+
     data = read_data(args.data, language=args.language, level=level, do_filter=do_filter)
     mccc_report(data)
     assert args.dev_count < len(data)
