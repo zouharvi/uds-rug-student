@@ -2,12 +2,12 @@ import numpy as np
 import torch
 import random
 from misc.utils import DEVICE, binarize_labels
-from transformers import BertTokenizer, BertModel
 
 
 class CustomBert(torch.nn.Module):
     def __init__(self, model_name):
         super().__init__()
+        from transformers import BertTokenizer, BertModel
 
         if model_name == "bert":
             model_name = 'bert-base-uncased'

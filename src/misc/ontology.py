@@ -1,4 +1,4 @@
-ONTOLOGY = {
+ONTOLOGY_OLD = {
     "interesting": {
         "role_responsibility": {
             "government": [
@@ -67,12 +67,15 @@ ONTOLOGY = {
         }
     },
     "not_interesting": "not_interesting",
-    "reviews": [
-        "music",
-        "books",
-        "health",
-        "dvd",
-        "software",
-        "camera",
-    ]
+}
+
+ONTOLOGY = {
+    "effective": ["effective", "communication", "interesting"],
+    "ineffective": ["ineffective", "communication", "interesting"],
+    "communication": ["communication", "interesting"],
+    "citizen": ["citizen", "role_responsibility", "interesting"],
+    "media": ["media", "role_responsibility", "interesting"],
+    "government": ["government", "role_responsibility", "interesting"],
+    "role_responsibility": ["role_responsibility", "interesting"],
+    None: "not_interesting",
 }
