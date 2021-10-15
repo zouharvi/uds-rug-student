@@ -12,7 +12,7 @@ See [src/misc/ontology.py](src/misc/ontology.py) for specific coding.
 
 Pre-trained language models are hoped to do most of the work.
 The interviews are in Dutch and as such, there are two solutions:
-- Translate them into English and use BERT/RoBERTa/...
+- Translate them into English and use BERT & RoBERTa
 - Use Dutch versions of the models, such as [BERTje](https://github.com/wietsedv/bertje)
 
 This is followed up by a simple classification layer and the whole pipeline fine-tuned.
