@@ -6,10 +6,10 @@ from misc.utils import DEVICE, binarize_labels
 from sklearn.dummy import DummyClassifier
 from transformers import BertTokenizer, BertModel, RobertaTokenizer, RobertaModel
 
-def mccc_report(data):
+def mccc_report(data_train, data_dev):
     model = DummyClassifier(strategy="most_frequent")
-    model.fit([x[0] for x in data], [x[1] for x in data])
-    acc = model.score([x[0] for x in data], [x[1] for x in data])
+    model.fit([x[0] for x in data_train], [x[1] for x in data_train])
+    acc = model.score([x[0] for x in data_dev], [x[1] for x in data_dev])
     print(f"Dummy ACC {acc:.2%}")
 
 class CustomBert(torch.nn.Module):
@@ -59,7 +59,7 @@ class CustomBert(torch.nn.Module):
         ).last_hidden_state[:, 0]
         return self.class_nn(sent_embd)
 
-    def train_data(self, data_train, data_dev=None, batch_size=5, epochs=50):
+    def train_data(self, data_train, data_dev=None, batch_size=5, epochs=10):
         # self.zero_grad()
         optimizer = torch.optim.AdamW(
             self.parameters(),
