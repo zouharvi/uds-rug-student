@@ -26,12 +26,7 @@ if __name__ == "__main__":
     print(f"Difficulty: {data_test_difficulty:.2%}")
     print(f"Random:     {data_test_random:.2%}")
     
+    data_test_pt0 = np.average([l["correct"] for l in data_test if l["pt"] == 0]) 
     data_test_pt1 = np.average([l["correct"] for l in data_test if l["pt"] == 1]) 
-    data_test_pt2 = np.average([l["correct"] for l in data_test if l["pt"] == 2]) 
+    print(f"PT0:    {data_test_pt0:.2%}")
     print(f"PT1:    {data_test_pt1:.2%}")
-    print(f"PT2:    {data_test_pt2:.2%}")
-    
-    data_test_pt1 = np.average([l["correct"] for l in data_test if l["pt"] == 1 and l["group"] == "random"]) 
-    data_test_pt2 = np.average([l["correct"] for l in data_test if l["pt"] == 2 and l["group"] == "random"]) 
-    print(f"PT1:    {data_test_pt1:.2%}")
-    print(f"PT2:    {data_test_pt2:.2%}")

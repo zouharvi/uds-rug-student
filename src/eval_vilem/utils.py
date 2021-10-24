@@ -101,14 +101,14 @@ def load_all(root_dir):
         else:
             return color
 
-    def parse_line_test_typed(line):
+    def parse_line_test_typed(line, pt_subtract=0):
         return {
             **line,
             "id": int(line["id"]),
             "start_time": float(line["start_time"]),
             "correct": line["correct"] == "True",
             "alpha": float(line["alpha"]),
-            "pt": int(line["pt"]),
+            "pt": int(line["pt"]) - pt_subtract,
             "priora": float(line["priora"]),
             "fact_id": int(line["fact_id"]),
             "color": parse_color_test(line["color"])
@@ -142,7 +142,7 @@ def load_all(root_dir):
             data = [
                 parse_line_test_typed({
                     **line, "color": None, "group": group, "palette": palette
-                })
+                }, pt_subtract=1)
                 for line in data
             ]
 
