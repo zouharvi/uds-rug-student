@@ -109,6 +109,7 @@ def load_all(root_dir, flatten=True):
             **line,
             "id": int(line["id"]),
             "start_time": float(line["start_time"]),
+            "rt": float(line["rt"]),
             "correct": line["correct"] == "True",
             "alpha": float(line["alpha"]),
             "pt": int(line["pt"]) - pt_subtract,
