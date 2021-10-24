@@ -1,12 +1,15 @@
 import os
 import re
 import csv
+import collections
 
-
-def load_all(root_dir):
+def load_all(root_dir, flatten=True):
     """
     root_dir: Path to the directory containing all results files
-    output: tuple of (main, test) data (dictionary mapping subject ids to )
+    if flatten:
+        output: tuple of (main, test) data (dictionary mapping subject ids to )
+    else:
+        output: tuple of dictionaries mapping uids to lists of dicts as above
     """
 
     files = os.listdir(root_dir)
@@ -149,6 +152,11 @@ def load_all(root_dir):
         # possibly dangerous to mutate currently iterated container
         files_test[filename] = data
 
+    print(
+        "Distribution",
+        dict(collections.Counter([v[0]["group"] for x,v in files_test.items()]))
+    )
+
     def flatten_dicts(data):
         # trick to flatten an array in one comprehension
         return [
@@ -157,7 +165,9 @@ def load_all(root_dir):
             for line in subdata
         ]
 
-    # flatten files
-    files_main = flatten_dicts(files_main)
-    files_test = flatten_dicts(files_test)
+    # flatten files if desired
+    if flatten:
+        files_main = flatten_dicts(files_main)
+        files_test = flatten_dicts(files_test)
+
     return files_main, files_test

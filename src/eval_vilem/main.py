@@ -17,7 +17,9 @@ if __name__ == "__main__":
     args = parse_args()
     data_main, data_test = utils.load_all(args.data)
 
-    print(data_test[0].keys())
+    
+    print("Line keys:", list(data_test[0].keys()))
+    print()
 
     data_test_control = np.average([l["correct"] for l in data_test if l["group"] == "control"]) 
     data_test_difficulty = np.average([l["correct"] for l in data_test if l["group"] == "difficulty"]) 
