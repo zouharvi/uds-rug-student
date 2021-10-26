@@ -120,3 +120,4 @@ We believe that E1 will have better performance than E0 because of similar reaso
 
 ## Misc. TODO
 - ramp-up problem Konstan et al 1998 (prior 0.3)
+- do not use non-ASCII characters when running the OpenSesame experiment
