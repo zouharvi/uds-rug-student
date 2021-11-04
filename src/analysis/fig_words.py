@@ -83,7 +83,7 @@ if __name__ == "__main__":
     
     p1 = ax.bar(exposed_idx, height=exposed_bar, width=bar_width, color = ["yellow","green","red"],label="Exposed")
     p2 = ax.bar(learned_idx, height=learned_bar, width=bar_width, color = ["yellow","green","red"],label="Learned",hatch="\\\\")
-    ax.set_ylabel("word number")
+    ax.set_ylabel("Word count")
     ax.set_xticks(learned_idx-0.15)
     ax.set_xticklabels(('Control', 'Difficulty', 'Random'))
     h1 = mpatches.Patch(facecolor="lightgrey",edgecolor="black",lw=1,label="Exposed")
