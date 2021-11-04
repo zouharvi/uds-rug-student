@@ -34,10 +34,10 @@ if __name__ == "__main__":
     print(f"Random: {np.average(data_test_random):.2f}")
     exposed_bar = [np.average(data_test_control), np.average(data_test_difficulty),np.average(data_test_random)]
 
-    print("===Either correct")
-    data_test_control = [len(set([l["fact_id"] for l in user if l["correct"]])) for user in data_test.values() if user[0]["group"] == "control"]
-    data_test_difficulty = [len(set([l["fact_id"] for l in user if l["correct"]])) for user in data_test.values() if user[0]["group"] == "difficulty"]
-    data_test_random = [len(set([l["fact_id"] for l in user if l["correct"]])) for user in data_test.values() if user[0]["group"] == "random"]
+    print("===both correct")
+    data_test_control = [len(set([l["fact_id"] for l in user if l['pt'] == 0 and l["correct"]]) & set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]])) for user in data_test.values() if user[0]["group"] == "control"]
+    data_test_difficulty = [len(set([l["fact_id"] for l in user if l["pt"] == 0 and l["correct"]]) & set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]])) for user in data_test.values() if user[0]["group"] == "difficulty"]
+    data_test_random = [len(set([l["fact_id"] for l in user if l["pt"] == 0 and l["correct"]]) & set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]])) for user in data_test.values() if user[0]["group"] == "random"]
     data_test_difficulty.pop(-1)
     data_test_random.pop(-2)
     print(f"Control:", " ".join([f"{x:.2f}" for x in data_test_control]))
