@@ -170,5 +170,10 @@ def load_all(root_dir, flatten=True):
     if flatten:
         files_main = flatten_dicts(files_main)
         files_test = flatten_dicts(files_test)
+    else:
+        # we dont care what ordering this is as long as its stable
+        sorted_users = sorted(files_main.keys())
+        files_main = {k:files_main[k] for k in sorted_users}
+        files_test = {k:files_test[k] for k in sorted_users}
 
     return files_main, files_test

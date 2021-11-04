@@ -25,9 +25,9 @@ if __name__ == "__main__":
     print(f"Difficulty: {data_test_difficulty:.2f}")
     print(f"Random: {data_test_random:.2f}")
 
-    data_test_control = ([np.average([l["correct"] for l in user]) * len(set([l["fact_id"] for l in user])) for user in data_test.values() if user[0]["group"] == "control"]) 
-    data_test_difficulty = ([np.average([l["correct"] for l in user]) * len(set([l["fact_id"] for l in user])) for user in data_test.values() if user[0]["group"] == "difficulty"]) 
-    data_test_random = ([np.average([l["correct"] for l in user]) * len(set([l["fact_id"] for l in user])) for user in data_test.values() if user[0]["group"] == "random"]) 
+    data_test_control = ([np.average([l["correct"] for l in user]) for user in data_test.values() if user[0]["group"] == "control"]) 
+    data_test_difficulty = ([np.average([l["correct"] for l in user]) for user in data_test.values() if user[0]["group"] == "difficulty"]) 
+    data_test_random = ([np.average([l["correct"] for l in user]) for user in data_test.values() if user[0]["group"] == "random"]) 
     print(f"Control:", " ".join([f"{x:.2%}" for x in data_test_control]))
     print(f"Difficulty:", " ".join([f"{x:.2%}" for x in data_test_difficulty]))
     print(f"Random:", " ".join([f"{x:.2%}" for x in data_test_random]))
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     print(f"Random: {np.average(data_test_random):.2f}")
 
     data_test_difficulty.pop(-1)
-    data_test_random.pop(1)
+    data_test_random.pop(-2)
     print("Filtered")
 
     print(f"Control: {np.average(data_test_control):.2f}")
