@@ -28,7 +28,15 @@ if __name__ == "__main__":
     
     data_test_difficulty.pop(-1)
     data_test_random.pop(-2)
-    print("Filtered")
+    print(f"Control: {np.average(data_test_control):.2f}")
+    print(f"Difficulty: {np.average(data_test_difficulty):.2f}")
+    print(f"Random: {np.average(data_test_random):.2f}")
+
+    
+    print("===Filtered")
+    data_test_random.pop(0)
+
+
     print(f"Control: {np.average(data_test_control):.2f}")
     print(f"Difficulty: {np.average(data_test_difficulty):.2f}")
     print(f"Random: {np.average(data_test_random):.2f}")
@@ -37,9 +45,28 @@ if __name__ == "__main__":
     print("===both correct")
     data_test_control = [len(set([l["fact_id"] for l in user if l['pt'] == 0 and l["correct"]]) & set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]])) for user in data_test.values() if user[0]["group"] == "control"]
     data_test_difficulty = [len(set([l["fact_id"] for l in user if l["pt"] == 0 and l["correct"]]) & set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]])) for user in data_test.values() if user[0]["group"] == "difficulty"]
+    
+    #for user in data_test.values():
+    #    if user[0]["group"] == "random":
+    #        print(set([l["fact_id"] for l in user if l["pt"] == 0 and l["correct"]]))
+    #        print(set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]]))
+    #        break
+
     data_test_random = [len(set([l["fact_id"] for l in user if l["pt"] == 0 and l["correct"]]) & set([l["fact_id"] for l in user if l["pt"] == 1 and l["correct"]])) for user in data_test.values() if user[0]["group"] == "random"]
+    print(f"Control: {np.average(data_test_control):.2f}")
+    print(f"Difficulty: {np.average(data_test_difficulty):.2f}")
+    print(f"Random: {np.average(data_test_random):.2f}")
+
+    
     data_test_difficulty.pop(-1)
     data_test_random.pop(-2)
+    print(f"Control: {np.average(data_test_control):.2f}")
+    print(f"Difficulty: {np.average(data_test_difficulty):.2f}")
+    print(f"Random: {np.average(data_test_random):.2f}")
+
+    print("===filtered")
+    data_test_random.pop(0)
+
     print(f"Control:", " ".join([f"{x:.2f}" for x in data_test_control]))
     print(f"Difficulty:", " ".join([f"{x:.2f}" for x in data_test_difficulty]))
     print(f"Random:", " ".join([f"{x:.2f}" for x in data_test_random]))
@@ -48,7 +75,6 @@ if __name__ == "__main__":
     print(f"Difficulty: {np.average(data_test_difficulty):.2f}")
     print(f"Random: {np.average(data_test_random):.2f}")
     learned_bar = [np.average(data_test_control), np.average(data_test_difficulty),np.average(data_test_random)]
-
 
 
     fig, ax = plt.subplots()
@@ -60,8 +86,9 @@ if __name__ == "__main__":
     p2 = ax.bar(learned_idx, height=learned_bar, width=bar_width, color = ["yellow","green","red"],label="Learned",hatch="\\\\")
     ax.set_ylabel("word number")
     ax.set_xticks(learned_idx-0.15)
-    ax.set_xticklabels(('Control', 'Random', 'Difficulty'))
+    ax.set_xticklabels(('Control', 'Difficulty', 'Random'))
     h1 = mpatches.Patch(facecolor="lightgrey",edgecolor="black",lw=1,label="Exposed")
     h2 = mpatches.Patch(facecolor="lightgrey",edgecolor="black",lw=1,label="Learned",hatch="\\\\")
     plt.legend(handles=[h1,h2])
     plt.show()
+    
