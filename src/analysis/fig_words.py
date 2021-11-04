@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from typing import Pattern
 import utils
 import argparse
 import numpy as np
@@ -77,7 +76,7 @@ if __name__ == "__main__":
     learned_bar = [np.average(data_test_control), np.average(data_test_difficulty),np.average(data_test_random)]
 
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8,5))
     exposed_idx = np.arange(3)
     bar_width = 0.3
     learned_idx = exposed_idx + bar_width
@@ -90,5 +89,6 @@ if __name__ == "__main__":
     h1 = mpatches.Patch(facecolor="lightgrey",edgecolor="black",lw=1,label="Exposed")
     h2 = mpatches.Patch(facecolor="lightgrey",edgecolor="black",lw=1,label="Learned",hatch="\\\\")
     plt.legend(handles=[h1,h2])
+    plt.tight_layout()
     plt.show()
     
