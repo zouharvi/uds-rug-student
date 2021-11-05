@@ -11,8 +11,8 @@ def create_palettes(show_img=False, save_img=False):
         ['00FF00', 'FFFFFF', 'FF0000'],
         ['0000FF', 'FFFF00', 'FF0000'],
         ['0000FF', 'FFFFFF', 'FF0000'],
+        ['FFFF00', 'FFFFFF', 'FF0000'],
         ['FFFF00', 'FFA500', 'FF0000'],
-        ['FFFF00', 'FFFFFF', 'FF0000']
     ]
     BIN_COUNT = 9
     IMG_WIDTH = 400
@@ -25,10 +25,9 @@ def create_palettes(show_img=False, save_img=False):
             for x in bins
         ]
         waypoints_x = [
-            IMG_WIDTH * i / (len(bins)-1)
+            IMG_WIDTH * i / (len(bins) - 1)
             for i, _ in enumerate(bins)
         ]
-        print(waypoints_x)
 
         img = Image.new('RGB', (IMG_WIDTH, IMG_HEIGHT))
         drawer = ImageDraw.Draw(img)
@@ -37,7 +36,7 @@ def create_palettes(show_img=False, save_img=False):
             for i, waypoint_x in enumerate(waypoints_x):
                 if x <= waypoint_x:
                     break
-            i = max(i-1, 0)
+            i = max(i - 1, 0)
             i = min(i, len(bins) - 2)
             color_a, point_a = bins[i], waypoints_x[i]
             color_b, point_b = bins[i + 1], waypoints_x[i + 1]
@@ -47,18 +46,18 @@ def create_palettes(show_img=False, save_img=False):
                 int(color_a[1] * weight_a + color_b[1] * (1 - weight_a)),
                 int(color_a[2] * weight_a + color_b[2] * (1 - weight_a)),
             )
-            print(weight_a)
             colors.append(color_x)
             drawer.line((x, 0, x, IMG_HEIGHT - 1), fill=color_x, width=1)
 
         # create interpolated buckets
         data_bucket = []
-        step_width = IMG_WIDTH/BIN_COUNT
+        step_width = IMG_WIDTH / BIN_COUNT
         for bin_step in range(BIN_COUNT):
-            color_x = colors[math.ceil((bin_step+0.5)*step_width)]
+            color_x = colors[math.ceil((bin_step + 0.5) * step_width)]
             data_bucket.append(color_x)
             drawer.rectangle(
-                (math.ceil(bin_step*step_width), IMG_HEIGHT//2, math.ceil((bin_step+1)*step_width), IMG_HEIGHT),
+                (math.ceil(bin_step * step_width), IMG_HEIGHT // 2,
+                 math.ceil((bin_step + 1) * step_width), IMG_HEIGHT),
                 fill=color_x
             )
 
