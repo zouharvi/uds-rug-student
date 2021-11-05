@@ -4,6 +4,7 @@ import argparse
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 args = argparse.ArgumentParser()
 args.add_argument("-d", "--data", default="swahili_english_100.csv")
@@ -16,7 +17,9 @@ args.add_argument("-m", "--method", default="min-max",
 args.add_argument("-s", "--shift", default=0.0, type=float,
                   help="How much to shift afterwards")
 args.add_argument("--anjali", action="store_true",
-                  help="Store in Anjali format: Fact(...)")                  
+                  help="Store in Anjali format: Fact(...)")
+args.add_argument("--paper", action="store_true",
+                  help="Figure for paper")
 args = args.parse_args()
 
 # load data
@@ -53,7 +56,6 @@ data_new = [
     for x in data
 ]
 
-import random
 random.shuffle(data_new)
 
 # print data
@@ -67,27 +69,32 @@ else:
 
 # show histograms
 bins = np.linspace(0, 1, 41)
+if args.paper:
+    plt.figure(figsize=(4.5, 3))
 plt.hist(
     [x[1] for x in data_new],
-    width=0.01,
+    width=0.015,
     color="tab:blue",
     label="New data",
-    bins=[b + 0.005 for b in bins],
+    bins=[b for b in bins],
 )
 plt.hist(
-    [x[1] - 0.01 for x in data],
-    width=0.01,
+    [x[1] for x in data],
+    width=0.005,
     color="tab:red",
     label="Original data",
-    bins=[b - 0.005 for b in bins],
+    bins=[b + 0.005 for b in bins],
 )
-plt.xticks()
+# plt.xticks()
+plt.xlim(-0.02, 0.55)
 plt.xlabel("Difficulty estimate")
 plt.ylabel("Number of examples")
-plt.title(
-    f"Reestimating prior difficulties using\n"
-    f"{args.method} scaling,"
-    f"and combination {1-args.beta:.2f} $\\cdot$ {args.alpha:.2f} + {args.beta:.2f} $\\cdot$ x + ({args.shift:.2f})",
-)
+if not args.paper:
+    plt.title(
+        f"Reestimating prior difficulties using\n"
+        f"{args.method} scaling,"
+        f"and combination {1-args.beta:.2f} $\\cdot$ {args.alpha:.2f} + {args.beta:.2f} $\\cdot$ x + ({args.shift:.2f})",
+    )
 plt.legend()
+plt.tight_layout()
 plt.show()
