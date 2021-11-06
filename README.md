@@ -77,10 +77,7 @@ In order to determine the exact effect of the adaptive palette, the evaluation f
 
 ### Scale
 
-The exact scale is yet to be determined (number words, sessions and people).
-Since we have 7 conditions, we may need e.g. 14 people to get 2 people per condition, and possibly more. 
-Depending on whether we accept adaptivity as another factor, that increases the number of conditions.
-Naturally, we will be using between-subject design because we can not change the configuration for someone mid-experiment.
+17 participants were enlisted in total and each was assignment a condition (between-subject).
 
 ## Data analysis & hypothesis
 
@@ -118,6 +115,6 @@ We believe that E1 will have better performance than E0 because of similar reaso
 <a name="fn3">3</a>: Sense, F., Behrens, F., Meijer, R. R., & van Rijn, H. (2016). An individual's rate of forgetting is stable over time but differs across materials. Topics in cognitive science, 8(1), 305-321.  
 <a name="fn4">4</a>: Chang, B., Xu, R., & Watt, T. (2018). The impact of colors on learning.  
 
-## Misc. TODO
-- ramp-up problem Konstan et al 1998 (prior 0.3)
-- do not use non-ASCII characters when running the OpenSesame experiment
+## Misc.
+<!-- - ramp-up problem Konstan et al 1998 (prior 0.3) -->
+- Do not use non-ASCII characters when running the OpenSesame experiment
