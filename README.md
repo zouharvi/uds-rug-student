@@ -40,8 +40,8 @@ C2 | ![easy](./meta/img/sketch_p2.png) | ![medium](./meta/img/sketch_p2.png) | !
 
 Refer for a more detailed explanation to our [experiment setup](https://github.com/zouharvi/user-models/blob/main/meta/experiment_setup.md).
 
-There are two factors: palette presence (3) and palette adaptivity (3) which is almost a 3x3 design though no adaptivity is needed for _no colour palette_.
-Overall this results in 7 conditions.
+There is one factor which we test between-subject, palette presence (3 conditions).
+We also measure testing in two modes: without and with color cues (same as in the learning phase).
 
 ### Pre-Experiment
 
