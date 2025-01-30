@@ -1,0 +1,149 @@
+\documentclass{sigchi}
+
+
+% Load basic packages
+\usepackage{balance}  % to better equalize the last page
+\usepackage{graphics} % for EPS, load graphicx instead
+\usepackage{times}    % comment if you want LaTeX's default font
+\usepackage{url}      % llt: nicely formatted URLs
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+% llt: Define a global style for URLs, rather that the default one
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
+\makeatother
+\urlstyle{leo}
+
+
+% To make various LaTeX processors do the right thing with page size.
+\def\pprw{8.5in}
+\def\pprh{11in}
+\special{papersize=\pprw,\pprh}
+\setlength{\paperwidth}{\pprw}
+\setlength{\paperheight}{\pprh}
+\setlength{\pdfpagewidth}{\pprw}
+\setlength{\pdfpageheight}{\pprh}
+
+% Make sure hyperref comes last of your loaded packages, 
+% to give it a fighting chance of not being over-written, 
+% since its job is to redefine many LaTeX commands.
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+pdftitle={Fact Learning with Adaptive Color Palette: Effect of Stimuli-Independent Hints},
+pdfauthor={Vilém Zouhar},
+pdfkeywords={fact learning, visual feedback, vocabulary learning, color palette, cues, hints},
+bookmarksnumbered,
+pdfstartview={FitH},
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black,
+breaklinks=true,
+}
+\usepackage{cleveref}
+
+% create a shortcut to typeset table headings
+\newcommand\tabhead[1]{\small\textbf{#1}}
+\newcommand\TODO[1]{\textcolor{red}{TODO: #1}}
+
+% End of preamble. Here it comes the document.
+\begin{document}
+
+\title{Fact Learning with Adaptive Color Palette:\\ Effect of Stimuli-Independent Hints}
+
+\numberofauthors{4}
+\author{
+  Vilém Zouhar* \qquad
+  Anjali Nair  \qquad
+  Tianyi Li \qquad
+  Leander van Boven \\
+  \affaddr{Groningen University} \\
+  \email{\{vzouhar,a.nair.4,t.li.17,l.m.van.boven\}@student.rug.nl}
+    % \affaddr{Affiliation}\\
+    % \affaddr{Address}\\
+    % \email{e-mail address}\\
+    % \affaddr{Optional phone number}
+%   \alignauthor 2nd Author Name\\
+%     \affaddr{Affiliation}\\
+%     \affaddr{Address}\\
+%     \email{e-mail address}\\
+%     \affaddr{Optional phone number}    
+%   \alignauthor 3rd Author Name\\
+%     \affaddr{Affiliation}\\
+%     \affaddr{Address}\\
+%     \email{e-mail address}\\
+%     \affaddr{Optional phone number}
+}
+
+\maketitle
+
+\begin{abstract}
+This paper focuses on fact learning and potential improvements via color feedback.
+In one setting, the users see a color based on the estimated difficulty by SlimStampen.
+In another setting, each stimulus is mapped to a random but constant color.
+
+We find that a key property of the task is the high individual variance which prevents statistically significant conclusions.
+The results however suggest that certain conditions can increase learning speed, though this improvement is not retained during testing.
+The results also change when viewed from the perspective of test accuracy or number of learned words. 
+\end{abstract}
+
+\vspace{-0.1cm}
+
+\keywords{
+    fact learning; visual feedback; vocabulary learning; color palette; cues; hints
+}
+
+\vspace{-0.1cm}
+
+\input{content.tex}
+
+\section{Work Distribution}
+
+Even though we collaborated on most of the things closely, the responsibilities were distributed as follows:
+
+\begin{itemize}[noitemsep]
+\item \textbf{Vilém}: organization, miscellaneous coding, documentation, results analysis
+\item \textbf{Anjali}: experiment coding, participant supervision, results analysis
+\item \textbf{Tianyi}: experiment coding, participant supervision, design draft, results analysis
+\item \textbf{Leander}: experiment coding, participant supervision, documentation
+\end{itemize}
+
+\vspace{0.3cm}
+
+\section{Acknowledgments}
+
+We thank all of the participants in our experiment, whose time we were unfortunately unable to reimburse.
+
+
+\vspace{0.3cm}
+
+% Balancing columns in a ref list is a bit of a pain because you
+% either use a hack like flushend or balance, or manually insert
+% a column break.  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=balance
+% multicols doesn't work because we're already in two-column mode,
+% and flushend isn't awesome, so I choose balance.  See this
+% for more info: http://cs.brown.edu/system/software/latex/doc/balance.pdf
+%
+% Note that in a perfect world balance wants to be in the first
+% column of the last page.
+%
+% If balance doesn't work for you, you can remove that and
+% hard-code a column break into the bbl file right before you
+% submit:
+%
+% http://stackoverflow.com/questions/2149854/how-to-manually-equalize-columns-
+% in-an-ieee-paper-if-using-bibtex
+%
+% Or, just remove \balance and give up on balancing the last page.
+%
+% \balance
+
+% REFERENCES FORMAT
+% References must be the same font size as other body text.
+
+\bibliographystyle{acm-sigchi}
+\bibliography{sample}
+\end{document}

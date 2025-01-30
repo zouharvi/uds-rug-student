@@ -1,0 +1,147 @@
+---
+API: 2.1
+OpenSesame: 3.3.10
+Platform: nt
+---
+set width 1024
+set uniform_coordinates yes
+set title "Control Experiment (TEST PHASE)"
+set subject_parity even
+set subject_nr 0
+set start experiment
+set sound_sample_size -16
+set sound_freq 48000
+set sound_channels 2
+set sound_buf_size 1024
+set sampler_backend psycho
+set round_decimals 2
+set mouse_backend psycho
+set keyboard_backend psycho
+set height 768
+set fullscreen no
+set form_clicks no
+set foreground "#000000"
+set font_underline no
+set font_size 18
+set font_italic no
+set font_family mono
+set font_bold no
+set experiment_path "C:/Users/leand/Documents/_Studie/MSc/Jaar 2/1. UM/user-models/src"
+set disable_garbage_collection no
+set description "The main experiment item"
+set coordinates uniform
+set compensation 0
+set color_backend psycho
+set clock_backend psycho
+set canvas_backend psycho
+set background "#ffffff"
+
+define sequence experiment
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run start_test always
+	run present_test_facts always
+	run finished_test always
+
+define sketchpad finished_test
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The experiment is now done. Please fill in the final survey (the link can be found in the instructions).<br /><br />Thanks for your participation!<br /><br />Press a key to close this screen..." x=32 y=0 z_index=0
+
+define inline_script present_test_facts
+	set description "Executes Python code"
+	___run__
+	trial_start_time = clock.time()
+	
+	def evaluate_facts():
+	    results = []
+	    df = learning_results.sample(frac=1)
+	    for index, row in df.iterrows():
+	        trial_start_time = clock.time()
+	        prompt = row['question']
+	        answer = row['answer']
+	        # Show prompt
+	        my_canvas = Canvas()
+	        my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	        #my_canvas.rect(-150,-50,300,150,fill=True, color='white')
+	        my_canvas.text(prompt, font_size = 30)
+	        my_canvas.prepare()
+	        my_canvas.show()
+	        # Listen for keyboard input and show keypresses on screen as they occur
+	        my_keyboard = Keyboard()
+	        keyboard_response = ""
+	        erased_answer = False
+	        rt = float("inf")
+	        # Keep listening for key presses until the user presses Enter
+	        while True:
+	            key, time = my_keyboard.get_key()   
+	            # The first keypress determines the response time
+	            if keyboard_response == "" and not erased_answer:
+	                rt = clock.time() - trial_start_time    
+	            if key == "return":
+	                break       
+	            if key == "backspace":
+	                keyboard_response = keyboard_response[:-1]
+	                # If the answer is completely erased, the RT is no longer informative
+	                if keyboard_response == "":
+	                    erased_answer = True
+	                    rt = float("inf")   
+	            elif key == "space":
+	                keyboard_response += " "
+	            else:
+	                keyboard_response += my_keyboard.to_chr(key)
+	            # Update what's on screen'
+	            my_canvas.clear()
+	            my_canvas.rect(-512,-384,1024,768,fill=True,color='white')
+	            my_canvas.text(prompt, font_size = 30)
+	    
+	            my_canvas.text(keyboard_response, y = 100)
+	            my_canvas.prepare()
+	            my_canvas.show()
+	        # Check if the response is correct
+	        correct = keyboard_response == answer
+	        # Log response
+	        response = [trial_start_time, rt, correct, row['alpha'], prompt, answer, row['fact_id'], row['priora']]
+	        results.append(response)
+	        # Clear the screen between trials
+	        my_canvas.clear()
+	        my_canvas.prepare()
+	        my_canvas.show()
+	        clock.sleep(var.inter_trial_interval)   
+	        # Increment trial number
+	        var.trial_num += 1
+	    return results
+	        
+	header = ['start_time', 'rt', 'correct', 'alpha', 'fact_id', 'question', 'answer', 'priora']
+	run1 = pd.DataFrame(evaluate_facts(), columns=header)
+	run2 = pd.DataFrame(evaluate_facts())
+	
+	run1['pt'] = 1
+	run1.index.name = 'id'
+	run1.index = run1.index + 1
+	log.write(run1.to_csv())
+	
+	run2['pt'] = 2
+	run2.index = run2.index + len(run1) + 1
+	log.write(run2.to_csv(header=False))
+	__end__
+	___prepare__
+	import pandas as pd
+	learning_results = pd.read_csv(pool[u'subject-' + str(var.subject_nr) + '.csv'])
+	learning_results = learning_results.reindex(index=learning_results.index[::-1]).drop_duplicates('fact_id')
+	
+	# Start the clock
+	var.session_start_time = clock.time()
+	
+	# Keep track of trial number
+	var.trial_num = 1
+	
+	# Settings
+	var.inter_trial_interval = 200
+	__end__
+
+define sketchpad start_test
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color="#000000" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="This is the evaluation phase. Press a key to start..." x=32 y=0 z_index=0
+
