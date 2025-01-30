@@ -1,0 +1,22 @@
+[package]
+name = "hmm-rust"
+version = "0.1.0"
+authors = ["Vilém Zouhar <vilem.zouhar@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "^0.7"
+
+[features]
+default = []
+comp_cum = []
+print_trellis = []
+print_pred_sent = []
+print_acc = []
+print_pred = []
+comp_eval = []
+comp_test = []
+comp_train = []
+new_train = []
+smooth = []
+no_normalize = []
