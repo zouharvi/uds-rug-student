@@ -1,0 +1,12 @@
+name: vilem
+
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - datasets>=1.3
+    - transformers>=4.3
+    # ideally use a cuda enabled version
+    # - torch==1.7.1+cu110
+    - torch>=1.7
+    - wandb

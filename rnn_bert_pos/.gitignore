@@ -1,0 +1,12 @@
+data/*conll
+data/**/*conll
+data/*pkl
+data/*info
+data/*.tsv
+*.lock
+__pycache__
+*lock
+*.pt
+wandb
+.vscode
+*.log
